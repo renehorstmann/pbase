@@ -3,10 +3,15 @@
 #include <string.h>
 #include <assert.h>
 
+#include "pbase/mathc/sca/int.h"
 #include "pbase/typefun/indices.h"
 
 
 void p_indices_print(pIndices self) {
+    if(!p_indices_valid(self)) {
+        puts("p_indices_print: invalid");
+        return;
+    }
     puts("p_indices_print:");
     for (int i = 0; i < self.size; i++) {
         printf("%d\n", self.data[i]);
@@ -22,10 +27,14 @@ static int comp(const void *elem1, const void *elem2) {
 }
 
 void p_indices_sort(pIndices *self) {
+    if(!self || !p_indices_valid(*self))
+        return;
     qsort(self->data, self->size, sizeof(int), comp);
 }
 
 void p_indices_as_set(pIndices *self) {
+    if(!self || !p_indices_valid(*self))
+        return;
     p_indices_sort(self);
     if (self->size <= 1)
         return;
@@ -41,6 +50,8 @@ void p_indices_as_set(pIndices *self) {
 }
 
 void p_indices_set_diff(pIndices *self, pIndices remove) {
+    if(!self || !p_indices_valid(*self) || !p_indices_valid(remove))
+        return;
     if (remove.size <= 0 || self->size <= 0)
         return;
     int from_index = 0;
@@ -59,6 +70,8 @@ void p_indices_set_diff(pIndices *self, pIndices remove) {
 }
 
 void p_indices_add_offset(pIndices *self, int offset) {
+    if(!self || !p_indices_valid(*self))
+        return;
     for (int i = 0; i < self->size; i++)
         self->data[i] += offset;
 }
@@ -85,7 +98,8 @@ pIndices p_indices_concatenate_v(const pIndices *indices_list, int n) {
 pIndices p_indices_apply_indices(pIndices self, pIndices indices) {
     pIndices ret = p_indices_new_empty(indices.size);
     for(int i=0; i<indices.size; i++) {
-        ret.data[i] = self.data[indices.data[i]];
+        int index = isca_mod_positive(indices.data[i], self.size);
+        ret.data[i] = self.data[index];
     }
     return ret;
 }
