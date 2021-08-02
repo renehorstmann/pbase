@@ -4,20 +4,23 @@
 extern "C" {
 #endif
 
-#include "pointc/types.h"
+#include "../types.h"
 
 
-/** Prints the whole Cloud data to stdout */
-void pc_cloud_print(PcCloud *self);
+// Prints the whole cloud data to stdout
+void p_cloud_print(pCloud self);
 
-/** Concatenates two point clouds together */
-void pc_cloud_concatenate(PcCloud *out_concatenate, PcCloud a, PcCloud b);
+// Concatenates two point clouds together
+pCloud p_cloud_concatenate(pCloud a, pCloud b);
 
-/** Concatenates a list/vector of point clouds together */
-void pc_cloud_concatenate_v(PcCloud *out_concatenate, const PcCloud *cloud_list, int n);
+// Concatenates a list/vector of point clouds together
+pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n);
 
-/** Applies indices on cloud, so that all not used points are removed */
-void pc_cloud_apply_indices(PcCloud *out_cloud, PcCloud cloud, PcIndices indices);
+// Applies indices on cloud, so that all not used points are removed
+pCloud p_cloud_apply_indices(pCloud self, pIndices indices);
+
+
+
 
 
 #ifdef __cplusplus

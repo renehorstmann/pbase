@@ -7,5 +7,7 @@ from . import mathc
 from . import types
 from . import log
 
+from .typefun import *
+
 # pure python
 

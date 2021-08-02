@@ -5,29 +5,25 @@ import pbase as p
 import numpy as np
 
 
-# vec3 p_cloud_sum(pCloud self, vec3 start);
-p.lib.p_cloud_sum.argtypes = [p.types.pCloud, p.mathc.vec3]
-p.lib.p_cloud_sum.restype = p.mathc.vec3
-
-def cloud_sum(cloud: np.ndarray,
-              start) -> np.ndarray:
-
-    res = p.lib.p_cloud_sum(
-        p.types.cast_np_pCloud(cloud),
-        p.mathc.cast_array_vec3(start)
-    )
-    return p.mathc.cast_vec3_np(res)
-
-
 if __name__ == '__main__':
 
-    data = np.arange(4*12, dtype=np.float32).reshape(12, 4)
-    start = np.array([1, 2, 3], dtype=np.float32)
+    data = np.arange(4*2, dtype=np.float32).reshape(-1, 4)
 
-    res = cloud_sum(data, None)
-    res2 = cloud_sum(data, res)
-    res3 = cloud_sum(data, res2)
+    data2 = np.arange(4, dtype=np.float32).reshape(-1, 4)
+    data3 = np.arange(4, dtype=np.float32).reshape(-1, 4) + 10
 
-    p.log.info('lol', 'wh')
+    cat = p.cloud_concatenate_v([data, data2, data3])
+    print(cat)
 
-    print('hey', res)
+
+    ind = np.array([1, 3, 3, 0, 2], dtype=np.int32)
+    app = p.cloud_apply_indices(cat, ind)
+    print(app)
+
+    ind2 = np.array([1, 1, 1, 0], dtype=np.int32)
+
+    cat = p.indices_concatenate_v([ind, ind2, ind2])
+    print(cat)
+    app = p.indices_apply_indices(cat, ind2)
+    print(app)
+

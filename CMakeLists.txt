@@ -13,10 +13,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic -Wno-unus
 set(LIB_SOURCE_C
 		src/rhc_impl.c
         src/types.c
-#        src/typefun/cloud.c
+        src/typefun/cloud.c
 #        src/typefun/vector.c
 #        src/typefun/matrix.c
-#        src/typefun/indices.c
+        src/typefun/indices.c
 #        src/typefun/meshindices.c
 #        src/typefun/indiceslist.c
         )
