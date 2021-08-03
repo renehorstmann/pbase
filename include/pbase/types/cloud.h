@@ -55,11 +55,6 @@ pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n);
 pCloud p_cloud_apply_indices(pCloud self, pIndices indices);
 
 
-#include <stdio.h>
-static void foo() {
-    puts("foo");
-}
-
 #ifdef __cplusplus
 }
 #endif
