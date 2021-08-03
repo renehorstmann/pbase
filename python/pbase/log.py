@@ -5,12 +5,12 @@ import inspect
 # lib = ctypes.cdll.LoadLibrary('./liblog.so')     # (linux lib_example)
 
 # or make it visible from the python package level:
-from . import lib
+from . import plib
 
 # if a namespace is used, change it here: (for example ns_logc_set_*)
-p_rhc_log_set_min_level = lib.p_rhc_log_set_min_level
-p_rhc_log_set_quiet = lib.p_rhc_log_set_quiet
-p_rhc_log_base_ = lib.p_rhc_log_base_
+p_rhc_log_set_min_level = plib.p_rhc_log_set_min_level
+p_rhc_log_set_quiet = plib.p_rhc_log_set_quiet
+p_rhc_log_base_ = plib.p_rhc_log_base_
 
 
 #

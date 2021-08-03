@@ -1,44 +1,84 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "pointc/types/meshindices.h"
+#include "pbase/rhc/allocator.h"
+#include "pbase/mathc/sca/int.h"
+#include "pbase/types/meshindices.h"
 
 
-void pc_mesh_indices_print(PcMeshIndices *self) {
-    puts("pc_mesh_indices_print:");
-    for (int i = 0; i < self->size; i++) {
-        printf("%d %d %d\n", self->data[i][0], self->data[i][1], self->data[i][2]);
+pMeshIndices p_mesh_indices_new_empty(size_t size) {
+    pMeshIndices self = {0};
+    self.data = p_rhc_malloc_raising(size * sizeof *self.data);
+    self.size = size;
+    return self;
+}
+
+pMeshIndices p_mesh_indices_new_zeros(size_t size) {
+    pMeshIndices self = p_mesh_indices_new_empty(size);
+    memset(self.data, 0, self.size * sizeof *self.data);
+    return self;
+}
+
+pMeshIndices p_mesh_indices_new_count_up(size_t size) {
+    pMeshIndices self = p_mesh_indices_new_empty(size);
+    for(int i=0; i<self.size; i++) {
+        self.data[i].v0 = i*3;
+        self.data[i].v1 = i*3 + 1;
+        self.data[i].v2 = i*3 + 2;
+    }
+    return self;
+}
+
+void p_mesh_indices_kill(pMeshIndices *self) {
+    if(!p_mesh_indices_valid(*self))
+        return;
+    p_rhc_free(self->data);
+    *self = (pMeshIndices) {0};
+}
+
+
+void p_mesh_indices_print(pMeshIndices self) {
+    if(!p_mesh_indices_valid(self)) {
+        puts("p_mesh_indices_print: invalid");
+        return;
+    }
+    puts("p_mesh_indices_print:");
+    for (int i = 0; i < self.size; i++) {
+        printf("%d %d %d\n", self.data[i].v0, self.data[i].v1, self.data[i].v2);
     }
 }
 
-void pc_mesh_indices_add_offset(PcMeshIndices *self, int offset) {
+void p_mesh_indices_add_offset(pMeshIndices *self, int offset) {
     for(int i=0; i<self->size; i++) {
         for(int abc=0; abc<3; abc++)
-            self->data[i][abc] += offset;
+            self->data[i].v[abc] += offset;
     }
 }
 
-void pc_mesh_indices_concatenate(PcMeshIndices *out_concatenate, PcMeshIndices a, PcMeshIndices b) {
-    pc_mesh_indices_concatenate_v(out_concatenate, (PcMeshIndices[]) {a, b}, 2);
+pMeshIndices p_mesh_indices_concatenate(pMeshIndices a, pMeshIndices b) {
+    return p_mesh_indices_concatenate_v((pMeshIndices[]) {a, b}, 2);
 }
 
-void pc_mesh_indices_concatenate_v(PcMeshIndices *out_concatenate, const PcMeshIndices *mesh_indices_list, int n) {
-    int indices = 0;
+pMeshIndices p_mesh_indices_concatenate_v(const pMeshIndices *mesh_indices_list, int n) {
+    size_t size = 0;
     for(int i=0; i<n; i++)
-        indices += mesh_indices_list[i].size;
-    pc_mesh_indices_init_empty(out_concatenate, indices);
-    pc_ivec3 *data = out_concatenate->data;
+        size += mesh_indices_list[i].size;
+    pMeshIndices self = p_mesh_indices_new_empty(size);
+    ivec3 *data = self.data;
     for(int i=0; i<n; i++) {
-        int size = mesh_indices_list[i].size;
-        memcpy(data, mesh_indices_list[i].data, sizeof(pc_ivec3) * size);
+        size = mesh_indices_list[i].size;
+        memcpy(data, mesh_indices_list[i].data, size * sizeof *self.data);
         data += size;
     }
+    return self;
 }
 
 
-void pc_mesh_indices_apply_indices(PcMeshIndices *out_mesh, PcMeshIndices mesh, PcIndices indices) {
-    pc_mesh_indices_init_empty(out_mesh, indices.size);
-
-    for(int i=0; i<indices.size; i++)
-        memcpy(out_mesh->data[i], mesh.data[indices.data[i]], sizeof(pc_ivec3));
+pMeshIndices p_mesh_indices_apply_indices(pMeshIndices self, pIndices indices) {
+    pMeshIndices ret = p_mesh_indices_new_empty(indices.size);
+    for(int i=0; i<indices.size; i++) {
+        int index = isca_mod_positive(indices.data[i], self.size);
+        ret.data[i] = self.data[index];
+    }
+    return ret;
 }

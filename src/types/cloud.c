@@ -28,6 +28,8 @@ pCloud p_cloud_new_zeros_1(size_t size) {
 }
 
 void p_cloud_kill(pCloud *self) {
+    if(!p_cloud_valid(*self))
+        return;
     p_rhc_free(self->data);
     *self = (pCloud) {0};
 }

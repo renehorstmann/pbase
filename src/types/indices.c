@@ -37,6 +37,8 @@ pIndices p_indices_new_range(int start, int end, int step) {
 }
 
 void p_indices_kill(pIndices *self) {
+    if(!p_indices_valid(*self))
+        return;
     p_rhc_free(self->data);
     *self = (pIndices) {0};
 }

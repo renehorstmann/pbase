@@ -5,7 +5,7 @@ from typing import Tuple, List, Optional
 from .. import mathc
 from .. import bindingbase as bb
 
-from .. import lib
+from .. import plib
 
 from .indices import *
 
@@ -18,7 +18,7 @@ class pCloud(ct.Structure):
 
 pCloud_p = ct.POINTER(pCloud)
 
-lib.p_cloud_kill.argtypes = [pCloud_p]
+plib.p_cloud_kill.argtypes = [pCloud_p]
 
 
 class NpCloud(np.ndarray):
@@ -41,7 +41,7 @@ class NpCloud(np.ndarray):
     def __del__(self):
         # only kill, if its the real cloud and not a view
         if self.p_cloud is not None:
-            lib.p_cloud_kill(bb.ref(self.p_cloud))
+            plib.p_cloud_kill(bb.ref(self.p_cloud))
 
 
 def cast_pCloud_np(data: pCloud) -> np.ndarray:
@@ -65,23 +65,23 @@ def cast_np_pCloud_p(data: Optional[np.ndarray]) -> Optional[pCloud_p]:
     return ct.pointer(cast_np_pCloud(data))
 
 
-# // Prints the whole cloud data to stdout
+# /** Prints the whole cloud data to stdout */
 # void p_cloud_print(pCloud self);
-lib.p_cloud_print.argtypes = [pCloud]
+plib.p_cloud_print.argtypes = [pCloud]
 
 
 def cloud_print(self: np.ndarray):
     '''
     Prints the whole cloud data to stdout
     '''
-    lib.p_cloud_print(cast_np_pCloud(self))
+    plib.p_cloud_print(cast_np_pCloud(self))
 
 
-# // Concatenates two point clouds together
+# /** Concatenates two point clouds together */
 # pCloud p_cloud_concatenate(pCloud a, pCloud b);
-lib.p_cloud_concatenate.argtypes = [pCloud,
-                                    pCloud]
-lib.p_cloud_concatenate.restype = pCloud
+plib.p_cloud_concatenate.argtypes = [pCloud,
+                                     pCloud]
+plib.p_cloud_concatenate.restype = pCloud
 
 
 def cloud_concatenate(a: np.ndarray,
@@ -92,16 +92,16 @@ def cloud_concatenate(a: np.ndarray,
     
     :return: pCloud
     '''
-    res = lib.p_cloud_concatenate(cast_np_pCloud(a),
-                                  cast_np_pCloud(b))
+    res = plib.p_cloud_concatenate(cast_np_pCloud(a),
+                                   cast_np_pCloud(b))
     return cast_pCloud_np(res)
 
 
-# // Concatenates a list/vector of point clouds together
+# /** Concatenates a list/vector of point clouds together */
 # pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n);
-lib.p_cloud_concatenate_v.argtypes = [pCloud_p,
-                                      bb.c_int]
-lib.p_cloud_concatenate_v.restype = pCloud
+plib.p_cloud_concatenate_v.argtypes = [pCloud_p,
+                                       bb.c_int]
+plib.p_cloud_concatenate_v.restype = pCloud
 
 
 def cloud_concatenate_v(cloud_list: List[np.ndarray]) \
@@ -117,16 +117,16 @@ def cloud_concatenate_v(cloud_list: List[np.ndarray]) \
     for i in range(n):
         list[i] = cast_np_pCloud(cloud_list[i])
 
-    res = lib.p_cloud_concatenate_v(list,
-                                    n)
+    res = plib.p_cloud_concatenate_v(list,
+                                     n)
     return cast_pCloud_np(res)
 
 
-# // Applies indices on cloud, so that all not used points are removed
+# /** Applies indices on cloud, so that all not used points are removed */
 # pCloud p_cloud_apply_indices(pCloud cloud, pIndices indices);
-lib.p_cloud_apply_indices.argtypes = [pCloud,
-                                      pIndices]
-lib.p_cloud_apply_indices.restype = pCloud
+plib.p_cloud_apply_indices.argtypes = [pCloud,
+                                       pIndices]
+plib.p_cloud_apply_indices.restype = pCloud
 
 
 def cloud_apply_indices(self: np.ndarray,
@@ -137,6 +137,6 @@ def cloud_apply_indices(self: np.ndarray,
 
     :return: pCloud
     '''
-    res = lib.p_cloud_apply_indices(cast_np_pCloud(self),
-                                    cast_np_pIndices(indices))
+    res = plib.p_cloud_apply_indices(cast_np_pCloud(self),
+                                     cast_np_pIndices(indices))
     return cast_pCloud_np(res)
