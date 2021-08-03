@@ -7,6 +7,9 @@ Base library for 3D stuff, like pointc, visu, ...
   - primitives
   - geoc for python
   - io
+  - python:
+    - lib -> plib
+    - install via cmake
 - pointc
 - visu
 - collisionc?
