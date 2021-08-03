@@ -4,7 +4,6 @@ Base library for 3D stuff, like pointc, visu, ...
 ## Todo
 - pbase
   - primitives
-  - geoc for python
   - io
   - python:
     - install via cmake

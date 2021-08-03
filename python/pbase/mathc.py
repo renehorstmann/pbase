@@ -1,6 +1,9 @@
 import ctypes as ct
 import numpy as np
-from typing import Optional
+from typing import Optional, Union
+
+# array like type
+Array = Union[np.ndarray, list, tuple]
 
 class vec2(ct.Structure):
     _fields_ = [
