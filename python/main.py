@@ -5,10 +5,5 @@ import numpy as np
 
 if __name__ == '__main__':
 
-    cloud = np.arange(3*4, dtype=np.float32).reshape(-1, 4)
-    indices = np.array([-1, 0, 1], dtype=np.int32)
-
-    print(p.cloud_apply_indices(cloud, indices))
-
-    p.matrix_print(cloud)
+    print(p.geoc.camera_ortho(-1, 1, -1, 1, 0, 10))
 

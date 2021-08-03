@@ -17,6 +17,21 @@ class vec4(ct.Structure):
         ('v', ct.c_float * 4)
     ]
 
+class mat2(ct.Structure):
+    _fields_ = [
+        ('v', ct.c_float * (2*2))
+    ]  
+    
+class mat3(ct.Structure):
+    _fields_ = [
+        ('v', ct.c_float * (3*3))
+    ]
+    
+class mat4(ct.Structure):
+    _fields_ = [
+        ('v', ct.c_float * (4*4))
+    ]  
+
 class dvec2(ct.Structure):
     _fields_ = [
         ('v', ct.c_double * 2)
@@ -47,13 +62,16 @@ class ivec4(ct.Structure):
         ('v', ct.c_int * 4)
     ]
 
-vec2_p = ct.POINTER(vec3)
+vec2_p = ct.POINTER(vec2)
 vec3_p = ct.POINTER(vec3)
 vec4_p = ct.POINTER(vec4)
-dvec2_p = ct.POINTER(dvec3)
+mat2_p = ct.POINTER(mat2)
+mat3_p = ct.POINTER(mat3)
+mat4_p = ct.POINTER(mat4)
+dvec2_p = ct.POINTER(dvec2)
 dvec3_p = ct.POINTER(dvec3)
 dvec4_p = ct.POINTER(dvec4)
-ivec2_p = ct.POINTER(ivec3)
+ivec2_p = ct.POINTER(ivec2)
 ivec3_p = ct.POINTER(ivec3)
 ivec4_p = ct.POINTER(ivec4)
 
@@ -119,6 +137,79 @@ def cast_array_vec4(data) -> vec4:
     if data is None:
         data = np.zeros(4, dtype=np.float32)
     return cast_np_vec4(np.float32(data))
+
+
+
+def cast_mat2_np(data: mat2) -> np.ndarray:
+    return np.ctypeslib.as_array(data.v).reshape(2, 2)
+
+def cast_np_mat2_p(data: np.ndarray) -> mat2_p:
+    if data is None:
+        data = np.zeros(4, dtype=np.float32)
+    else:
+        if data.dtype != np.float32:
+            raise RuntimeError('cast_np_mat2_p failed, wrong type')
+        if data.ndim != 2 or data.shape[0] != 2 or data.shape[1] != 2:
+            raise RuntimeError('cast_np_mat2_p failed, wrong size')
+        if np.isfortran(data):
+            raise RuntimeError('cast_np_mat2_p failed: must be C order')
+    return data.ctypes.data_as(mat2_p)
+
+def cast_np_mat2(data: np.ndarray) -> mat2:
+    return cast_np_mat2_p(data).contents
+
+def cast_array_mat2(data) -> mat2:
+    if data is None:
+        data = np.zeros(4, dtype=np.float32)
+    return cast_np_mat2(np.float32(data))
+
+
+def cast_mat3_np(data: mat3) -> np.ndarray:
+    return np.ctypeslib.as_array(data.v).reshape(3, 3)
+
+def cast_np_mat3_p(data: np.ndarray) -> mat3_p:
+    if data is None:
+        data = np.zeros(3*3, dtype=np.float32)
+    else:
+        if data.dtype != np.float32:
+            raise RuntimeError('cast_np_mat3_p failed, wrong type')
+        if data.ndim != 3 or data.shape[0] != 3 or data.shape[1] != 3:
+            raise RuntimeError('cast_np_mat3_p failed, wrong size')
+        if np.isfortran(data):
+            raise RuntimeError('cast_np_mat3_p failed: must be C order')
+    return data.ctypes.data_as(mat3_p)
+
+def cast_np_mat3(data: np.ndarray) -> mat3:
+    return cast_np_mat3_p(data).contents
+
+def cast_array_mat3(data) -> mat3:
+    if data is None:
+        data = np.zeros(3*3, dtype=np.float32)
+    return cast_np_mat3(np.float32(data))
+
+
+def cast_mat4_np(data: mat4) -> np.ndarray:
+    return np.ctypeslib.as_array(data.v).reshape(4, 4)
+
+def cast_np_mat4_p(data: np.ndarray) -> mat4_p:
+    if data is None:
+        data = np.zeros(4*4, dtype=np.float32)
+    else:
+        if data.dtype != np.float32:
+            raise RuntimeError('cast_np_mat4_p failed, wrong type')
+        if data.ndim != 4 or data.shape[0] != 4 or data.shape[1] != 4:
+            raise RuntimeError('cast_np_mat4_p failed, wrong size')
+        if np.isfortran(data):
+            raise RuntimeError('cast_np_mat4_p failed: must be C order')
+    return data.ctypes.data_as(mat4_p)
+
+def cast_np_mat4(data: np.ndarray) -> mat4:
+    return cast_np_mat4_p(data).contents
+
+def cast_array_mat4(data) -> mat4:
+    if data is None:
+        data = np.zeros(4*4, dtype=np.float32)
+    return cast_np_mat4(np.float32(data))
 
 
 

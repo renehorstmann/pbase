@@ -2,6 +2,7 @@
 #define MATHC_UTILS_CAMERA_H
 
 #include "../vec/vec3.h"
+#include "../mat/mat4.h"
 
 /**
  * Creates an orthogonal camera matrix
@@ -85,7 +86,7 @@ static mat4 mat4_camera_lookat(vec3 eye, vec3 center, vec3 up) {
 
     vec3 s = vec3_cross(f, up);
     s = vec3_normalize(s);
-    
+
     vec3 u = vec3_cross(s, f);
 
     mat4 res = mat4_eye();

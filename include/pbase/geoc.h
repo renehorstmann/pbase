@@ -16,8 +16,8 @@ extern "C" {
  * @param far: far flipping plane
  */
 mat4 p_geoc_camera_ortho(float left, float right,
-                              float bottom, float top,
-                              float near, float far);
+                         float bottom, float top,
+                         float near, float far);
 
 /**
  * Creates a perspective (frustum) camera matrix
@@ -25,8 +25,8 @@ mat4 p_geoc_camera_ortho(float left, float right,
  * @param far: far flipping plane
  */
 mat4 p_geoc_camera_frustum(float left, float right,
-                                float bottom, float top,
-                                float near, float far);
+                           float bottom, float top,
+                           float near, float far);
 
 /**
  * Creates a perspective camera matrix.
@@ -69,7 +69,6 @@ float p_geoc_intersection_triangle_line(vec3 v0, vec3 v1, vec3 v2,
 bool p_geoc_intersection_line_line(float *out_tau_a, float *out_tau_b,
                                    vec3 line_a_pos, vec3 line_a_dir,
                                    vec3 line_b_pos, vec3 line_b_dir);
-
 
 
 /** creates a rotation matrix from angle_axis as xyz = axis and w = angle [rad] */
