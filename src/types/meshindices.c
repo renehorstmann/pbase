@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "pointc/typefun/meshindices.h"
+#include "pointc/types/meshindices.h"
 
 
 void pc_mesh_indices_print(PcMeshIndices *self) {

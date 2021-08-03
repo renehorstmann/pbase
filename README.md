@@ -3,8 +3,7 @@ Base library for 3D stuff, like pointc, visu, ...
 
 ## Todo
 - pbase
-  - include headers (pbase.h, typefun.h)
-  - typefun
+  - types
   - primitives
   - geoc for python
   - io

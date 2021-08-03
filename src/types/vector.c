@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "pointc/typefun/vector.h"
+#include "pointc/types/vector.h"
 
 
 void pc_vector_print(PcVector *self) {

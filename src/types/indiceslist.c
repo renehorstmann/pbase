@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "pointc/typefun/indiceslist.h"
+#include "pointc/types/indiceslist.h"
 
 
 PcIndices *pc_indices_list_append(PcIndicesList *self) {

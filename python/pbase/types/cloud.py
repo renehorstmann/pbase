@@ -1,0 +1,142 @@
+import numpy as np
+import ctypes as ct
+from typing import Tuple, List, Optional
+
+from .. import mathc
+from .. import bindingbase as bb
+
+from .. import lib
+
+from .indices import *
+
+class pCloud(ct.Structure):
+    _fields_ = [
+        ('data', mathc.vec4_p),
+        ('size', bb.c_size_t)
+    ]
+
+
+pCloud_p = ct.POINTER(pCloud)
+
+lib.p_cloud_kill.argtypes = [pCloud_p]
+
+
+class NpCloud(np.ndarray):
+    def __new__(cls, cloud: pCloud):
+        shape = cloud.size, 4
+        # create a numpy array from a ct pointer
+        arr = np.ctypeslib.as_array(cloud.data, shape=shape)
+        # create the NumpyCloud and set p_cloud
+        res = super(NpCloud, cls).__new__(cls, shape=arr.shape, dtype=np.float32, buffer=arr)
+        res.p_cloud = cloud
+        return res
+
+    def __array_finalize__(self, obj):
+        # in the creation process of __new__, so p_cloud will be set in new to the real cloud
+        if obj is None:
+            return
+        # view, so set to None (views del shouldn't kill it)
+        self.p_cloud = None
+
+    def __del__(self):
+        # only kill, if its the real cloud and not a view
+        if self.p_cloud is not None:
+            lib.p_cloud_kill(bb.ref(self.p_cloud))
+
+
+def cast_pCloud_np(data: pCloud) -> np.ndarray:
+    return NpCloud(data)
+
+
+def cast_np_pCloud(data: np.ndarray) -> pCloud:
+    if data.dtype != np.float32:
+        raise RuntimeError('cast_np_pCloud failed: must be float32')
+    if data.ndim != 2 or data.shape[1] != 4:
+        raise RuntimeError('cast_np_pCloud failed: must be a matrix with the shape[1]==4 (xyzw)')
+    if np.isfortran(data):
+        raise RuntimeError('cast_np_pCloud failed: must be C order')
+    size = data.shape[0]
+    return pCloud(mathc.cast_np_vec4_p(data), size)
+
+
+def cast_np_pCloud_p(data: Optional[np.ndarray]) -> Optional[pCloud_p]:
+    if data is None or data.size == 0:
+        return None
+    return ct.pointer(cast_np_pCloud(data))
+
+
+# // Prints the whole cloud data to stdout
+# void p_cloud_print(pCloud self);
+lib.p_cloud_print.argtypes = [pCloud]
+
+
+def cloud_print(self: np.ndarray):
+    '''
+    Prints the whole cloud data to stdout
+    '''
+    lib.p_cloud_print(cast_np_pCloud(self))
+
+
+# // Concatenates two point clouds together
+# pCloud p_cloud_concatenate(pCloud a, pCloud b);
+lib.p_cloud_concatenate.argtypes = [pCloud,
+                                    pCloud]
+lib.p_cloud_concatenate.restype = pCloud
+
+
+def cloud_concatenate(a: np.ndarray,
+                      b: np.ndarray) \
+        -> np.ndarray:
+    '''
+    Concatenates two point clouds together
+    
+    :return: pCloud
+    '''
+    res = lib.p_cloud_concatenate(cast_np_pCloud(a),
+                                  cast_np_pCloud(b))
+    return cast_pCloud_np(res)
+
+
+# // Concatenates a list/vector of point clouds together
+# pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n);
+lib.p_cloud_concatenate_v.argtypes = [pCloud_p,
+                                      bb.c_int]
+lib.p_cloud_concatenate_v.restype = pCloud
+
+
+def cloud_concatenate_v(cloud_list: List[np.ndarray]) \
+        -> np.ndarray:
+    '''
+    Concatenates a list/vector of point clouds together
+    
+    :return: pCloud
+    '''
+    n = len(cloud_list)
+    LIST = pCloud * n
+    list = LIST()
+    for i in range(n):
+        list[i] = cast_np_pCloud(cloud_list[i])
+
+    res = lib.p_cloud_concatenate_v(list,
+                                    n)
+    return cast_pCloud_np(res)
+
+
+# // Applies indices on cloud, so that all not used points are removed
+# pCloud p_cloud_apply_indices(pCloud cloud, pIndices indices);
+lib.p_cloud_apply_indices.argtypes = [pCloud,
+                                      pIndices]
+lib.p_cloud_apply_indices.restype = pCloud
+
+
+def cloud_apply_indices(self: np.ndarray,
+                        indices: np.ndarray) \
+        -> np.ndarray:
+    '''
+    Applies indices on cloud, so that all not used points are removed
+
+    :return: pCloud
+    '''
+    res = lib.p_cloud_apply_indices(cast_np_pCloud(self),
+                                    cast_np_pIndices(indices))
+    return cast_pCloud_np(res)

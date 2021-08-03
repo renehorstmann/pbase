@@ -1,5 +1,5 @@
-#ifndef PBASE_TYPEFUN_MESHINDICES_H
-#define PBASE_TYPEFUN_MESHINDICES_H
+#ifndef PBASE_TYPES_MESHINDICES_H
+#define PBASE_TYPES_MESHINDICES_H
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -27,4 +27,4 @@ void pc_mesh_indices_apply_indices(PcMeshIndices *out_mesh, PcMeshIndices mesh, 
 #ifdef __cplusplus
 }
 #endif
-#endif //PBASE_TYPEFUN_MESHINDICES_H
+#endif //PBASE_TYPES_MESHINDICES_H

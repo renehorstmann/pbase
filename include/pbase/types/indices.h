@@ -1,10 +1,41 @@
-#ifndef PBASE_TYPEFUN_INDICES_H
-#define PBASE_TYPEFUN_INDICES_H
+#ifndef PBASE_TYPES_INDICES_H
+#define PBASE_TYPES_INDICES_H
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "../types.h"
+#include <stddef.h> // size_t
+
+/**
+ * Indices data type.
+ */
+typedef struct {
+    int *restrict data;
+    size_t size;
+} pIndices;
+
+// Returns true if the indices is in a valid state
+static bool p_indices_valid(pIndices self) {
+    return self.data && self.size>0;
+}
+
+// Returns invalid Indices
+static pIndices p_indices_new_invalid() {
+    return (pIndices) {0};
+}
+
+// Creates a new Indices structure with empty data (malloc)
+pIndices p_indices_new_empty(size_t size);
+
+// Creates a new Indices structure with all zeros (calloc)
+pIndices p_indices_new_zeros(size_t size);
+
+// Creates a range as Indices
+pIndices p_indices_new_range(int start, int end, int step);
+
+// Frees a Cloud structure
+void p_indices_kill(pIndices *self);
+
 
 
 // Prints all indices to stdout
@@ -40,4 +71,4 @@ pIndices p_indices_apply_indices(pIndices self, pIndices indices);
 #ifdef __cplusplus
 }
 #endif
-#endif //PBASE_TYPEFUN_INDICES_H
+#endif //PBASE_TYPES_INDICES_H

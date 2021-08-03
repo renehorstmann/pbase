@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "pointc/typefun/matrix.h"
+#include "pointc/types/matrix.h"
 
 
 void pc_matrix_print(PcMatrix *self) {

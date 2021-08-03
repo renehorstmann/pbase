@@ -1,9 +1,36 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "pbase/rhc/allocator.h"
 #include "pbase/mathc/sca/int.h"
-#include "pbase/typefun/cloud.h"
+#include "pbase/types/cloud.h"
 
+
+pCloud p_cloud_new_empty(size_t size) {
+    pCloud self = {0};
+    self.data = p_rhc_malloc_raising(size * sizeof *self.data);
+    self.size = size;
+    return self;
+}
+
+pCloud p_cloud_new_zeros(size_t size) {
+    pCloud self = p_cloud_new_empty(size);
+    memset(self.data, 0, self.size * sizeof *self.data);
+    return self;
+}
+
+pCloud p_cloud_new_zeros_1(size_t size) {
+    pCloud self = p_cloud_new_zeros(size);
+    for(int i=0; i<self.size; i++) {
+        self.data[i].w = 1;
+    }
+    return self;
+}
+
+void p_cloud_kill(pCloud *self) {
+    p_rhc_free(self->data);
+    *self = (pCloud) {0};
+}
 
 void p_cloud_print(pCloud self) {
     if(!p_cloud_valid(self)) {

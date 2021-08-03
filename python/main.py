@@ -1,5 +1,3 @@
-import doctest
-import os
 import pbase as p
 
 import numpy as np

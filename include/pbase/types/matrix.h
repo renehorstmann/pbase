@@ -1,5 +1,5 @@
-#ifndef PBASE_TYPEFUN_MATRIX_H
-#define PBASE_TYPEFUN_MATRIX_H
+#ifndef PBASE_TYPES_MATRIX_H
+#define PBASE_TYPES_MATRIX_H
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -14,4 +14,4 @@ void pc_matrix_print(PcMatrix *self);
 #ifdef __cplusplus
 }
 #endif
-#endif //PBASE_TYPEFUN_MATRIX_H
+#endif //PBASE_TYPES_MATRIX_H
