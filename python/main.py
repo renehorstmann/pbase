@@ -10,3 +10,5 @@ if __name__ == '__main__':
 
     print(p.cloud_apply_indices(cloud, indices))
 
+    p.matrix_print(cloud)
+
