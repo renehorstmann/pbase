@@ -1,5 +1,16 @@
 # pbase
-Base library for 3D stuff, like ppointc, pvisu, ...
+Base library for 3D stuff, like pointc, visu, ...
+
+## Todo
+- pbase
+  - typefun
+  - primitives
+  - geoc for python
+  - io
+- pointc
+- visu
+- collisionc?
+- robotc?
 
 ## RHC
 based on my [rhc](https://github.com/renehorstmann/rhc) library.
