@@ -1,8 +1,5 @@
 #ifndef PBASE_TYPES_MATRIX_H
 #define PBASE_TYPES_MATRIX_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include <stddef.h> // size_t
 #include <stdbool.h>
@@ -40,8 +37,4 @@ void p_matrix_kill(pMatrix *self);
 void p_matrix_print(pMatrix self);
 
 
-
-#ifdef __cplusplus
-}
-#endif
 #endif //PBASE_TYPES_MATRIX_H

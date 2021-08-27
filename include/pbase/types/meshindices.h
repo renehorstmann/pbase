@@ -1,8 +1,5 @@
 #ifndef PBASE_TYPES_MESHINDICES_H
 #define PBASE_TYPES_MESHINDICES_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 
 #include <stddef.h> // size_t
@@ -57,8 +54,4 @@ pMeshIndices p_mesh_indices_concatenate_v(const pMeshIndices *mesh_indices_list,
 pMeshIndices p_mesh_indices_apply_indices(pMeshIndices self, pIndices indices);
 
 
-
-#ifdef __cplusplus
-}
-#endif
 #endif //PBASE_TYPES_MESHINDICES_H

@@ -1,8 +1,5 @@
 #ifndef PBASE_TYPES_VECTOR_H
 #define PBASE_TYPES_VECTOR_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include <stddef.h> // size_t
 #include <stdbool.h>
@@ -40,8 +37,4 @@ void p_vector_kill(pVector *self);
 void p_vector_print(pVector self);
 
 
-
-#ifdef __cplusplus
-}
-#endif
 #endif //PBASE_TYPES_VECTOR_H

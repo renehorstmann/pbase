@@ -1,8 +1,5 @@
 #ifndef PBASE_TYPES_INDICESLIST_H
 #define PBASE_TYPES_INDICESLIST_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include <stddef.h> // size_t
 #include <stdbool.h>
@@ -36,8 +33,4 @@ void p_indices_list_kill(pIndicesList *self);
 /** Appends an Indices object to the list and returns its reference */
 pIndices *p_indices_list_append(pIndicesList *self);
 
-
-#ifdef __cplusplus
-}
-#endif
 #endif //PBASE_TYPES_INDICESLIST_H

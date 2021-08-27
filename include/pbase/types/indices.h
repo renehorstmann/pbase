@@ -1,8 +1,5 @@
 #ifndef PBASE_TYPES_INDICES_H
 #define PBASE_TYPES_INDICES_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include <stddef.h> // size_t
 #include <stdbool.h>
@@ -68,8 +65,4 @@ pIndices p_indices_concatenate_v(const pIndices *indices_list, int n);
 pIndices p_indices_apply_indices(pIndices self, pIndices indices);
 
 
-
-#ifdef __cplusplus
-}
-#endif
 #endif //PBASE_TYPES_INDICES_H

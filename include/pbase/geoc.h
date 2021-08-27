@@ -1,8 +1,5 @@
 #ifndef PBASE_GEOC_H
 #define PBASE_GEOC_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include "mathc/types/float.h"
 
@@ -105,7 +102,4 @@ quat p_geoc_quat_from_rotation_matrix(mat3 mat);
 
 quat p_geoc_quat_slerp(quat q_a, quat q_b, float t);
 
-#ifdef __cplusplus
-}
-#endif
 #endif //PBASE_GEOC_H

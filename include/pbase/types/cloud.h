@@ -1,8 +1,5 @@
 #ifndef PBASE_TYPES_CLOUD_H
 #define PBASE_TYPES_CLOUD_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include <stddef.h> // size_t
 #include <stdbool.h>
@@ -54,8 +51,4 @@ pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n);
 /** Applies indices on cloud, so that all not used points are removed */
 pCloud p_cloud_apply_indices(pCloud self, pIndices indices);
 
-
-#ifdef __cplusplus
-}
-#endif
 #endif //PBASE_TYPES_CLOUD_H
