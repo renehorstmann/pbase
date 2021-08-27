@@ -6,8 +6,6 @@ Base library for 3D stuff, like pointc, visu, ...
 - pbase
   - primitives
   - io
-  - python:
-    - install via cmake
 - pointc
 - visu
 - collisionc?
