@@ -39,12 +39,31 @@ target_link_libraries(pbase PUBLIC m pthread)
 #
 # install:
 #
-install(TARGETS pbase
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib
-        )
-install(DIRECTORY include/ DESTINATION include)
 
+if (MINGW)
+	set(INSTALL_LIB "C:/Libraries/lib")
+	set(INSTALL_INCLUDE "C:/Libraries/include")
+else()
+	set(INSTALL_LIB lib)
+	set(INSTALL_INCLUDE include)
+endif()
+
+install(TARGETS pbase
+		LIBRARY DESTINATION ${INSTALL_LIB}
+		ARCHIVE DESTINATION ${INSTALL_LIB}
+		RUNTIME DESTINATION ${INSTALL_LIB}
+		)
+install(DIRECTORY include/ DESTINATION ${INSTALL_INCLUDE})
+
+# install python
+set(PYTHON_LIB_INSTALL_DIR $ENV{PYTHON_LIB_INSTALL_DIR})
+if(PYTHON_LIB_INSTALL_DIR)
+	set(PYTHON_LIB_INSTALL_DIR ${PYTHON_LIB_INSTALL_DIR} /pbase)
+	string(REPLACE "\\" "/" PYTHON_LIB_INSTALL_DIR ${PYTHON_LIB_INSTALL_DIR})
+ 	install(DIRECTORY python/pbase/ DESTINATION ${PYTHON_LIB_INSTALL_DIR})
+else()
+	message(AUTHOR_WARNING "env variable PYTHON_LIB_INSTALL_DIR not set, not installing python modules")
+endif()
 
 #
 # Testing
