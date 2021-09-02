@@ -1,21 +1,21 @@
-#ifndef RHC_ALLOCATOR_H
-#define RHC_ALLOCATOR_H
+#ifndef P_RHC_ALLOCATOR_H
+#define P_RHC_ALLOCATOR_H
 
 #include "types.h"
 
 //
 // Options
 //
-#ifndef RHC_STRING_DEFAULT_ALLOCATOR
-#define RHC_STRING_DEFAULT_ALLOCATOR allocator_new_raising()
+#ifndef P_RHC_STRING_DEFAULT_ALLOCATOR
+#define P_RHC_STRING_DEFAULT_ALLOCATOR allocator_new_raising()
 #endif
 
-#ifndef RHC_DYNARRAY_DEFAULT_ALLOCATOR
-#define RHC_DYNARRAY_DEFAULT_ALLOCATOR allocator_new_raising()
+#ifndef P_RHC_DYNARRAY_DEFAULT_ALLOCATOR
+#define P_RHC_DYNARRAY_DEFAULT_ALLOCATOR allocator_new_raising()
 #endif
 
-#ifndef RHC_HASHMAP_DEFAULT_ALLOCATOR
-#define RHC_HASHMAP_DEFAULT_ALLOCATOR allocator_new_raising()
+#ifndef P_RHC_HASHMAP_DEFAULT_ALLOCATOR
+#define P_RHC_HASHMAP_DEFAULT_ALLOCATOR allocator_new_raising()
 #endif
 
 //
@@ -53,4 +53,4 @@ Allocator_s allocator_new_empty();
 Allocator_s allocator_new_empty_raising();
 
 
-#endif //RHC_ALLOCATOR_H
+#endif //P_RHC_ALLOCATOR_H

@@ -1,6 +1,6 @@
-#ifndef RHC_FILE_IMPL_H
-#define RHC_FILE_IMPL_H
-#ifdef RHC_IMPL
+#ifndef P_RHC_FILE_IMPL_H
+#define P_RHC_FILE_IMPL_H
+#ifdef P_RHC_IMPL
 
 #include <stdio.h>
 #include "../error.h"
@@ -220,5 +220,5 @@ bool file_append(const char *file, Str_s content, bool ascii) {
 
 
 
-#endif //RHC_IMPL
-#endif //RHC_FILE_IMPL_H
+#endif //P_RHC_IMPL
+#endif //P_RHC_FILE_IMPL_H

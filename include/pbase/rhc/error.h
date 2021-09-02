@@ -1,5 +1,5 @@
-#ifndef RHC_ERROR_H
-#define RHC_ERROR_H
+#ifndef P_RHC_ERROR_H
+#define P_RHC_ERROR_H
 
 
 //
@@ -26,4 +26,4 @@ static const char *error(const char *err) {
 void p_rhc_assume_impl_(const char *expression, const char *file, int line, const char *format, ...);
 
 
-#endif //RHC_ERROR_H
+#endif //P_RHC_ERROR_H

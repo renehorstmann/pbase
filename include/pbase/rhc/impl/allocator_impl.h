@@ -1,5 +1,5 @@
-#ifndef RHC_ALLOC_IMPL_H
-#define RHC_ALLOC_IMPL_H
+#ifndef P_RHC_ALLOC_IMPL_H
+#define P_RHC_ALLOC_IMPL_H
 
 #include <stdlib.h>
 #include "../error.h"
@@ -153,4 +153,4 @@ Allocator_s allocator_new_empty_raising() {
     };
 }
 
-#endif //RHC_ALLOC_IMPL_H
+#endif //P_RHC_ALLOC_IMPL_H

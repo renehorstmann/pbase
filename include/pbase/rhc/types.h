@@ -1,5 +1,5 @@
-#ifndef RHC_TYPES_H
-#define RHC_TYPES_H
+#ifndef P_RHC_TYPES_H
+#define P_RHC_TYPES_H
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -10,7 +10,7 @@
 // Types
 //
 
-// virtuel allocator, see alloc.h
+// virtual allocator, see alloc.h
 typedef struct Allocator_s {
     void *user_data;
 
@@ -100,4 +100,4 @@ static void string_kill(String *self) {
     self->capacity = 0;
 }
 
-#endif //RHC_TYPES_H
+#endif //P_RHC_TYPES_H

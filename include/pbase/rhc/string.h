@@ -1,5 +1,5 @@
-#ifndef RHC_STRING_H
-#define RHC_STRING_H
+#ifndef P_RHC_STRING_H
+#define P_RHC_STRING_H
 
 #include "str.h"
 
@@ -28,7 +28,7 @@ static String string_new_a(size_t start_capacity, Allocator_s a) {
 
 // allocated start_capacity + 1 (null)
 static String string_new(size_t start_capacity) {
-    return string_new_a(start_capacity, RHC_STRING_DEFAULT_ALLOCATOR);
+    return string_new_a(start_capacity, P_RHC_STRING_DEFAULT_ALLOCATOR);
 }
 
 // new empty invalid string
@@ -41,7 +41,7 @@ static String string_new_invalid_a(Allocator_s a) {
 // new empty invalid string with the default allocator
 static String string_new_invalid() {
     String self = {0};
-    self.allocator = RHC_STRING_DEFAULT_ALLOCATOR;
+    self.allocator = P_RHC_STRING_DEFAULT_ALLOCATOR;
     return self;
 }
 
@@ -56,7 +56,7 @@ static String string_new_clone_a(Str_s to_clone, Allocator_s a) {
 
 // clones Str_s and appends null
 static String string_new_clone(Str_s to_clone) {
-    return string_new_clone_a(to_clone, RHC_STRING_DEFAULT_ALLOCATOR);
+    return string_new_clone_a(to_clone, P_RHC_STRING_DEFAULT_ALLOCATOR);
 }
 
 // copies str s into a new string, with old -> replacement.
@@ -64,7 +64,7 @@ static String string_new_replace_a(Str_s to_replace, Str_s old, Str_s replacemen
     if(str_empty(to_replace) || str_empty(old) || !str_valid(replacement)) {
         return string_new_invalid_a(a);
     }
-    int cnt = str_count_str(to_replace, old);
+    size_t cnt = str_count_str(to_replace, old);
     if(cnt <= 0) {
         return string_new_clone_a(to_replace, a);
     }
@@ -78,20 +78,20 @@ static String string_new_replace_a(Str_s to_replace, Str_s old, Str_s replacemen
 // copies str s into a new string, with old -> replacement.
 
 static String string_new_replace(Str_s to_replace, Str_s old, Str_s replacement) {
-    return string_new_replace_a(to_replace, old, replacement, RHC_STRING_DEFAULT_ALLOCATOR);
+    return string_new_replace_a(to_replace, old, replacement, P_RHC_STRING_DEFAULT_ALLOCATOR);
 }
 
 // concatenates all strs
 static String string_new_cat_a(Str_s *strs, int n, Allocator_s a) {
     size_t size = 0;
-    for(int i=0; i<n; i++) {
+    for(size_t i=0; i<n; i++) {
         size += str_empty(strs[i])? 0 : strs[i].size;
     }
     String res = string_new_a(size, a);
     if(!string_valid(res))
         return res;
 
-    for(int i=0; i<n; i++) {
+    for(size_t i=0; i<n; i++) {
         if(!str_empty(strs[i])) {
             str_cpy(strs[i], (Str_s) {res.data + res.size, strs[i].size});
             res.size += strs[i].size;
@@ -102,7 +102,7 @@ static String string_new_cat_a(Str_s *strs, int n, Allocator_s a) {
 
 // concatenates all strs
 static String string_new_cat(Str_s *strs, int n) {
-    return string_new_cat_a(strs, n, RHC_STRING_DEFAULT_ALLOCATOR);
+    return string_new_cat_a(strs, n, P_RHC_STRING_DEFAULT_ALLOCATOR);
 }
 
 // size is the sum of characters, not including termination null (as strlen)
@@ -143,4 +143,4 @@ static void string_append(String *self, Str_s append) {
 
 
 
-#endif //RHC_STRING_H
+#endif //P_RHC_STRING_H

@@ -1,5 +1,5 @@
-#ifndef RHC_TIME_H
-#define RHC_TIME_H
+#ifndef P_RHC_TIME_H
+#define P_RHC_TIME_H
 
 #include <time.h>
 
@@ -9,4 +9,4 @@ static double time_monotonic() {
     return (double) time.tv_sec + (double) time.tv_nsec / 1000000000.0;
 }
 
-#endif //RHC_TIME_H
+#endif //P_RHC_TIME_H

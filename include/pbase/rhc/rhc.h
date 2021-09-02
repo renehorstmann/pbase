@@ -1,5 +1,5 @@
-#ifndef RHC_RHC_H
-#define RHC_RHC_H
+#ifndef P_RHC_P_RHC_H
+#define P_RHC_P_RHC_H
 
 #include "types.h"
 #include "error.h"
@@ -12,11 +12,11 @@
 #include "str_parse.h"
 
 
-#ifdef RHC_IMPL
+#ifdef P_RHC_IMPL
 #include "impl/error_impl.h"
 #include "impl/log_impl.h"
 #include "impl/allocator_impl.h"
 #include "impl/file_impl.h"
 #endif
 
-#endif //RHC_RHC_H
+#endif //P_RHC_P_RHC_H

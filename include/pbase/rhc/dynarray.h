@@ -7,10 +7,10 @@
 #include "log.h"
 
 
-#define RHC_NAME_CONCAT(a, b) a ## b
-#define RHC_NAME_CONCAT2(a, b) RHC_NAME_CONCAT(a, b)
-#define RHC_TO_STRING(a) #a
-#define RHC_TO_STRING2(a) RHC_TO_STRING(a)
+#define P_RHC_NAME_CONCAT(a, b) a ## b
+#define P_RHC_NAME_CONCAT2(a, b) P_RHC_NAME_CONCAT(a, b)
+#define P_RHC_TO_STRING(a) #a
+#define P_RHC_TO_STRING2(a) P_RHC_TO_STRING(a)
 
 //
 // Options:
@@ -23,12 +23,12 @@
 
 // array class name, for example Foo
 #ifndef CLASS
-#define CLASS RHC_NAME_CONCAT2(DynArray_, TYPE)
+#define CLASS P_RHC_NAME_CONCAT2(DynArray_, TYPE)
 #endif
 
 // array function names, for example foo
 #ifndef FN_NAME
-#define FN_NAME RHC_NAME_CONCAT2(dynarray_, TYPE)
+#define FN_NAME P_RHC_NAME_CONCAT2(dynarray_, TYPE)
 #endif
 
 // remove copying functions (push)
@@ -58,13 +58,13 @@ typedef struct {
 
 
 // bool foo_valid(Foo self)
-static bool RHC_NAME_CONCAT2(FN_NAME, _valid)(CLASS self) {
+static bool P_RHC_NAME_CONCAT2(FN_NAME, _valid)(CLASS self) {
     return self.array != NULL && allocator_valid(self.allocator);
 }
 
 
 // Foo foo_new_a(size_t start_capacity, Allocator_s a)
-static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_a)(size_t start_capacity, Allocator_s a) {
+static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_a)(size_t start_capacity, Allocator_s a) {
     assume(allocator_valid(a), "allocator needs to be valid");
     CLASS self = {
             a.malloc(a, start_capacity * sizeof(TYPE)),
@@ -74,36 +74,36 @@ static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_a)(size_t start_capacity, Allocator_
     };
     if (!self.array) {
         p_rhc_error = "dynarray_new failed";
-        log_error(RHC_TO_STRING2(FN_NAME) "_new failed: for capacity: %zu", start_capacity);
+        log_error(P_RHC_TO_STRING2(FN_NAME) "_new failed: for capacity: %zu", start_capacity);
         return (CLASS) {.allocator = a};
     }
     return self;
 }
 
 // Foo foo_new(size_t start_capacity)
-static CLASS RHC_NAME_CONCAT2(FN_NAME, _new)(size_t start_capacity) {
+static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new)(size_t start_capacity) {
     // new_a
-    return RHC_NAME_CONCAT2(FN_NAME, _new_a)(start_capacity, RHC_DYNARRAY_DEFAULT_ALLOCATOR);
+    return P_RHC_NAME_CONCAT2(FN_NAME, _new_a)(start_capacity, P_RHC_DYNARRAY_DEFAULT_ALLOCATOR);
 }
 
 // Foo foo_new_invalid_a(Allocator_s a)
-static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(Allocator_s a) {
+static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(Allocator_s a) {
     return (CLASS) {.allocator = a};
 }
 
 // Foo foo_new_invalid_a()
-static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_invalid)() {
+static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_invalid)() {
     // new_invalid_a
-    return RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(RHC_DYNARRAY_DEFAULT_ALLOCATOR);
+    return P_RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(P_RHC_DYNARRAY_DEFAULT_ALLOCATOR);
 }
 
 // Foo foo_new_clone_a(int *to_clone, size_t n, Allocator_s a)
-static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_clone_a)(TYPE *to_clone, size_t n, Allocator_s a) {
+static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_clone_a)(TYPE *to_clone, size_t n, Allocator_s a) {
     // new_a
-    CLASS self = RHC_NAME_CONCAT2(FN_NAME, _new_a)(n, a);
+    CLASS self = P_RHC_NAME_CONCAT2(FN_NAME, _new_a)(n, a);
 
     // valid
-    if(!RHC_NAME_CONCAT2(FN_NAME, _valid)(self))
+    if(!P_RHC_NAME_CONCAT2(FN_NAME, _valid)(self))
         return self;
 
     memcpy(self.array, to_clone, n * sizeof(TYPE));
@@ -112,33 +112,33 @@ static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_clone_a)(TYPE *to_clone, size_t n, A
 }
 
 // Foo foo_new_clone(int *to_clone, size_t n)
-static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_clone)(TYPE *to_clone, size_t n) {
+static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_clone)(TYPE *to_clone, size_t n) {
     // new_clone_a
-    return RHC_NAME_CONCAT2(FN_NAME, _new_clone_a)(to_clone, n, RHC_DYNARRAY_DEFAULT_ALLOCATOR);
+    return P_RHC_NAME_CONCAT2(FN_NAME, _new_clone_a)(to_clone, n, P_RHC_DYNARRAY_DEFAULT_ALLOCATOR);
 }
 
 // void foo_kill(Foo *self)
-static void RHC_NAME_CONCAT2(FN_NAME, _kill)(CLASS *self) {
+static void P_RHC_NAME_CONCAT2(FN_NAME, _kill)(CLASS *self) {
     // valid
-    if(!RHC_NAME_CONCAT2(FN_NAME, _valid)(*self)) {
+    if(!P_RHC_NAME_CONCAT2(FN_NAME, _valid)(*self)) {
         self->allocator.free(self->allocator, self->array);
     }
     // new_invalid_a
-    *self = RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(self->allocator);
+    *self = P_RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(self->allocator);
 }
 
 // void foo_set_capacity(Foo *self, size_t capacity)
-static void RHC_NAME_CONCAT2(FN_NAME, _set_capacity)(CLASS *self, size_t capacity) {
+static void P_RHC_NAME_CONCAT2(FN_NAME, _set_capacity)(CLASS *self, size_t capacity) {
     // !valid
-    if(!RHC_NAME_CONCAT2(FN_NAME, _valid)(*self))
+    if(!P_RHC_NAME_CONCAT2(FN_NAME, _valid)(*self))
         return;
 
     void *array = self->allocator.realloc(self->allocator, self->array, capacity * sizeof(TYPE));
     if(!array) {
         // kill
         p_rhc_error = "dynarray_set_capacity failed";
-        log_error(RHC_TO_STRING2(FN_NAME) "_set_capacity failed: for capacity: %zu", capacity);
-        RHC_NAME_CONCAT2(FN_NAME, _kill)(self);
+        log_error(P_RHC_TO_STRING2(FN_NAME) "_set_capacity failed: for capacity: %zu", capacity);
+        P_RHC_NAME_CONCAT2(FN_NAME, _kill)(self);
         return;
     }
     self->array = array;
@@ -148,22 +148,22 @@ static void RHC_NAME_CONCAT2(FN_NAME, _set_capacity)(CLASS *self, size_t capacit
 }
 
 // void foo_resize(Foo *self, size_t size)
-static void RHC_NAME_CONCAT2(FN_NAME, _resize)(CLASS *self, size_t size) {
+static void P_RHC_NAME_CONCAT2(FN_NAME, _resize)(CLASS *self, size_t size) {
     if(size > self->capacity) {
         // _set_capacity
-        RHC_NAME_CONCAT2(FN_NAME, _set_capacity)(self, size * 2);
+        P_RHC_NAME_CONCAT2(FN_NAME, _set_capacity)(self, size * 2);
     }
 
     // valid
-    if(RHC_NAME_CONCAT2(FN_NAME, _valid)(*self)) {
+    if(P_RHC_NAME_CONCAT2(FN_NAME, _valid)(*self)) {
         self->size = size;
     }
 }
 
 // int *foo_append_array(Foo *self, int *opt_init_array, size_t array_size)
-static TYPE *RHC_NAME_CONCAT2(FN_NAME, _append_array)(CLASS *self, TYPE *opt_init_array, size_t array_size) {
+static TYPE *P_RHC_NAME_CONCAT2(FN_NAME, _append_array)(CLASS *self, TYPE *opt_init_array, size_t array_size) {
     // resize
-    RHC_NAME_CONCAT2(FN_NAME, _resize)(self, self->size+array_size);
+    P_RHC_NAME_CONCAT2(FN_NAME, _resize)(self, self->size+array_size);
 
     TYPE *ret = &self->array[self->size-array_size];
     if(opt_init_array)
@@ -172,30 +172,30 @@ static TYPE *RHC_NAME_CONCAT2(FN_NAME, _append_array)(CLASS *self, TYPE *opt_ini
 }
 
 // int *foo_append(Foo *self, int *opt_init)
-static TYPE *RHC_NAME_CONCAT2(FN_NAME, _append)(CLASS *self, TYPE *opt_init) {
+static TYPE *P_RHC_NAME_CONCAT2(FN_NAME, _append)(CLASS *self, TYPE *opt_init) {
     // append_array
-    return RHC_NAME_CONCAT2(FN_NAME, _append_array)(self, opt_init, 1);
+    return P_RHC_NAME_CONCAT2(FN_NAME, _append_array)(self, opt_init, 1);
 }
 
 
 #ifndef NO_COPY
 // void foo_push(Foo *self, int push)
-static void RHC_NAME_CONCAT2(FN_NAME, _push)(CLASS *self, TYPE push) {
+static void P_RHC_NAME_CONCAT2(FN_NAME, _push)(CLASS *self, TYPE push) {
     // append
-    RHC_NAME_CONCAT2(FN_NAME, _append)(self, &push);
+    P_RHC_NAME_CONCAT2(FN_NAME, _append)(self, &push);
 }
 
 // TYPE foo_pop(Foo *self)
-static TYPE RHC_NAME_CONCAT2(FN_NAME, _pop)(CLASS *self) {
+static TYPE P_RHC_NAME_CONCAT2(FN_NAME, _pop)(CLASS *self) {
     // !valid || self->size <= 0
-    if(!RHC_NAME_CONCAT2(FN_NAME, _valid)(*self) || self->size <= 0) {
-        log_error(RHC_TO_STRING2(FN_NAME) "_pop failed: invalid or size = 0");
+    if(!P_RHC_NAME_CONCAT2(FN_NAME, _valid)(*self) || self->size <= 0) {
+        log_error(P_RHC_TO_STRING2(FN_NAME) "_pop failed: invalid or size = 0");
         return (TYPE) {0};
     }
     TYPE ret = self->array[self->size-1];
 
     // resize
-    RHC_NAME_CONCAT2(FN_NAME, _resize)(self, self->size-1);
+    P_RHC_NAME_CONCAT2(FN_NAME, _resize)(self, self->size-1);
 
     return ret;
 }
