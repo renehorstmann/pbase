@@ -13,6 +13,7 @@ else:
 from . import mathctypes
 from . import log
 from . import math
+from . import error
 from . import meshprimitives
 
 from .types import *
