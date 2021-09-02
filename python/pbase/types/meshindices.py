@@ -2,7 +2,7 @@ import numpy as np
 import ctypes as ct
 from typing import Tuple, List, Optional
 
-from .. import mathc
+from .. import mathctypes
 from .. import bindingbase as bb
 
 from .. import plib
@@ -12,7 +12,7 @@ from .indices import *
 
 class pMeshIndices(ct.Structure):
     _fields_ = [
-        ('data', mathc.ivec3_p),
+        ('data', mathctypes.ivec3_p),
         ('size', bb.c_size_t)
     ]
 
@@ -45,11 +45,11 @@ class NpMeshIndices(np.ndarray):
             plib.p_mesh_indices_kill(bb.ref(self.p_mesh_indices))
 
 
-def cast_pMeshIndices_np(data: pMeshIndices) -> np.ndarray:
+def cast_from_pMeshIndices(data: pMeshIndices) -> NpMeshIndices:
     return NpMeshIndices(data)
 
 
-def cast_np_pMeshIndices(data: np.ndarray) -> pMeshIndices:
+def cast_into_pMeshIndices(data: np.ndarray) -> pMeshIndices:
     if data.dtype != np.int32:
         raise RuntimeError('cast_np_pMeshIndices failed: must be int')
     if data.ndim != 2 or data.shape[1] != 3:
@@ -60,10 +60,10 @@ def cast_np_pMeshIndices(data: np.ndarray) -> pMeshIndices:
     return pMeshIndices(data.ctypes.data_as(bb.c_int_p), size)
 
 
-def cast_np_pMeshIndices_p(data: Optional[np.ndarray]) -> Optional[pMeshIndices_p]:
+def cast_into_pMeshIndices_p(data: Optional[np.ndarray]) -> Optional[pMeshIndices_p]:
     if data is None or data.size == 0:
         return None
-    return ct.pointer(cast_np_pMeshIndices(data))
+    return ct.pointer(cast_into_pMeshIndices(data))
 
 
 # /** Prints all mesh indices to stdout */
@@ -75,7 +75,7 @@ def mesh_indices_print(self: np.ndarray):
     '''
     Prints all mesh_indices to stdout
     '''
-    plib.p_mesh_indices_print(cast_np_pMeshIndices(self))
+    plib.p_mesh_indices_print(cast_into_pMeshIndices(self))
 
 
 # /** Adds an offset to each index */
@@ -89,7 +89,7 @@ def mesh_indices_add_offset(self: np.ndarray,
     '''
     Adds an offset to each index
     '''
-    plib.p_mesh_indices_add_offset(cast_np_pMeshIndices_p(self),
+    plib.p_mesh_indices_add_offset(cast_into_pMeshIndices_p(self),
                                    offset)
 
 
@@ -108,9 +108,9 @@ def mesh_indices_concatenate(a: np.ndarray,
 
     :return: pMeshIndices
     '''
-    res = plib.p_mesh_indices_concatenate(cast_np_pMeshIndices(a),
-                                          cast_np_pMeshIndices(b))
-    return cast_pMeshIndices_np(res)
+    res = plib.p_mesh_indices_concatenate(cast_into_pMeshIndices(a),
+                                          cast_into_pMeshIndices(b))
+    return cast_from_pMeshIndices(res)
 
 
 # /** Concatenates a list/vector of mesh_indices together, into the new pMeshIndices out_concatenate. */
@@ -131,10 +131,10 @@ def mesh_indices_concatenate_v(mesh_indices_list: List[np.ndarray]) \
     LIST = pMeshIndices * n
     list = LIST()
     for i in range(n):
-        list[i] = cast_np_pMeshIndices(mesh_indices_list[i])
+        list[i] = cast_into_pMeshIndices(mesh_indices_list[i])
     res = plib.p_mesh_indices_concatenate_v(list,
                                             n)
-    return cast_pMeshIndices_np(res)
+    return cast_from_pMeshIndices(res)
 
 
 # /** Applies mesh_indices on mesh_indices, so that all not used mesh_indices are removed */
@@ -152,6 +152,6 @@ def mesh_indices_apply_indices(self: np.ndarray,
 
     :return: pMeshIndices
     '''
-    res = plib.p_mesh_indices_apply_indices(cast_np_pMeshIndices(self),
-                                            cast_np_pIndices(indices))
-    return cast_pMeshIndices_np(res)
+    res = plib.p_mesh_indices_apply_indices(cast_into_pMeshIndices(self),
+                                            cast_into_pIndices(indices))
+    return cast_from_pMeshIndices(res)

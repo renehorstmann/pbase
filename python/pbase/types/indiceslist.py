@@ -2,7 +2,7 @@ import numpy as np
 import ctypes as ct
 from typing import Union, Tuple, List, Optional
 
-from .. import mathc
+from .. import mathctypes
 from .. import bindingbase as bb
 
 from .. import plib
@@ -42,22 +42,22 @@ class IndicesList:
 
 
 
-def cast_pIndicesList_np(data: pIndicesList) -> IndicesList:
+def cast_from_pIndicesList(data: pIndicesList) -> IndicesList:
     return IndicesList(data)
 
 
-def cast_np_pIndicesList(indices_list: Union[List[np.ndarray], IndicesList]) -> pIndicesList:
+def cast_into_pIndicesList(indices_list: Union[List[np.ndarray], IndicesList]) -> pIndicesList:
     if isinstance(indices_list, IndicesList):
         return indices_list._indices_list
 
     LIST = (pIndices * len(indices_list))
     list = LIST()
     for i in range(len(indices_list)):
-        list[i] = cast_np_pIndices(indices_list[i])
+        list[i] = cast_into_pIndices(indices_list[i])
     return pIndicesList(list, len(indices_list))
 
 
-def cast_np_pIndicesList_p(indices_list: Union[List[np.ndarray], IndicesList]) -> Optional[pIndicesList_p]:
+def cast_into_pIndicesList_p(indices_list: Union[List[np.ndarray], IndicesList]) -> Optional[pIndicesList_p]:
     if indices_list is None:
         return None
 
@@ -66,5 +66,5 @@ def cast_np_pIndicesList_p(indices_list: Union[List[np.ndarray], IndicesList]) -
 
     if len(indices_list) == 0:
         return None
-    return ct.pointer(cast_np_pIndicesList(indices_list))
+    return ct.pointer(cast_into_pIndicesList(indices_list))
 

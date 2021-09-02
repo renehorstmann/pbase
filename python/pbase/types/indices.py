@@ -2,7 +2,7 @@ import numpy as np
 import ctypes as ct
 from typing import Tuple, List, Optional
 
-from .. import mathc
+from .. import mathctypes
 from .. import bindingbase as bb
 
 from .. import plib
@@ -42,11 +42,11 @@ class NpIndices(np.ndarray):
             plib.p_indices_kill(bb.ref(self.p_indices))
 
 
-def cast_pIndices_np(data: pIndices) -> np.ndarray:
+def cast_from_pIndices(data: pIndices) -> NpIndices:
     return NpIndices(data)
 
 
-def cast_np_pIndices(data: np.ndarray) -> pIndices:
+def cast_into_pIndices(data: np.ndarray) -> pIndices:
     if data.dtype != np.int32:
         raise RuntimeError('cast_np_pIndices failed: must be int')
     if data.ndim != 1:
@@ -55,10 +55,10 @@ def cast_np_pIndices(data: np.ndarray) -> pIndices:
     return pIndices(data.ctypes.data_as(bb.c_int_p), size)
 
 
-def cast_np_pIndices_p(data: Optional[np.ndarray]) -> Optional[pIndices_p]:
+def cast_into_pIndices_p(data: Optional[np.ndarray]) -> Optional[pIndices_p]:
     if data is None or data.size == 0:
         return None
-    return ct.pointer(cast_np_pIndices(data))
+    return ct.pointer(cast_into_pIndices(data))
 
 
 
@@ -71,7 +71,7 @@ def indices_print(self: np.ndarray):
     '''
     Prints all indices to stdout
     '''
-    plib.p_indices_print(cast_np_pIndices(self))
+    plib.p_indices_print(cast_into_pIndices(self))
 
 
 # /** Sorts the internal indices list in ascending order */
@@ -83,7 +83,7 @@ def indices_sort(self: np.ndarray):
     '''
     Sorts the internal indices list in ascending order
     '''
-    plib.p_indices_sort(cast_np_pIndices_p(self))
+    plib.p_indices_sort(cast_into_pIndices_p(self))
 
 
 # /** Deletes all duplicate indices (result will be sorted) */
@@ -95,7 +95,7 @@ def indices_as_set(self: np.ndarray):
     '''
     Deletes all duplicate indices (result will be sorted)
     '''
-    plib.p_indices_as_set(cast_np_pIndices_p(self))
+    plib.p_indices_as_set(cast_into_pIndices_p(self))
 
 
 # /**
@@ -116,8 +116,8 @@ def indices_set_diff(self: np.ndarray,
     :param self: must be a sorted set.
     :param remove: must be a sorted set.
     '''
-    plib.p_indices_set_diff(cast_np_pIndices_p(self),
-                            cast_np_pIndices(remove))
+    plib.p_indices_set_diff(cast_into_pIndices_p(self),
+                            cast_into_pIndices(remove))
 
 
 # /** Adds an offset to each index */
@@ -131,7 +131,7 @@ def indices_add_offset(self: np.ndarray,
     '''
     Adds an offset to each index
     '''
-    plib.p_indices_add_offset(cast_np_pIndices_p(self),
+    plib.p_indices_add_offset(cast_into_pIndices_p(self),
                               offset)
 
 
@@ -150,9 +150,9 @@ def indices_concatenate(a: np.ndarray,
 
     :return: pIndices
     '''
-    res = plib.p_indices_concatenate(cast_np_pIndices(a),
-                                     cast_np_pIndices(b))
-    return cast_pIndices_np(res)
+    res = plib.p_indices_concatenate(cast_into_pIndices(a),
+                                     cast_into_pIndices(b))
+    return cast_from_pIndices(res)
 
 
 # /** Concatenates a list/vector of indices together, into the new pIndices out_concatenate. */
@@ -173,10 +173,10 @@ def indices_concatenate_v(indices_list: List[np.ndarray]) \
     LIST = pIndices * n
     list = LIST()
     for i in range(n):
-        list[i] = cast_np_pIndices(indices_list[i])
+        list[i] = cast_into_pIndices(indices_list[i])
     res = plib.p_indices_concatenate_v(list,
                                        n)
-    return cast_pIndices_np(res)
+    return cast_from_pIndices(res)
 
 
 
@@ -195,6 +195,6 @@ def indices_apply_indices(self: np.ndarray,
 
     :return: pIndices
     '''
-    res = plib.p_indices_apply_indices(cast_np_pIndices(self),
-                                       cast_np_pIndices(indices))
-    return cast_pIndices_np(res)
+    res = plib.p_indices_apply_indices(cast_into_pIndices(self),
+                                       cast_into_pIndices(indices))
+    return cast_from_pIndices(res)

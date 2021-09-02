@@ -2,7 +2,7 @@ import numpy as np
 import ctypes as ct
 from typing import Tuple, List, Optional
 
-from .. import mathc
+from .. import mathctypes
 from .. import bindingbase as bb
 
 from .. import plib
@@ -45,11 +45,11 @@ class NpMatrix(np.ndarray):
             plib.p_matrix_kill(bb.ref(self.p_matrix))
 
 
-def cast_pMatrix_np(data: pMatrix) -> np.ndarray:
+def cast_from_pMatrix(data: pMatrix) -> NpMatrix:
     return NpMatrix(data)
 
 
-def cast_np_pMatrix(data: np.ndarray) -> pMatrix:
+def cast_into_pMatrix(data: np.ndarray) -> pMatrix:
     if data.dtype != np.float32:
         raise RuntimeError('cast_np_pMatrix failed: must be float32')
     if data.ndim != 2:
@@ -59,10 +59,10 @@ def cast_np_pMatrix(data: np.ndarray) -> pMatrix:
     return pMatrix(data.ctypes.data_as(bb.c_float_p), cols, rows)
 
 
-def cast_np_pMatrix_p(data: Optional[np.ndarray]) -> Optional[pMatrix_p]:
+def cast_into_pMatrix_p(data: Optional[np.ndarray]) -> Optional[pMatrix_p]:
     if data is None or data.size == 0:
         return None
-    return ct.pointer(cast_np_pMatrix(data))
+    return ct.pointer(cast_into_pMatrix(data))
 
 
 # /** Prints the whole matrix data to stdout */
@@ -74,4 +74,4 @@ def matrix_print(self: np.ndarray):
     '''
     Prints the whole matrix data to stdout
     '''
-    plib.p_matrix_print(cast_np_pMatrix(self))
+    plib.p_matrix_print(cast_into_pMatrix(self))

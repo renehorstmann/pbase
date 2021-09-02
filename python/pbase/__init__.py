@@ -10,9 +10,10 @@ else:
     exit(1)
 
 # after loading lib!
-from . import mathc
+from . import mathctypes
 from . import log
-from . import geoc
+from . import math
+from . import meshprimitives
 
 from .types import *
 

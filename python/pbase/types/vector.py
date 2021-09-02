@@ -2,7 +2,7 @@ import numpy as np
 import ctypes as ct
 from typing import Tuple, List, Optional
 
-from .. import mathc
+from .. import mathctypes
 from .. import bindingbase as bb
 
 from .. import plib
@@ -43,11 +43,11 @@ class NpVector(np.ndarray):
             plib.p_vector_kill(bb.ref(self.p_vector))
 
 
-def cast_pVector_np(data: pVector) -> np.ndarray:
+def cast_from_pVector(data: pVector) -> NpVector:
     return NpVector(data)
 
 
-def cast_np_pVector(data: np.ndarray) -> pVector:
+def cast_into_pVector(data: np.ndarray) -> pVector:
     if data.dtype != np.float32:
         raise RuntimeError('cast_np_pVector failed: must be float32')
     if data.ndim != 1:
@@ -56,10 +56,10 @@ def cast_np_pVector(data: np.ndarray) -> pVector:
     return pVector(data.ctypes.data_as(bb.c_float_p), size)
 
 
-def cast_np_pVector_p(data: Optional[np.ndarray]) -> Optional[pVector_p]:
+def cast_into_pVector_p(data: Optional[np.ndarray]) -> Optional[pVector_p]:
     if data is None or data.size == 0:
         return None
-    return ct.pointer(cast_np_pVector(data))
+    return ct.pointer(cast_into_pVector(data))
 
 
 # /** Prints the whole vector data to stdout */
@@ -71,4 +71,4 @@ def vector_print(self: np.ndarray):
     '''
     Prints the whole vector data to stdout
     '''
-    plib.p_vector_print(cast_np_pVector(self))
+    plib.p_vector_print(cast_into_pVector(self))

@@ -1,17 +1,15 @@
 #include <stdio.h>
 
 #include "pbase/pbase.h"
+#include "pbase/mathc/mathc.h"
 
 
 int main() {
     puts("start");
 
-    pCloud points = p_cloud_new_zeros_1(12);
-    for(int i=0; i<points.size; i++) {
-        points.data[i].x = i;
-    }
-
-    p_cloud_kill(&points);
+    pCloud points;
+    pMeshIndices indices;
+    p_meshprimitives_box(&points, &indices, mat4_eye(), 100, 50, 10);
 
     puts("fin");
 }

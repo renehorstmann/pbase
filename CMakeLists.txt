@@ -19,6 +19,7 @@ file(GLOB SRCS
 		"${PROJECT_SOURCE_DIR}/include/types/*"
 		"${PROJECT_SOURCE_DIR}/src/*"
 		"${PROJECT_SOURCE_DIR}/src/types/*"
+		"${PROJECT_SOURCE_DIR}/src/meshprimitives/*"
 		)
 
 add_library(pbase SHARED ${SRCS})

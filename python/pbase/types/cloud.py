@@ -2,7 +2,7 @@ import numpy as np
 import ctypes as ct
 from typing import Tuple, List, Optional
 
-from .. import mathc
+from .. import mathctypes
 from .. import bindingbase as bb
 
 from .. import plib
@@ -11,7 +11,7 @@ from .indices import *
 
 class pCloud(ct.Structure):
     _fields_ = [
-        ('data', mathc.vec4_p),
+        ('data', mathctypes.vec4_p),
         ('size', bb.c_size_t)
     ]
 
@@ -44,11 +44,11 @@ class NpCloud(np.ndarray):
             plib.p_cloud_kill(bb.ref(self.p_cloud))
 
 
-def cast_pCloud_np(data: pCloud) -> np.ndarray:
+def cast_from_pCloud(data: pCloud) -> NpCloud:
     return NpCloud(data)
 
 
-def cast_np_pCloud(data: np.ndarray) -> pCloud:
+def cast_into_pCloud(data: np.ndarray) -> pCloud:
     if data.dtype != np.float32:
         raise RuntimeError('cast_np_pCloud failed: must be float32')
     if data.ndim != 2 or data.shape[1] != 4:
@@ -56,13 +56,13 @@ def cast_np_pCloud(data: np.ndarray) -> pCloud:
     if np.isfortran(data):
         raise RuntimeError('cast_np_pCloud failed: must be C order')
     size = data.shape[0]
-    return pCloud(mathc.cast_np_vec4_p(data), size)
+    return pCloud(mathctypes.cast_np_vec4_p(data), size)
 
 
-def cast_np_pCloud_p(data: Optional[np.ndarray]) -> Optional[pCloud_p]:
+def cast_into_pCloud_p(data: Optional[np.ndarray]) -> Optional[pCloud_p]:
     if data is None or data.size == 0:
         return None
-    return ct.pointer(cast_np_pCloud(data))
+    return ct.pointer(cast_into_pCloud(data))
 
 
 # /** Prints the whole cloud data to stdout */
@@ -74,7 +74,7 @@ def cloud_print(self: np.ndarray):
     '''
     Prints the whole cloud data to stdout
     '''
-    plib.p_cloud_print(cast_np_pCloud(self))
+    plib.p_cloud_print(cast_into_pCloud(self))
 
 
 # /** Concatenates two point clouds together */
@@ -92,9 +92,9 @@ def cloud_concatenate(a: np.ndarray,
     
     :return: pCloud
     '''
-    res = plib.p_cloud_concatenate(cast_np_pCloud(a),
-                                   cast_np_pCloud(b))
-    return cast_pCloud_np(res)
+    res = plib.p_cloud_concatenate(cast_into_pCloud(a),
+                                   cast_into_pCloud(b))
+    return cast_from_pCloud(res)
 
 
 # /** Concatenates a list/vector of point clouds together */
@@ -115,11 +115,11 @@ def cloud_concatenate_v(cloud_list: List[np.ndarray]) \
     LIST = pCloud * n
     list = LIST()
     for i in range(n):
-        list[i] = cast_np_pCloud(cloud_list[i])
+        list[i] = cast_into_pCloud(cloud_list[i])
 
     res = plib.p_cloud_concatenate_v(list,
                                      n)
-    return cast_pCloud_np(res)
+    return cast_from_pCloud(res)
 
 
 # /** Applies indices on cloud, so that all not used points are removed */
@@ -137,6 +137,6 @@ def cloud_apply_indices(self: np.ndarray,
 
     :return: pCloud
     '''
-    res = plib.p_cloud_apply_indices(cast_np_pCloud(self),
-                                     cast_np_pIndices(indices))
-    return cast_pCloud_np(res)
+    res = plib.p_cloud_apply_indices(cast_into_pCloud(self),
+                                     cast_into_pIndices(indices))
+    return cast_from_pCloud(res)
