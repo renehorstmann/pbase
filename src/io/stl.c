@@ -234,11 +234,27 @@ pError parse_binary(pCloud *out_points, Str_s data) {
 // public
 //
 
-pError p_io_load_stl(pCloud *out_points, const char *file) {
+pError p_io_save_mesh_stl(pCloud points, pMeshIndices indices, const char *file, bool ascii) {
+    String data;
+    if(ascii)
+        data = generate_ascii(points, indices);
+    else
+        data = generate_binary(points, indices);
+
+    if(!file_write(file, data.str, ascii)) {
+        log_error("p_io_save_mesh_stl failed to write file");
+        assert(p_error());  // should be set by file_write
+    }
+
+    string_kill(&data);
+    return p_error();
+}
+
+pError p_io_load_mesh_stl(pCloud *out_points, const char *file) {
     String data = file_read(file, true);
 
     if(!string_valid(data)) {
-        log_warn("p_io_load_stl failed, could not read file: %s", file);
+        log_warn("p_io_load_mesh_stl failed, could not read file: %s", file);
         assert(p_error());  // should be set by file_read
         return p_error();
     }
@@ -256,22 +272,6 @@ pError p_io_load_stl(pCloud *out_points, const char *file) {
         parse_ascii(out_points, data.str);
     else
         parse_binary(out_points, data.str);
-
-    string_kill(&data);
-    return p_error();
-}
-
-pError p_io_save_stl(pCloud points, pMeshIndices indices, const char *file, bool ascii) {
-    String data;
-    if(ascii)
-        data = generate_ascii(points, indices);
-    else
-        data = generate_binary(points, indices);
-
-    if(!file_write(file, data.str, ascii)) {
-        log_error("p_io_save_stl failed to write file");
-        assert(p_error());  // should be set by file_write
-    }
 
     string_kill(&data);
     return p_error();

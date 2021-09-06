@@ -17,6 +17,7 @@ from . import error
 from . import meshprimitives
 
 from .types import *
+from . import io
 
 # pure python
 

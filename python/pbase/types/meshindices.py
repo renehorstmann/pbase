@@ -57,7 +57,7 @@ def cast_into_pMeshIndices(data: np.ndarray) -> pMeshIndices:
     if np.isfortran(data):
         raise RuntimeError('cast_np_pCloud failed: must be C order')
     size = data.shape[0]
-    return pMeshIndices(data.ctypes.data_as(bb.c_int_p), size)
+    return pMeshIndices(mathctypes.cast_into_ivec3_p(data), size)
 
 
 def cast_into_pMeshIndices_p(data: Optional[np.ndarray]) -> Optional[pMeshIndices_p]:

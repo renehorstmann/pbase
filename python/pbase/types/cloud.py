@@ -56,7 +56,7 @@ def cast_into_pCloud(data: np.ndarray) -> pCloud:
     if np.isfortran(data):
         raise RuntimeError('cast_np_pCloud failed: must be C order')
     size = data.shape[0]
-    return pCloud(mathctypes.cast_np_vec4_p(data), size)
+    return pCloud(mathctypes.cast_into_vec4_p(data), size)
 
 
 def cast_into_pCloud_p(data: Optional[np.ndarray]) -> Optional[pCloud_p]:

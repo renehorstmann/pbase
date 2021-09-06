@@ -7,6 +7,8 @@ import numpy as np
 if __name__ == '__main__':
     print('start')
 
-    plane_points, plane_indices = p.meshprimitives.plane(np.eye(4), 10, 20)
+    points, indices = p.meshprimitives.arrow([0, 0, 0], [100, 0, 0], 10)
+
+    p.io.save_mesh_stl(points, indices, 'test.stl', False)
 
     print('fin')

@@ -8,9 +8,11 @@ from . import bindingbase as bb
 
 from . import plib
 
+pError = bb.c_char_p
+
 # /** returns the error code/text p_rhc_error */
 # const char *p_error();
-plib.p_error.restype = bb.c_char_p
+plib.p_error.restype = pError
 
 
 def get() -> Optional[str]:
@@ -29,8 +31,8 @@ def get() -> Optional[str]:
 #  * If p_rhc_error is not NULL (and error!=NULL), it will log a warning.
 #  */
 # const char *p_error_set(const char *error);
-plib.p_error_set.argtypes = [bb.c_char_p]
-plib.p_error_set.restype = bb.c_char_p
+plib.p_error_set.argtypes = [pError]
+plib.p_error_set.restype = pError
 
 
 def set(error: Optional[str]) -> Optional[str]:
