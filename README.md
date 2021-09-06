@@ -5,6 +5,12 @@ Base library for 3D stuff, like pointc, visu, ...
 ## Todo
 - pbase
   - io
+    - ply
+    - indices
+    - indiceslist?
+    - vector
+    - matrix
+    - (as .csv (comma seperated values))
 - pointc
 - visu
 - collisionc?
