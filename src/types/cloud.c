@@ -21,7 +21,7 @@ pCloud p_cloud_new_zeros(size_t size) {
 
 pCloud p_cloud_new_zeros_1(size_t size) {
     pCloud self = p_cloud_new_zeros(size);
-    for(int i=0; i<self.size; i++) {
+    for(size_t i=0; i<self.size; i++) {
         self.data[i].w = 1;
     }
     return self;
@@ -40,7 +40,7 @@ void p_cloud_print(pCloud self) {
         return;
     }
     puts("p_cloud_print:");
-    for (int i = 0; i < self.size; i++) {
+    for(size_t i = 0; i < self.size; i++) {
         printf("%.2f %.2f %.2f %.2f\n",
                self.data[i].x,
                self.data[i].y,
@@ -70,7 +70,7 @@ pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n) {
 
 pCloud p_cloud_apply_indices(pCloud self, pIndices indices) {
     pCloud ret = p_cloud_new_empty(indices.size);
-    for(int i=0; i<indices.size; i++) {
+    for(size_t i=0; i<indices.size; i++) {
         int index = isca_mod_positive(indices.data[i], self.size);
         ret.data[i] = self.data[index];
     }

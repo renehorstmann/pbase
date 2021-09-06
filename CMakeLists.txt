@@ -19,6 +19,7 @@ file(GLOB SRCS
 		"${PROJECT_SOURCE_DIR}/include/types/*"
 		"${PROJECT_SOURCE_DIR}/src/*"
 		"${PROJECT_SOURCE_DIR}/src/types/*"
+		"${PROJECT_SOURCE_DIR}/src/io/*"
 		"${PROJECT_SOURCE_DIR}/src/meshprimitives/*"
 		)
 
@@ -45,6 +46,7 @@ if (MINGW)
 	set(INSTALL_LIB "C:/Libraries/lib")
 	set(INSTALL_INCLUDE "C:/Libraries/include")
 	add_definitions(-DP_RHC_LOG_DO_NOT_USE_COLOR)
+	add_definitions(-DMATHC_NO_PRINT_COLOR)
 else()
 	set(INSTALL_LIB lib)
 	set(INSTALL_INCLUDE include)
@@ -76,12 +78,14 @@ enable_testing()
 
 # Define the executable test
 add_executable(main tests/main.c)
+add_executable(test_io tests/test_io.c)
 
 # link to the library
 target_link_libraries(main pbase)
-
+target_link_libraries(test_io pbase)
 
 # add the executable as test
+add_test(Test_io test_io)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tests/data/
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

@@ -21,7 +21,7 @@ pMeshIndices p_mesh_indices_new_zeros(size_t size) {
 
 pMeshIndices p_mesh_indices_new_count_up(size_t size) {
     pMeshIndices self = p_mesh_indices_new_empty(size);
-    for(int i=0; i<self.size; i++) {
+    for(size_t i=0; i<self.size; i++) {
         self.data[i].v0 = i*3;
         self.data[i].v1 = i*3 + 1;
         self.data[i].v2 = i*3 + 2;
@@ -43,13 +43,13 @@ void p_mesh_indices_print(pMeshIndices self) {
         return;
     }
     puts("p_mesh_indices_print:");
-    for (int i = 0; i < self.size; i++) {
+    for(size_t i = 0; i < self.size; i++) {
         printf("%d %d %d\n", self.data[i].v0, self.data[i].v1, self.data[i].v2);
     }
 }
 
 void p_mesh_indices_add_offset(pMeshIndices *self, int offset) {
-    for(int i=0; i<self->size; i++) {
+    for(size_t i=0; i<self->size; i++) {
         for(int abc=0; abc<3; abc++)
             self->data[i].v[abc] += offset;
     }
@@ -76,7 +76,7 @@ pMeshIndices p_mesh_indices_concatenate_v(const pMeshIndices *mesh_indices_list,
 
 pMeshIndices p_mesh_indices_apply_indices(pMeshIndices self, pIndices indices) {
     pMeshIndices ret = p_mesh_indices_new_empty(indices.size);
-    for(int i=0; i<indices.size; i++) {
+    for(size_t i=0; i<indices.size; i++) {
         int index = isca_mod_positive(indices.data[i], self.size);
         ret.data[i] = self.data[index];
     }

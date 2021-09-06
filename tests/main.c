@@ -1,19 +1,15 @@
 #include <stdio.h>
 
 #include "pbase/pbase.h"
-#include "pbase/mathc/mathc.h"
-
 
 int main() {
     puts("start");
 
-    p_error_set("lol");
-    p_error_set("hey");
-    p_error_set("ho");
-
     pCloud points;
-    pMeshIndices indices;
-    p_meshprimitives_box(&points, &indices, mat4_eye(), 100, 50, 10);
+    p_io_load_stl(&points, "test_io_stl_giraffebinary.stl");
+
+    pMeshIndices indices = p_mesh_indices_new_count_up(points.size/3);
+    p_io_save_stl(points, indices, "giraffe_ascii.stl", true);
 
     puts("fin");
 }

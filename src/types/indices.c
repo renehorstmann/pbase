@@ -29,7 +29,7 @@ pIndices p_indices_new_range(int start, int end, int step) {
     pIndices self = p_indices_new_empty(size);
     if((step > 0 && end < start) || (step < 0 && end > start))
         start = end;
-    for(int i=0; i<size; i++) {
+    for(size_t i=0; i<size; i++) {
         self.data[i] = start;
         start += step;
     }
@@ -50,7 +50,7 @@ void p_indices_print(pIndices self) {
         return;
     }
     puts("p_indices_print:");
-    for (int i = 0; i < self.size; i++) {
+    for(size_t i = 0; i < self.size; i++) {
         printf("%d\n", self.data[i]);
     }
 }
@@ -109,7 +109,7 @@ void p_indices_set_diff(pIndices *self, pIndices remove) {
 void p_indices_add_offset(pIndices *self, int offset) {
     if(!self || !p_indices_valid(*self))
         return;
-    for (int i = 0; i < self->size; i++)
+    for(size_t i = 0; i < self->size; i++)
         self->data[i] += offset;
 }
 
@@ -134,7 +134,7 @@ pIndices p_indices_concatenate_v(const pIndices *indices_list, int n) {
 
 pIndices p_indices_apply_indices(pIndices self, pIndices indices) {
     pIndices ret = p_indices_new_empty(indices.size);
-    for(int i=0; i<indices.size; i++) {
+    for(size_t i=0; i<indices.size; i++) {
         int index = isca_mod_positive(indices.data[i], self.size);
         ret.data[i] = self.data[index];
     }

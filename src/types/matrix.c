@@ -37,8 +37,8 @@ void p_matrix_print(pMatrix self) {
         return;
     }
     puts("pc_matrix_print:");
-    for (int r = 0; r < self.rows; r++) {
-        for(int c = 0; c < self.cols; c++) {
+    for(size_t r = 0; r < self.rows; r++) {
+        for(size_t c = 0; c < self.cols; c++) {
             printf("%f ", self.data[r*self.cols + c]);
         }
         printf("\n");

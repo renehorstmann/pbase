@@ -7,7 +7,7 @@
 #include "../allocator.h"
 
 #ifdef OPTION_SDL
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #endif
 
 void *p_rhc_malloc(size_t size) {
@@ -23,6 +23,11 @@ void *p_rhc_malloc(size_t size) {
     return data;
 }
 
+void *p_rhc_calloc(size_t size) {
+    void *data = p_rhc_malloc(size);
+    memset(data, 0, size);
+    return data;
+}
 
 void *p_rhc_realloc(void *memory, size_t size) {
 #ifdef OPTION_SDL
@@ -58,6 +63,11 @@ void *p_rhc_malloc_raising(size_t size) {
     return data;
 }
 
+void *p_rhc_calloc_raising(size_t size) {
+    void *data = p_rhc_malloc_raising(size);
+    memset(data, 0, size);
+    return data;
+}
 
 void *p_rhc_realloc_raising(void *memory, size_t size) {
 #ifdef OPTION_SDL
@@ -74,6 +84,10 @@ static void *p_rhc_allocator_default_malloc_impl_(Allocator_s self, size_t size)
     return p_rhc_malloc(size);
 }
 
+static void *p_rhc_allocator_default_calloc_impl_(Allocator_s self, size_t size) {
+    return p_rhc_calloc(size);
+}
+
 static void *p_rhc_allocator_default_realloc_impl_(Allocator_s self, void *memory, size_t size) {
     return p_rhc_realloc(memory, size);
 }
@@ -86,11 +100,19 @@ static void *p_rhc_allocator_raising_malloc_impl_(Allocator_s self, size_t size)
     return p_rhc_malloc_raising(size);
 }
 
+static void *p_rhc_allocator_raising_calloc_impl_(Allocator_s self, size_t size) {
+    return p_rhc_calloc_raising(size);
+}
+
 static void *p_rhc_allocator_raising_realloc_impl_(Allocator_s self, void *memory, size_t size) {
     return p_rhc_realloc_raising(memory, size);
 }
 
 static void *p_rhc_allocator_empty_malloc_impl_(Allocator_s self, size_t size) {
+    return NULL;
+}
+
+static void *p_rhc_allocator_empty_calloc_impl_(Allocator_s self, size_t size) {
     return NULL;
 }
 
@@ -106,6 +128,11 @@ static void *p_rhc_allocator_empty_raising_malloc_impl_(Allocator_s self, size_t
     return NULL;
 }
 
+static void *p_rhc_allocator_empty_raising_calloc_impl_(Allocator_s self, size_t size) {
+    assume(false, "allocator empty raising calloc called");
+    return NULL;
+}
+
 static void *p_rhc_allocator_empty_raising_realloc_impl_(Allocator_s self, void *memory, size_t size) {
     assume(false, "allocator empty raising realloc called");
     return NULL;
@@ -116,38 +143,42 @@ static void p_rhc_allocator_empty_raising_free_impl_(Allocator_s self, void *mem
 }
 
 
-Allocator_s allocator_new_default() {
+Allocator_s p_rhc_allocator_new_default() {
     return (Allocator_s) {
         NULL,
         p_rhc_allocator_default_malloc_impl_,
+        p_rhc_allocator_default_calloc_impl_,
         p_rhc_allocator_default_realloc_impl_,
         p_rhc_allocator_default_free_impl_
     };
 }
 
 
-Allocator_s allocator_new_raising() {
+Allocator_s p_rhc_allocator_new_raising() {
     return (Allocator_s) {
         NULL,
         p_rhc_allocator_raising_malloc_impl_,
+        p_rhc_allocator_raising_calloc_impl_,
         p_rhc_allocator_raising_realloc_impl_,
         p_rhc_allocator_default_free_impl_
     };
 }
 
-Allocator_s allocator_new_empty() {
+Allocator_s p_rhc_allocator_new_empty() {
     return (Allocator_s) {
         NULL,
         p_rhc_allocator_empty_malloc_impl_,
+        p_rhc_allocator_empty_calloc_impl_,
         p_rhc_allocator_empty_realloc_impl_,
         p_rhc_allocator_empty_free_impl_,
     };
 }
 
-Allocator_s allocator_new_empty_raising() {
+Allocator_s p_rhc_allocator_new_empty_raising() {
     return (Allocator_s) {
         NULL,
         p_rhc_allocator_empty_raising_malloc_impl_,
+        p_rhc_allocator_empty_raising_calloc_impl_,
         p_rhc_allocator_empty_raising_realloc_impl_,
         p_rhc_allocator_empty_raising_free_impl_,
     };
