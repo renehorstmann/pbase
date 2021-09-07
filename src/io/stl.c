@@ -250,7 +250,7 @@ pError p_io_save_mesh_stl(pCloud points, pMeshIndices indices, const char *file,
     return p_error();
 }
 
-pError p_io_load_mesh_stl(pCloud *out_points, const char *file) {
+pError p_io_load_mesh_stl(pCloud *out_points, pMeshIndices *out_opt_indices, const char *file) {
     String data = file_read(file, true);
 
     if(!string_valid(data)) {
@@ -274,5 +274,10 @@ pError p_io_load_mesh_stl(pCloud *out_points, const char *file) {
         parse_binary(out_points, data.str);
 
     string_kill(&data);
+
+    if(out_opt_indices) {
+        *out_opt_indices = p_mesh_indices_new_count_up(out_points->size/3);
+    }
+
     return p_error();
 }
