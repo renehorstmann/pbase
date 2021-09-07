@@ -6,15 +6,28 @@ Base library for 3D stuff, like pointc, visu, ...
 - pbase
   - io
     - ply
-    - indices
-    - indiceslist?
-    - vector
-    - matrix
-    - (as .csv (comma seperated values))
+    - csv
+      - indices
+      - indiceslist?
+      - vector
+      - matrix
 - pointc
+  - uses flann
+  - does not use pcl
+    - normals
+    - sac
+    - icp
+    - mesh
 - visu
 - collisionc?
+  - capsule
+  - mesh - cloud? 
 - robotc?
+  - fk
+  - ik
+  - some robots
+  - cell?
+  - abb connection
 
 ## RHC
 based on my [rhc](https://github.com/renehorstmann/rhc) library.
