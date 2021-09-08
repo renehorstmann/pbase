@@ -5,6 +5,10 @@ Base library for 3D stuff, like pointc, visu, ...
 ## Todo
 - pbase
   - io
+    -ply load
+      - load arbitrarily elements
+      - all primitive types
+      - (pcl saves random bullshit as elements)
     - csv
       - indices
       - indiceslist?
