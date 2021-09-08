@@ -13,4 +13,7 @@ pError p_error();
  */
 pError p_error_set(pError error);
 
+/** calls assume(!p_error(), "%s", p_error()) to print the error message as assumption note */
+void p_error_check();
+
 #endif //PBASE_ERROR_H

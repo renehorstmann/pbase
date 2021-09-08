@@ -6,10 +6,16 @@ int main() {
     puts("start");
 
     pCloud points;
-    p_io_load_mesh_stl(&points, "test_io_stl_giraffebinary.stl");
+    pMeshIndices indices;
+    p_io_load_mesh_stl(&points, &indices, "test_io_stl_giraffebinary.stl");
+    puts("loaded");
 
-    pMeshIndices indices = p_mesh_indices_new_count_up(points.size/3);
-    p_io_save_mesh_stl(points, indices, "giraffe_ascii.stl", true);
+    p_io_save_mesh_ply(points, indices, "test_io_ascii.ply", true);
+    puts("saved_ascii");
+    p_error_check();
+    p_io_save_mesh_ply(points, indices, "test_io_binary.ply", false);
+    puts("saved_binary");
+    p_error_check();
 
     puts("fin");
 }

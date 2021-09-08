@@ -1,10 +1,5 @@
-#include "assert.h"
-#include "pbase/rhc/string.h"
-#include "pbase/rhc/str_parse.h"
-#include "pbase/rhc/file.h"
+#include "helper.h"
 #include "pbase/io/stl.h"
-#include "pbase/mathc/vec/vec3.h"
-#include "locale.h"
 
 #define TYPE vec4
 #define CLASS Vec4Arr
@@ -15,36 +10,6 @@
 // private
 //
 
-static vec3 triangle_normal(vec3 a, vec3 b, vec3 c) {
-    return vec3_normalize(vec3_cross(vec3_sub_vec(b, a), vec3_sub_vec(c, a)));
-}
-
-static void append_vec3(String *s, vec3 v) {
-    char buffer[128];
-    snprintf(buffer, 128, "%f %f %f", v.x, v.y, v.z);
-    string_append(s, strc(buffer));
-}
-
-static Str_s eat_vec3_ascii(Str_s s, vec3 *out_v) {
-    s = str_eat_float_ascii(s, &out_v->x);
-    s = str_eat_float_ascii(s, &out_v->y);
-    s = str_eat_float_ascii(s, &out_v->z);
-    return s;
-}
-
-static Str_s eat_vec3_le(Str_s s, vec3 *out_v) {
-    s = str_eat_float_binary_le(s, &out_v->x);
-    s = str_eat_float_binary_le(s, &out_v->y);
-    s = str_eat_float_binary_le(s, &out_v->z);
-    return s;
-}
-
-static Str_s feed_vec3_le(Str_s str, vec3 v) {
-    str = str_feed_float_binary_le(str, v.x);
-    str = str_feed_float_binary_le(str, v.y);
-    str = str_feed_float_binary_le(str, v.z);
-    return str;
-}
 
 static String generate_ascii(pCloud cloud, pMeshIndices indices) {
     if(!p_cloud_valid(cloud) || !p_mesh_indices_valid(indices))

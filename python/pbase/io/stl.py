@@ -43,4 +43,4 @@ def load_mesh_stl(file: str)\
     err = plib.p_io_load_mesh_stl(bb.ref(out_points), bb.ref(out_opt_indices), file.encode())
     if err is not None:
         raise RuntimeError(err.decode())
-    return t.cast_from_pCloud(out_points), t.cast_into_pMeshIndices(out_opt_indices)
+    return t.cast_from_pCloud(out_points), t.cast_from_pMeshIndices(out_opt_indices)
