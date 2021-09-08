@@ -20,6 +20,10 @@ pIndices_p = ct.POINTER(pIndices)
 plib.p_indices_kill.argtypes = [pIndices_p]
 
 
+def p_indices_valid(self: pIndices):
+    return self.data is not None and self.size > 0
+
+
 class NpIndices(np.ndarray):
     def __new__(cls, indices: pIndices):
         # create a numpy array from a ct pointer
@@ -43,6 +47,8 @@ class NpIndices(np.ndarray):
 
 
 def cast_from_pIndices(data: pIndices) -> NpIndices:
+    if not p_indices_valid(data):
+        raise RuntimeError("cast_from_pIndices failed, indices are not valid")
     return NpIndices(data)
 
 
@@ -59,7 +65,6 @@ def cast_into_pIndices_p(data: Optional[np.ndarray]) -> Optional[pIndices_p]:
     if data is None or data.size == 0:
         return None
     return ct.pointer(cast_into_pIndices(data))
-
 
 
 # /** Prints all indices to stdout */
@@ -179,7 +184,6 @@ def indices_concatenate_v(indices_list: List[np.ndarray]) \
     return cast_from_pIndices(res)
 
 
-
 # /** Applies indices on indices, so that all not used indices are removed */
 # pIndices p_indices_apply_indices(pIndices self, pIndices indices);
 plib.p_indices_apply_indices.argtypes = [pIndices,
@@ -188,7 +192,7 @@ plib.p_indices_apply_indices.restype = pIndices
 
 
 def indices_apply_indices(self: np.ndarray,
-                        indices: np.ndarray) \
+                          indices: np.ndarray) \
         -> np.ndarray:
     '''
     Applies indices on indices, so that all not used points are removed

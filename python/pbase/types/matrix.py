@@ -9,6 +9,7 @@ from .. import plib
 
 from .indices import *
 
+
 class pMatrix(ct.Structure):
     _fields_ = [
         ('data', bb.c_float_p),
@@ -20,6 +21,10 @@ class pMatrix(ct.Structure):
 pMatrix_p = ct.POINTER(pMatrix)
 
 plib.p_matrix_kill.argtypes = [pMatrix_p]
+
+
+def p_matrix_valid(self: pMatrix):
+    return self.data is not None and self.cols > 0 and self.rows > 0
 
 
 class NpMatrix(np.ndarray):
@@ -46,6 +51,8 @@ class NpMatrix(np.ndarray):
 
 
 def cast_from_pMatrix(data: pMatrix) -> NpMatrix:
+    if not p_matrix_valid(data):
+        raise RuntimeError("cast_from_pMatrix failed, matrix is not valid")
     return NpMatrix(data)
 
 

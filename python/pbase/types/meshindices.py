@@ -22,6 +22,10 @@ pMeshIndices_p = ct.POINTER(pMeshIndices)
 plib.p_mesh_indices_kill.argtypes = [pMeshIndices_p]
 
 
+def p_mesh_indices_valid(self: pMeshIndices):
+    return self.data is not None and self.size > 0
+
+
 class NpMeshIndices(np.ndarray):
     def __new__(cls, mesh_indices: pMeshIndices):
         shape = mesh_indices.size, 3
@@ -46,6 +50,8 @@ class NpMeshIndices(np.ndarray):
 
 
 def cast_from_pMeshIndices(data: pMeshIndices) -> NpMeshIndices:
+    if not p_mesh_indices_valid(data):
+        raise RuntimeError("cast_from_pMeshIndices failed, mesh_indices are not valid")
     return NpMeshIndices(data)
 
 

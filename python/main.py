@@ -11,4 +11,5 @@ if __name__ == '__main__':
 
     p.io.save_mesh_ply(points, indices, 'test.ply', False)
 
+
     print('fin')

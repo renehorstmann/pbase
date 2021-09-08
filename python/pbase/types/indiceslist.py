@@ -21,6 +21,11 @@ pIndicesList_p = ct.POINTER(pIndicesList)
 
 plib.p_indices_list_kill.argtypes = [pIndicesList_p]
 
+
+def p_indices_list_valid(self: pIndicesList):
+    return self.data is not None and self.size > 0
+
+
 class IndicesList:
     def __init__(self, indices_list):
         self._indices_list = indices_list
@@ -41,8 +46,9 @@ class IndicesList:
         return [self.get(i).copy() for i in range(self.size())]
 
 
-
 def cast_from_pIndicesList(data: pIndicesList) -> IndicesList:
+    if not p_indices_list_valid(data):
+        raise RuntimeError("cast_from_pIndicesList failed, indices_list is not valid")
     return IndicesList(data)
 
 
@@ -67,4 +73,3 @@ def cast_into_pIndicesList_p(indices_list: Union[List[np.ndarray], IndicesList])
     if len(indices_list) == 0:
         return None
     return ct.pointer(cast_into_pIndicesList(indices_list))
-

@@ -15,8 +15,7 @@ from . import log
 from . import math
 from . import error
 from . import meshprimitives
-
-from .types import *
+from . import types
 from . import io
 
 # pure python

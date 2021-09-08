@@ -9,6 +9,7 @@ from .. import plib
 
 from .indices import *
 
+
 class pVector(ct.Structure):
     _fields_ = [
         ('data', bb.c_float_p),
@@ -19,6 +20,10 @@ class pVector(ct.Structure):
 pVector_p = ct.POINTER(pVector)
 
 plib.p_vector_kill.argtypes = [pVector_p]
+
+
+def p_vector_valid(self: pVector):
+    return self.data is not None and self.size > 0
 
 
 class NpVector(np.ndarray):
@@ -44,6 +49,8 @@ class NpVector(np.ndarray):
 
 
 def cast_from_pVector(data: pVector) -> NpVector:
+    if not p_vector_valid(data):
+        raise RuntimeError("cast_from_pVector failed, vector is not valid")
     return NpVector(data)
 
 

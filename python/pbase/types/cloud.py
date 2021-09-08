@@ -9,6 +9,7 @@ from .. import plib
 
 from .indices import *
 
+
 class pCloud(ct.Structure):
     _fields_ = [
         ('data', mathctypes.vec4_p),
@@ -19,6 +20,10 @@ class pCloud(ct.Structure):
 pCloud_p = ct.POINTER(pCloud)
 
 plib.p_cloud_kill.argtypes = [pCloud_p]
+
+
+def p_cloud_valid(self: pCloud):
+    return self.data is not None and self.size > 0
 
 
 class NpCloud(np.ndarray):
@@ -45,6 +50,8 @@ class NpCloud(np.ndarray):
 
 
 def cast_from_pCloud(data: pCloud) -> NpCloud:
+    if not p_cloud_valid(data):
+        raise RuntimeError("cast_from_pCloud failed, cloud is not valid")
     return NpCloud(data)
 
 
