@@ -4,8 +4,11 @@ Base library for 3D stuff, like pointc, visu, ...
 
 ## Todo
 - pbase
+  - (mesh_)indices_get_max
   - io
-    -ply load
+    - ply save
+      - alpha
+    - ply load
       - load arbitrarily elements
       - all primitive types
       - (pcl saves random bullshit as elements)
