@@ -7,15 +7,16 @@ int main() {
 
     pCloud points;
     pMeshIndices indices;
-    p_io_load_mesh_stl(&points, &indices, "test_io_stl_giraffebinary.stl");
+    p_io_load_mesh_ply(&points, &indices, "test_io_ply_cubebinary.ply");
+    p_error_check();
     puts("loaded");
 
     p_io_save_mesh_ply(points, indices, "test_io_ascii.ply", true);
+    p_error_check();
     puts("saved_ascii");
-    p_error_check();
     p_io_save_mesh_ply(points, indices, "test_io_binary.ply", false);
-    puts("saved_binary");
     p_error_check();
+    puts("saved_binary");
 
     puts("fin");
 }

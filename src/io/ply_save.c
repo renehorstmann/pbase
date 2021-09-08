@@ -1,6 +1,9 @@
 #include "helper.h"
 #include "pbase/io/ply.h"
 
+//
+// private
+//
 
 static bool check_clouds_valid(pCloud points, pCloud normals, pCloud colors) {
     if(p_cloud_valid(points) && p_cloud_valid(normals) && points.size != normals.size) {
@@ -91,6 +94,9 @@ static String generate_header(pCloud points, pCloud normals, pCloud colors, pMes
 
 static String generate_ascii(pCloud points, pCloud normals, pCloud colors, pMeshIndices indices,
                       const pIoPlyComments opt_comments) {
+    // to print in C style (3.14, instead of 3,14 on some machines)
+    setlocale(LC_ALL, "C");
+
     String data = generate_header(points, normals, colors, indices, true, opt_comments);
     String *s = &data;
 
@@ -169,6 +175,10 @@ static String generate_binary(pCloud points, pCloud normals, pCloud colors, pMes
     return header;
 }
 
+
+//
+// public
+//
 
 pError p_io_save_ply(pCloud points, pCloud normals, pCloud colors, pMeshIndices indices,
                      const char *file, bool ascii, const pIoPlyComments opt_comments) {
