@@ -159,4 +159,12 @@ static Str_s feed_ucvec3_le(Str_s str, ucvec3 v) {
     return str;
 }
 
+static Str_s feed_ucvec4_le(Str_s str, ucvec4 v) {
+    str = str_feed_uint8_binary_le(str, v.x);
+    str = str_feed_uint8_binary_le(str, v.y);
+    str = str_feed_uint8_binary_le(str, v.z);
+    str = str_feed_uint8_binary_le(str, v.w);
+    return str;
+}
+
 #endif //PBASE_IO_HELPER_H

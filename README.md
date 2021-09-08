@@ -6,8 +6,6 @@ Base library for 3D stuff, like pointc, visu, ...
 - pbase
   - (mesh_)indices_get_max
   - io
-    - ply save
-      - alpha
     - ply load
       - load arbitrarily elements
       - all primitive types
