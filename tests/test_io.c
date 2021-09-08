@@ -42,7 +42,8 @@ static void stl() {
 
 
     pCloud load_points;
-    p_io_load_mesh_stl(&load_points, "test_io_ascii.stl");
+    pMeshIndices load_indices;
+    p_io_load_mesh_stl(&load_points, &load_indices, "test_io_ascii.stl");
     if(p_error()) {
         printf("p_io_load_mesh_stl ascii failed, %s", p_error());
         exit(1);
@@ -52,8 +53,9 @@ static void stl() {
         exit(1);
     }
     p_cloud_kill(&load_points);
+    p_mesh_indices_kill(&load_indices);
 
-    p_io_load_mesh_stl(&load_points, "test_io_binary.stl");
+    p_io_load_mesh_stl(&load_points, &load_indices, "test_io_binary.stl");
     if(p_error()) {
         printf("p_io_load_mesh_stl binary failed, %s", p_error());
         exit(1);
@@ -63,9 +65,7 @@ static void stl() {
         exit(1);
     }
     p_cloud_kill(&load_points);
-
-
-
+    p_mesh_indices_kill(&load_indices);
 }
 
 int main() {
