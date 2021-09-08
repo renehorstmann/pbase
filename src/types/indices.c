@@ -140,3 +140,21 @@ pIndices p_indices_apply_indices(pIndices self, pIndices indices) {
     }
     return ret;
 }
+
+int p_indices_min(pIndices self) {
+    int min = INT_MAX;
+    for(size_t i=0; i<self.size; i++) {
+        if(min > self.data[i])
+            min = self.data[i];
+    }
+    return min;
+}
+
+int p_indices_max(pIndices self) {
+    int max = INT_MAX;
+    for(size_t i=0; i<self.size; i++) {
+        if(max < self.data[i])
+            max = self.data[i];
+    }
+    return max;
+}

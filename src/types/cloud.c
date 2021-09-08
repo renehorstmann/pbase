@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <string.h>
+#include <float.h>
 
 #include "pbase/rhc/allocator.h"
 #include "pbase/mathc/sca/int.h"
+#include "pbase/mathc/vec/vec4.h"
 #include "pbase/types/cloud.h"
 
 
@@ -75,4 +77,26 @@ pCloud p_cloud_apply_indices(pCloud self, pIndices indices) {
         ret.data[i] = self.data[index];
     }
     return ret;
+}
+
+vec4 p_cloud_min(pCloud self) {
+    vec4 min = vec4_set(FLT_MAX);
+    for(size_t i=0; i<self.size; i++) {
+        for(int xyzw=0; xyzw<4; xyzw++) {
+            if(min.v[xyzw] > self.data[i].v[xyzw])
+                min.v[xyzw] = self.data[i].v[xyzw];
+        }
+    }
+    return min;
+}
+
+vec4 p_cloud_max(pCloud self) {
+    vec4 max = vec4_set(-FLT_MAX);
+    for(size_t i=0; i<self.size; i++) {
+        for(int xyzw=0; xyzw<4; xyzw++) {
+            if(max.v[xyzw] < self.data[i].v[xyzw])
+                max.v[xyzw] = self.data[i].v[xyzw];
+        }
+    }
+    return max;
 }

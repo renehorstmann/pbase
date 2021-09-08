@@ -202,3 +202,36 @@ def indices_apply_indices(self: np.ndarray,
     res = plib.p_indices_apply_indices(cast_into_pIndices(self),
                                        cast_into_pIndices(indices))
     return cast_from_pIndices(res)
+
+
+# /** returns the smallest index */
+# int p_indices_min(pIndices self);
+plib.p_indices_min.argtypes = [pIndices]
+plib.p_indices_min.restype = bb.c_int
+
+
+def indices_min(self: np.ndarray) \
+        -> int:
+    '''
+    returns the smallest index
+
+    :return: int
+    '''
+    res = plib.p_indices_min(cast_into_pIndices(self))
+    return res.value
+
+# /** returns the biggest index */
+# int p_indices_max(pIndices self);
+plib.p_indices_max.argtypes = [pIndices]
+plib.p_indices_max.restype = bb.c_int
+
+
+def indices_max(self: np.ndarray) \
+        -> int:
+    '''
+    returns the biggest index
+
+    :return: int
+    '''
+    res = plib.p_indices_max(cast_into_pIndices(self))
+    return res.value

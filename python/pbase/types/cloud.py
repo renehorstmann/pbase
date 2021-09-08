@@ -147,3 +147,37 @@ def cloud_apply_indices(self: np.ndarray,
     res = plib.p_cloud_apply_indices(cast_into_pCloud(self),
                                      cast_into_pIndices(indices))
     return cast_from_pCloud(res)
+
+
+# /** Returns the minimum values for x, y, z, w */
+# vec4 p_cloud_min(pCloud self);
+plib.p_cloud_min.argtypes = [pCloud]
+plib.p_cloud_min.restype = mathctypes.vec4
+
+
+def cloud_min(self: np.ndarray) \
+        -> np.ndarray:
+    '''
+    Returns the minimum values for x, y, z, w
+
+    :return: vec4
+    '''
+    res = plib.p_cloud_min(cast_into_pCloud(self))
+    return mathctypes.cast_from_vec4(res)
+
+
+# /** Returns the maximum values for x, y, z, w */
+# vec4 p_cloud_max(pCloud self);
+plib.p_cloud_max.argtypes = [pCloud]
+plib.p_cloud_max.restype = mathctypes.vec4
+
+
+def cloud_max(self: np.ndarray) \
+        -> np.ndarray:
+    '''
+    Returns the maximum values for x, y, z, w
+
+    :return: vec4
+    '''
+    res = plib.p_cloud_max(cast_into_pCloud(self))
+    return mathctypes.cast_from_vec4(res)

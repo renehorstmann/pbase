@@ -3,6 +3,7 @@
 
 #include "pbase/rhc/allocator.h"
 #include "pbase/mathc/sca/int.h"
+#include "pbase/mathc/vec/ivec3.h"
 #include "pbase/types/meshindices.h"
 
 
@@ -82,3 +83,27 @@ pMeshIndices p_mesh_indices_apply_indices(pMeshIndices self, pIndices indices) {
     }
     return ret;
 }
+
+
+ivec3 p_mesh_indices_min(pMeshIndices self) {
+    ivec3 min = ivec3_set(INT_MAX);
+    for(size_t i=0; i<self.size; i++) {
+        for(int abc=0; abc < 3; abc++) {
+            if(min.v[abc] > self.data[i].v[abc])
+                min.v[abc] = self.data[i].v[abc];
+        }
+    }
+    return min;
+}
+
+ivec3 p_mesh_indices_max(pMeshIndices self) {
+    ivec3 max = ivec3_set(INT_MIN);
+    for(size_t i=0; i<self.size; i++) {
+        for(int abc=0; abc < 3; abc++) {
+            if(max.v[abc] < self.data[i].v[abc])
+                max.v[abc] = self.data[i].v[abc];
+        }
+    }
+    return max;
+}
+

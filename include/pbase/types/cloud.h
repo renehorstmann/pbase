@@ -51,4 +51,10 @@ pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n);
 /** Applies indices on cloud, so that all not used points are removed */
 pCloud p_cloud_apply_indices(pCloud self, pIndices indices);
 
+/** Returns the minimum values for x, y, z, w */
+vec4 p_cloud_min(pCloud self);
+
+/** Returns the maximum values for x, y, z, w */
+vec4 p_cloud_max(pCloud self);
+
 #endif //PBASE_TYPES_CLOUD_H

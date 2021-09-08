@@ -64,5 +64,10 @@ pIndices p_indices_concatenate_v(const pIndices *indices_list, int n);
 /** Applies indices on indices, so that all not used indices are removed */
 pIndices p_indices_apply_indices(pIndices self, pIndices indices);
 
+/** returns the smallest index */
+int p_indices_min(pIndices self);
+
+/** returns the biggest index */
+int p_indices_max(pIndices self);
 
 #endif //PBASE_TYPES_INDICES_H

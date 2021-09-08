@@ -161,3 +161,37 @@ def mesh_indices_apply_indices(self: np.ndarray,
     res = plib.p_mesh_indices_apply_indices(cast_into_pMeshIndices(self),
                                             cast_into_pIndices(indices))
     return cast_from_pMeshIndices(res)
+
+
+# /** Returns the minimum values for v0, v1, v2 */
+# ivec3 p_mesh_indices_min(pMeshIndices self);
+plib.p_mesh_indices_min.argtypes = [pMeshIndices]
+plib.p_mesh_indices_min.restype = mathctypes.ivec3
+
+
+def mesh_indices_min(self: np.ndarray) \
+        -> np.ndarray:
+    '''
+    Returns the minimum values for v0, v1, v2
+
+    :return: ivec3
+    '''
+    res = plib.p_mesh_indices_min(cast_into_pMeshIndices(self))
+    return mathctypes.cast_from_ivec3(res)
+
+
+# /** Returns the maximum values for v0, v1, v2 */
+# ivec3 p_mesh_indices_max(pMeshIndices self);
+plib.p_mesh_indices_max.argtypes = [pMeshIndices]
+plib.p_mesh_indices_max.restype = mathctypes.ivec3
+
+
+def mesh_indices_max(self: np.ndarray) \
+        -> np.ndarray:
+    '''
+    Returns the maximum values for v0, v1, v2
+
+    :return: ivec3
+    '''
+    res = plib.p_mesh_indices_max(cast_into_pMeshIndices(self))
+    return mathctypes.cast_from_ivec3(res)

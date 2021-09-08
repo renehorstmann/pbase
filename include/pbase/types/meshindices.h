@@ -53,5 +53,10 @@ pMeshIndices p_mesh_indices_concatenate_v(const pMeshIndices *mesh_indices_list,
 /** Applies indices on a self, so that all not used triangles are removed */
 pMeshIndices p_mesh_indices_apply_indices(pMeshIndices self, pIndices indices);
 
+/** Returns the minimum values for v0, v1, v2 */
+ivec3 p_mesh_indices_min(pMeshIndices self);
+
+/** Returns the maximum values for v0, v1, v2 */
+ivec3 p_mesh_indices_max(pMeshIndices self);
 
 #endif //PBASE_TYPES_MESHINDICES_H
