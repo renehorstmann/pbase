@@ -4,7 +4,8 @@ Base library for 3D stuff, like pointc, visu, ...
 
 ## Todo
 - pbase
-  - (mesh_)indices_get_max
+  - int for type sizes, size_t for byte size
+    - intmax will be big enough, indices are also int based
   - io
     - ply load
       - load arbitrarily elements
