@@ -16,7 +16,7 @@ static String generate_ascii(pCloud cloud, pMeshIndices indices) {
     String *s = &data;
 
     string_append(s, strc("solid pbase_io_stl (Meshed)\n"));
-    for(size_t t=0; t<indices.size; t++) {
+    for(int t=0; t<indices.size; t++) {
         string_append(s, strc("  facet normal "));
         vec3 a = cloud.data[indices.data[t].v0].xyz;
         vec3 b = cloud.data[indices.data[t].v1].xyz;
@@ -55,7 +55,7 @@ static String generate_binary(pCloud cloud, pMeshIndices indices) {
     // stl is little endian
     s = str_feed_uint32_binary_le(s, indices.size);
 
-    for(size_t t=0; t<indices.size; t++) {
+    for(int t=0; t<indices.size; t++) {
         vec3 a = cloud.data[indices.data[t].v0].xyz;
         vec3 b = cloud.data[indices.data[t].v1].xyz;
         vec3 c = cloud.data[indices.data[t].v2].xyz;
@@ -78,6 +78,10 @@ static String generate_binary(pCloud cloud, pMeshIndices indices) {
 //
 
 pError p_io_save_mesh_stl(pCloud points, pMeshIndices indices, const char *file, bool ascii) {
+    if(!str_ends_with(strc(file), strc(".stl")) && !str_ends_with(strc(file), strc(".STL"))) {
+        log_warn("p_io_save_mesh_stl: file does not end with .ply: %s", file);
+    }
+
     String data;
     if(ascii)
         data = generate_ascii(points, indices);

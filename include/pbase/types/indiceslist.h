@@ -1,7 +1,6 @@
 #ifndef PBASE_TYPES_INDICESLIST_H
 #define PBASE_TYPES_INDICESLIST_H
 
-#include <stddef.h> // size_t
 #include <stdbool.h>
 #include "indices.h"
 
@@ -11,7 +10,7 @@
  */
 typedef struct {
     pIndices *list;
-    size_t size;
+    int size;
 } pIndicesList;
 
 /** Returns true if the indices list is in a valid state */
@@ -25,7 +24,7 @@ static pIndicesList p_indices_list_new_invalid() {
 }
 
 /** Creates a new IndicesList structure with empty (to zero) PcIndices structs */
-pIndicesList p_indices_list_new(size_t size);
+pIndicesList p_indices_list_new(int size);
 
 /** Frees a IndicesList structure */
 void p_indices_list_kill(pIndicesList *self);

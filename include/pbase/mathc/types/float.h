@@ -18,7 +18,7 @@ typedef union {
         float r, g;
     };
 } vec2;
-static_assert(sizeof(vec2) == sizeof(float) * 2, "[Mathc] wrong expected size");
+static_assert(sizeof(vec2) == sizeof(float) * 2, "[Mathc] wrong expected num");
 
 /** casts a float * to a dereferenced vec2 */
 #define Vec2(vec) (*(vec2 *) (vec))
@@ -40,7 +40,7 @@ typedef union {
         float m10, m11;
     };
 } mat2;
-static_assert(sizeof(mat2) == sizeof(float) * 4, "[Mathc] wrong expected size");
+static_assert(sizeof(mat2) == sizeof(float) * 4, "[Mathc] wrong expected num");
 
 /** casts a float * to a dereferenced mat2 */
 #define Mat2(mat) (*(mat2 *) (mat))
@@ -74,7 +74,7 @@ typedef union {
         };
     };
 } vec3;
-static_assert(sizeof(vec3) == sizeof(float) * 3, "[Mathc] wrong expected size");
+static_assert(sizeof(vec3) == sizeof(float) * 3, "[Mathc] wrong expected num");
 
 /** casts a float * to a dereferenced vec3 */
 #define Vec3(vec) (*(vec3 *) (vec))
@@ -98,7 +98,7 @@ typedef union {
         float m20, m21, m22;
     };
 } mat3;
-static_assert(sizeof(mat3) == sizeof(float) * 9, "[Mathc] wrong expected size");
+static_assert(sizeof(mat3) == sizeof(float) * 9, "[Mathc] wrong expected num");
 
 /** casts a float * to a dereferenced mat3 */
 #define Mat3(mat) (*(mat3 *) (mat))
@@ -149,7 +149,7 @@ typedef union {
         };
     };
 } vec4;
-static_assert(sizeof(vec4) == sizeof(float) * 4, "[Mathc] wrong expected size");
+static_assert(sizeof(vec4) == sizeof(float) * 4, "[Mathc] wrong expected num");
 
 /** casts a float * to a dereferenced vec4 */
 #define Vec4(vec) (*(vec4 *) (vec))
@@ -175,7 +175,7 @@ typedef union {
         float m30, m31, m32, m33;
     };
 } mat4;
-static_assert(sizeof(mat4) == sizeof(float) * 16, "[Mathc] wrong expected size");
+static_assert(sizeof(mat4) == sizeof(float) * 16, "[Mathc] wrong expected num");
 
 /** casts a float * to a dereferenced mat4 */
 #define Mat4(mat) (*(mat4 *) (mat))

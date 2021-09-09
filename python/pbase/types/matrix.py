@@ -13,8 +13,8 @@ from .indices import *
 class pMatrix(ct.Structure):
     _fields_ = [
         ('data', bb.c_float_p),
-        ('cols', bb.c_size_t),
-        ('rows', bb.c_size_t)
+        ('cols', bb.c_int),
+        ('rows', bb.c_int)
     ]
 
 

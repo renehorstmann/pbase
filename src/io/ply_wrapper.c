@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include "pbase/rhc/log.h"
 #include "pbase/io/ply.h"
 

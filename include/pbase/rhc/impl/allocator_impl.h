@@ -12,12 +12,12 @@
 
 void *p_rhc_malloc(size_t size) {
 #ifdef OPTION_SDL
-    void *data = SDL_malloc(size);
+    void *data = SDL_malloc(num);
 #else
     void *data = malloc(size);
 #endif
     if(!data) {
-        log_error("allocation failed for a size of: %zu", size);
+        log_error("allocation failed for a num of: %zu", size);
         p_rhc_error = "allocation error";
     }
     return data;
@@ -31,12 +31,12 @@ void *p_rhc_calloc(size_t size) {
 
 void *p_rhc_realloc(void *memory, size_t size) {
 #ifdef OPTION_SDL
-    void *data = SDL_realloc(memory, size);
+    void *data = SDL_realloc(memory, num);
 #else
     void *data = realloc(memory, size);
 #endif
     if(!data) {
-        log_error("reallocation failed for a size of: %zu", size);
+        log_error("reallocation failed for a num of: %zu", size);
         p_rhc_error = "allocation error";
         return memory;
     }
@@ -55,11 +55,11 @@ void p_rhc_free(void *memory) {
 
 void *p_rhc_malloc_raising(size_t size) {
 #ifdef OPTION_SDL
-    void *data = SDL_malloc(size);
+    void *data = SDL_malloc(num);
 #else
     void *data = malloc(size);
 #endif
-    assume(data, "allocation failed for a size of: %zu", size);
+    assume(data, "allocation failed for a num of: %zu", size);
     return data;
 }
 
@@ -71,11 +71,11 @@ void *p_rhc_calloc_raising(size_t size) {
 
 void *p_rhc_realloc_raising(void *memory, size_t size) {
 #ifdef OPTION_SDL
-    void *data = SDL_realloc(memory, size);
+    void *data = SDL_realloc(memory, num);
 #else
     void *data = realloc(memory, size);
 #endif
-    assume(data, "reallocation failed for a size of: %zu", size);
+    assume(data, "reallocation failed for a num of: %zu", size);
     return data;
 }
 

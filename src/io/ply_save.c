@@ -18,8 +18,8 @@ static bool check_clouds_valid(pCloud points, pCloud normals, pCloud colors) {
     return true;
 }
 
-static size_t get_vertex_size(pCloud points, pCloud normals, pCloud colors) {
-    size_t vertex_size = 0;
+static int get_vertex_size(pCloud points, pCloud normals, pCloud colors) {
+    int vertex_size = 0;
     if (p_cloud_valid(points))
         vertex_size = points.size;
     else if (p_cloud_valid(normals))
@@ -57,10 +57,10 @@ static String generate_header(pCloud points, pCloud normals, pCloud colors, pMes
         }
     }
 
-    size_t vertex_size = get_vertex_size(points, normals, colors);
+    int vertex_size = get_vertex_size(points, normals, colors);
     if (vertex_size > 0) {
         char buf[32];
-        snprintf(buf, 32, "%zu", vertex_size);
+        snprintf(buf, 32, "%i", vertex_size);
         string_append(s, strc("element vertex "));
         string_append(s, strc(buf));
         string_push(s, '\n');
@@ -80,7 +80,7 @@ static String generate_header(pCloud points, pCloud normals, pCloud colors, pMes
 
     if (p_mesh_indices_valid(indices)) {
         char buf[32];
-        snprintf(buf, 32, "%zu", indices.size);
+        snprintf(buf, 32, "%i", indices.size);
         string_append(s, strc("element face "));
         string_append(s, strc(buf));
         string_push(s, '\n');
@@ -102,8 +102,8 @@ static String generate_ascii(pCloud points, pCloud normals, pCloud colors, pMesh
     String data = generate_header(points, normals, colors, indices, true, color_alpha, opt_comments);
     String *s = &data;
 
-    size_t vertex_size = get_vertex_size(points, normals, colors);
-    for (size_t i = 0; i < vertex_size; i++) {
+    int vertex_size = get_vertex_size(points, normals, colors);
+    for (int i = 0; i < vertex_size; i++) {
         char buf[256];
         if (p_cloud_valid(points)) {
             snprintf(buf, 256, "%f %f %f ", points.data[i].x, points.data[i].y, points.data[i].z);
@@ -124,7 +124,7 @@ static String generate_ascii(pCloud points, pCloud normals, pCloud colors, pMesh
         string_push(s, '\n');
     }
 
-    for (size_t i = 0; i < indices.size; i++) {
+    for (int i = 0; i < indices.size; i++) {
         char buf[256];
         snprintf(buf, 256, "3 %i %i %i\n", indices.data[i].v0, indices.data[i].v1, indices.data[i].v2);
         string_append(s, strc(buf));
@@ -139,7 +139,7 @@ static String generate_binary(pCloud points, pCloud normals, pCloud colors, pMes
 
     size_t data_size = 0;
 
-    size_t vertex_size = get_vertex_size(points, normals, colors);
+    int vertex_size = get_vertex_size(points, normals, colors);
     if (p_cloud_valid(points))
         data_size += vertex_size * (3 * 4); // vec3
     if (p_cloud_valid(normals))
@@ -153,7 +153,7 @@ static String generate_binary(pCloud points, pCloud normals, pCloud colors, pMes
     data.size = data_size;
     Str_s s = data.str;
 
-    for (size_t i = 0; i < vertex_size; i++) {
+    for (int i = 0; i < vertex_size; i++) {
         if (p_cloud_valid(points)) {
             s = feed_vec3_le(s, points.data[i].xyz);
         }
@@ -169,7 +169,7 @@ static String generate_binary(pCloud points, pCloud normals, pCloud colors, pMes
         }
     }
 
-    for (size_t i = 0; i < indices.size; i++) {
+    for (int i = 0; i < indices.size; i++) {
         s = str_feed_uint8_binary_le(s, 3);
         s = feed_ivec3_le(s, indices.data[i]);
     }
@@ -190,6 +190,9 @@ static String generate_binary(pCloud points, pCloud normals, pCloud colors, pMes
 
 pError p_io_save_ply(pCloud points, pCloud normals, pCloud colors, pMeshIndices indices,
                      const char *file, bool ascii, const pIoPlyComments opt_comments) {
+    if(!str_ends_with(strc(file), strc(".ply")) && !str_ends_with(strc(file), strc(".PLY"))) {
+        log_warn("p_io_save_ply: file does not end with .ply: %s", file);
+    }
 
     if (!check_clouds_valid(points, normals, colors)) {
         log_error("p_io_save_ply failed to generate file");

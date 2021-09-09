@@ -18,7 +18,7 @@ typedef union {
         signed char r, g;
     };
 } cvec2;
-static_assert(sizeof(cvec2) == sizeof(signed char) * 2, "[Mathc] wrong expected size");
+static_assert(sizeof(cvec2) == sizeof(signed char) * 2, "[Mathc] wrong expected num");
 
 /** casts a signed char * to a dereferenced cvec2 */
 #define CVec2(vec) (*(cvec2 *) (vec))
@@ -40,7 +40,7 @@ typedef union {
         signed char m10, m11;
     };
 } cmat2;
-static_assert(sizeof(cmat2) == sizeof(signed char) * 4, "[Mathc] wrong expected size");
+static_assert(sizeof(cmat2) == sizeof(signed char) * 4, "[Mathc] wrong expected num");
 
 /** casts a signed char * to a dereferenced cmat2 */
 #define CMat2(mat) (*(cmat2 *) (mat))
@@ -74,7 +74,7 @@ typedef union {
         };
     };
 } cvec3;
-static_assert(sizeof(cvec3) == sizeof(signed char) * 3, "[Mathc] wrong expected size");
+static_assert(sizeof(cvec3) == sizeof(signed char) * 3, "[Mathc] wrong expected num");
 
 /** casts a signed char * to a dereferenced cvec3 */
 #define CVec3(vec) (*(cvec3 *) (vec))
@@ -98,7 +98,7 @@ typedef union {
         signed char m20, m21, m22;
     };
 } cmat3;
-static_assert(sizeof(cmat3) == sizeof(signed char) * 9, "[Mathc] wrong expected size");
+static_assert(sizeof(cmat3) == sizeof(signed char) * 9, "[Mathc] wrong expected num");
 
 /** casts a signed char * to a dereferenced cmat3 */
 #define CMat3(mat) (*(cmat3 *) (mat))
@@ -149,7 +149,7 @@ typedef union {
         };
     };
 } cvec4;
-static_assert(sizeof(cvec4) == sizeof(signed char) * 4, "[Mathc] wrong expected size");
+static_assert(sizeof(cvec4) == sizeof(signed char) * 4, "[Mathc] wrong expected num");
 
 /** casts a signed char * to a dereferenced cvec4 */
 #define CVec4(vec) (*(cvec4 *) (vec))
@@ -175,7 +175,7 @@ typedef union {
         signed char m30, m31, m32, m33;
     };
 } cmat4;
-static_assert(sizeof(cmat4) == sizeof(signed char) * 16, "[Mathc] wrong expected size");
+static_assert(sizeof(cmat4) == sizeof(signed char) * 16, "[Mathc] wrong expected num");
 
 /** casts a signed char * to a dereferenced cmat4 */
 #define CMat4(mat) (*(cmat4 *) (mat))

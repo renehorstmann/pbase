@@ -44,7 +44,7 @@
 //
 // Foo foo = foo_new(&foo, 32);   // start_capacity
 // foo_push(&foo, 7);             // push the int 7 into the array
-// printf("foo.array[0]=%d ; foo.size=%d", foo.array[0], foo.size);
+// printf("foo.array[0]=%d ; foo.num=%d", foo.array[0], foo.num);
 // foo_kill(&foo);
 
 
@@ -147,7 +147,7 @@ static void P_RHC_NAME_CONCAT2(FN_NAME, _set_capacity)(CLASS *self, size_t capac
         self->size = capacity;
 }
 
-// void foo_resize(Foo *self, size_t size)
+// void foo_resize(Foo *self, size_t num)
 static void P_RHC_NAME_CONCAT2(FN_NAME, _resize)(CLASS *self, size_t size) {
     if(size > self->capacity) {
         // _set_capacity
@@ -187,9 +187,9 @@ static void P_RHC_NAME_CONCAT2(FN_NAME, _push)(CLASS *self, TYPE push) {
 
 // TYPE foo_pop(Foo *self)
 static TYPE P_RHC_NAME_CONCAT2(FN_NAME, _pop)(CLASS *self) {
-    // !valid || self->size <= 0
+    // !valid || self->num <= 0
     if(!P_RHC_NAME_CONCAT2(FN_NAME, _valid)(*self) || self->size <= 0) {
-        log_error(P_RHC_TO_STRING2(FN_NAME) "_pop failed: invalid or size = 0");
+        log_error(P_RHC_TO_STRING2(FN_NAME) "_pop failed: invalid or num = 0");
         return (TYPE) {0};
     }
     TYPE ret = self->array[self->size-1];

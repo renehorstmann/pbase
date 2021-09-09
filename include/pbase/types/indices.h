@@ -1,7 +1,6 @@
 #ifndef PBASE_TYPES_INDICES_H
 #define PBASE_TYPES_INDICES_H
 
-#include <stddef.h> // size_t
 #include <stdbool.h>
 
 /**
@@ -9,7 +8,7 @@
  */
 typedef struct {
     int *restrict data;
-    size_t size;
+    int size;
 } pIndices;
 
 /** Returns true if the indices is in a valid state */
@@ -23,10 +22,10 @@ static pIndices p_indices_new_invalid() {
 }
 
 /** Creates a new Indices structure with empty data (malloc) */
-pIndices p_indices_new_empty(size_t size);
+pIndices p_indices_new_empty(int size);
 
 /** Creates a new Indices structure with all zeros (calloc) */
-pIndices p_indices_new_zeros(size_t size);
+pIndices p_indices_new_zeros(int size);
 
 /** Creates a range as Indices */
 pIndices p_indices_new_range(int start, int end, int step);

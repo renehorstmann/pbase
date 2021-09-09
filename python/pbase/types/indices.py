@@ -11,7 +11,7 @@ from .. import plib
 class pIndices(ct.Structure):
     _fields_ = [
         ('data', bb.c_int_p),
-        ('size', bb.c_size_t)
+        ('size', bb.c_int)
     ]
 
 

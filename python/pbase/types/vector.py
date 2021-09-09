@@ -13,7 +13,7 @@ from .indices import *
 class pVector(ct.Structure):
     _fields_ = [
         ('data', bb.c_float_p),
-        ('size', bb.c_size_t)
+        ('size', bb.c_int)
     ]
 
 

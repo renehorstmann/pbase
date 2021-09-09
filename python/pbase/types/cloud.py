@@ -13,7 +13,7 @@ from .indices import *
 class pCloud(ct.Structure):
     _fields_ = [
         ('data', mathctypes.vec4_p),
-        ('size', bb.c_size_t)
+        ('size', bb.c_int)
     ]
 
 

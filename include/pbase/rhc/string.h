@@ -105,7 +105,7 @@ static String string_new_cat(Str_s *strs, int n) {
     return string_new_cat_a(strs, n, P_RHC_STRING_DEFAULT_ALLOCATOR);
 }
 
-// size is the sum of characters, not including termination null (as strlen)
+// num is the sum of characters, not including termination null (as strlen)
 static void string_set_capacity(String *self, size_t capacity) {
     if(!string_valid(*self))
         return;
@@ -120,7 +120,7 @@ static void string_set_capacity(String *self, size_t capacity) {
     memset(&self->data[self->size], 0, self->capacity + 1 - self->size);
 }
 
-// size is the sum of characters, not including termination null (as strlen)
+// num is the sum of characters, not including termination null (as strlen)
 static void string_resize(String *self, size_t size) {
     if(size > self->capacity) {
         string_set_capacity(self, size * 2);

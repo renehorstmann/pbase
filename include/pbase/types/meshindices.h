@@ -2,7 +2,6 @@
 #define PBASE_TYPES_MESHINDICES_H
 
 
-#include <stddef.h> // size_t
 #include <stdbool.h>
 #include "pbase/mathc/types/int.h"
 #include "indices.h"
@@ -12,7 +11,7 @@
  */
 typedef struct {
     ivec3 *restrict data;
-    size_t size;
+    int size;
 } pMeshIndices;
 
 /** Returns true if the mesh indices are in a valid state */
@@ -26,13 +25,13 @@ static pMeshIndices p_mesh_indices_new_invalid() {
 }
 
 /** Creates a new MeshIndices structure with empty data (malloc) */
-pMeshIndices p_mesh_indices_new_empty(size_t size);
+pMeshIndices p_mesh_indices_new_empty(int size);
 
 /** Creates a new MeshIndices structure with all zeros (calloc) */
-pMeshIndices p_mesh_indices_new_zeros(size_t size);
+pMeshIndices p_mesh_indices_new_zeros(int size);
 
 /** Creates a new MeshIndices structure with incrementing points (0, 1, 2), (3, 4, 5), ... */
-pMeshIndices p_mesh_indices_new_count_up(size_t size);
+pMeshIndices p_mesh_indices_new_count_up(int size);
 
 /** Frees a MeshIndices structure */
 void p_mesh_indices_kill(pMeshIndices *self);

@@ -13,7 +13,7 @@ from .indices import *
 class pMeshIndices(ct.Structure):
     _fields_ = [
         ('data', mathctypes.ivec3_p),
-        ('size', bb.c_size_t)
+        ('size', bb.c_int)
     ]
 
 

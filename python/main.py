@@ -12,6 +12,8 @@ if __name__ == '__main__':
     points, indices = p.meshprimitives.arrow([0, 0, 0], [100, 0, 0], 10)
 
     p.io.save_mesh_ply(points, indices, 'test.ply', False)
+    points, indices = p.io.load_mesh_ply('test.ply')
+    p.io.save_mesh_stl(points, indices, 'test.stl', False)
 
 
     print('fin')

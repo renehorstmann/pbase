@@ -6,7 +6,7 @@
 
 
 /** Creates a new Vector structure with empty data (malloc) */
-pVector p_vector_new_empty(size_t size) {
+pVector p_vector_new_empty(int size) {
     pVector self = {0};
     self.data = p_rhc_malloc_raising(size * sizeof *self.data);
     self.size = size;
@@ -14,7 +14,7 @@ pVector p_vector_new_empty(size_t size) {
 }
 
 /** Creates a new Vector structure with all zeros (calloc) */
-pVector p_vector_new_zeros(size_t size) {
+pVector p_vector_new_zeros(int size) {
     pVector self = p_vector_new_empty(size);
     memset(self.data, 0, self.size * sizeof *self.data);
     return self;
@@ -36,7 +36,7 @@ void p_vector_print(pVector self) {
         return;
     }
     puts("pc_vector_print:");
-    for(size_t i = 0; i < self.size; i++) {
+    for(int i = 0; i < self.size; i++) {
         printf("%f\n", self.data[i]);
     }
 }

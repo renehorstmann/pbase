@@ -35,14 +35,14 @@ String p_rhc_file_read_a(const char *file, bool ascii, Allocator_s a) {
     if (string_valid(res)) {
         Sint64 buf_appended = 1;
         char *buf = res.data;
-        while (res.size < length && buf_appended != 0) {
-            buf_appended = SDL_RWread(f, buf, 1, length - res.size);
-            res.size += buf_appended;
+        while (res.num < length && buf_appended != 0) {
+            buf_appended = SDL_RWread(f, buf, 1, length - res.num);
+            res.num += buf_appended;
             buf += buf_appended;
         }
         //  CRLF will be converted to LF on windows in ascii and will be a byte smaller
-        if (!ascii && res.size != length) {
-            log_error("p_rhc_file_read_a failed: %s %d/%d bytes read", file, res.size, length);
+        if (!ascii && res.num != length) {
+            log_error("p_rhc_file_read_a failed: %s %d/%d bytes read", file, res.num, length);
             string_kill(&res);
         } else {
             res.data[length] = '\0';  // should have been set in String, just to be sure
@@ -68,16 +68,16 @@ bool p_rhc_file_write(const char *file, Str_s content, bool ascii) {
 
     Sint64 chars_written = 0, buf_appended = 1;
     char *buf = content.data;
-    while(chars_written < content.size && buf_appended != 0) {
-        buf_appended = SDL_RWwrite(f, buf, 1, content.size - chars_written);
+    while(chars_written < content.num && buf_appended != 0) {
+        buf_appended = SDL_RWwrite(f, buf, 1, content.num - chars_written);
         chars_written += buf_appended;
         buf += buf_appended;
     }
 
     SDL_RWclose(f);
 
-    if (chars_written != content.size) {
-        log_error("p_rhc_file_write failed: %s %d/%d bytes written", file, chars_written, content.size);
+    if (chars_written != content.num) {
+        log_error("p_rhc_file_write failed: %s %d/%d bytes written", file, chars_written, content.num);
         return false;
     }
     return true;
@@ -99,16 +99,16 @@ bool p_rhc_file_append(const char *file, Str_s content, bool ascii) {
 
     Sint64 chars_written = 0, buf_appended = 1;
     char *buf = content.data;
-    while(chars_written < content.size && buf_appended != 0) {
-        buf_appended = SDL_RWwrite(f, buf, 1, content.size - chars_written);
+    while(chars_written < content.num && buf_appended != 0) {
+        buf_appended = SDL_RWwrite(f, buf, 1, content.num - chars_written);
         chars_written += buf_appended;
         buf += buf_appended;
     }
 
     SDL_RWclose(f);
 
-    if (chars_written != content.size) {
-        log_error("p_rhc_file_append failed: %s %d/%d bytes written", file, chars_written, content.size);
+    if (chars_written != content.num) {
+        log_error("p_rhc_file_append failed: %s %d/%d bytes written", file, chars_written, content.num);
         return false;
     }
     return true;

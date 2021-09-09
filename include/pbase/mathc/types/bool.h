@@ -20,7 +20,7 @@ typedef union {
         bool r, g;
     };
 } bvec2;
-static_assert(sizeof(bvec2) == sizeof(bool) * 2, "[Mathc] wrong expected size");
+static_assert(sizeof(bvec2) == sizeof(bool) * 2, "[Mathc] wrong expected num");
 
 /** casts a bool * to a dereferenced bvec2 */
 #define BVec2(bvec) (*(bvec2 *) (bvec))
@@ -54,7 +54,7 @@ typedef union {
         };
     };
 } bvec3;
-static_assert(sizeof(bvec3) == sizeof(bool) * 3, "[Mathc] wrong expected size");
+static_assert(sizeof(bvec3) == sizeof(bool) * 3, "[Mathc] wrong expected num");
 
 /** casts a bool * to a dereferenced bvec3 */
 #define BVec3(bvec) (*(bvec3 *) (bvec))
@@ -105,7 +105,7 @@ typedef union {
         };
     };
 } bvec4;
-static_assert(sizeof(bvec4) == sizeof(bool) * 4, "[Mathc] wrong expected size");
+static_assert(sizeof(bvec4) == sizeof(bool) * 4, "[Mathc] wrong expected num");
 
 /** casts a bool * to a dereferenced bvec4 */
 #define BVec4(bvec) (*(bvec4 *) (bvec))

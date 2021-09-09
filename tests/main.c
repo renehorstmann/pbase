@@ -7,7 +7,7 @@ int main() {
 
     pCloud points;
     pMeshIndices indices;
-    p_io_load_mesh_ply(&points, &indices, "test_io_ply_cubebinary.ply");
+    p_io_load_mesh_ply(&points, &indices, "../python/test.ply");
     p_error_check();
     puts("loaded");
 

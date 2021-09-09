@@ -5,7 +5,7 @@
 
 #include "pbase/types/indiceslist.h"
 
-pIndicesList p_indices_list_new(size_t size) {
+pIndicesList p_indices_list_new(int size) {
     pIndicesList self = {0};
     self.list = p_rhc_malloc_raising(size * sizeof *self.list);
     self.size = size;

@@ -8,14 +8,14 @@
 #include "pbase/types/indices.h"
 
 
-pIndices p_indices_new_empty(size_t size) {
+pIndices p_indices_new_empty(int size) {
     pIndices self = {0};
     self.data = p_rhc_malloc_raising(size * sizeof *self.data);
     self.size = size;
     return self;
 }
 
-pIndices p_indices_new_zeros(size_t size) {
+pIndices p_indices_new_zeros(int size) {
     pIndices self = p_indices_new_empty(size);
     memset(self.data, 0, self.size * sizeof *self.data);
     return self;}
@@ -25,11 +25,11 @@ pIndices p_indices_new_range(int start, int end, int step) {
         return p_indices_new_invalid();
     assert(step != 0);
     int diff = end - start;
-    size_t size = abs(diff / step);
+    int size = abs(diff / step);
     pIndices self = p_indices_new_empty(size);
     if((step > 0 && end < start) || (step < 0 && end > start))
         start = end;
-    for(size_t i=0; i<size; i++) {
+    for(int i=0; i<size; i++) {
         self.data[i] = start;
         start += step;
     }
@@ -50,7 +50,7 @@ void p_indices_print(pIndices self) {
         return;
     }
     puts("p_indices_print:");
-    for(size_t i = 0; i < self.size; i++) {
+    for(int i = 0; i < self.size; i++) {
         printf("%d\n", self.data[i]);
     }
 }
@@ -83,7 +83,7 @@ void p_indices_as_set(pIndices *self) {
         if (self->data[to_index] != self->data[from_index])
             self->data[++to_index] = self->data[from_index];
     }
-    self->size = to_index + 1; //size = last_index+1
+    self->size = to_index + 1; //num = last_index+1
 }
 
 void p_indices_set_diff(pIndices *self, pIndices remove) {
@@ -103,13 +103,13 @@ void p_indices_set_diff(pIndices *self, pIndices remove) {
         if (from < remove.data[remove_index] || remove_index >= remove.size)
             self->data[to_index++] = from;
     }
-    self->size = to_index; //size = to_index = last_index+1
+    self->size = to_index; //num = to_index = last_index+1
 }
 
 void p_indices_add_offset(pIndices *self, int offset) {
     if(!self || !p_indices_valid(*self))
         return;
-    for(size_t i = 0; i < self->size; i++)
+    for(int i = 0; i < self->size; i++)
         self->data[i] += offset;
 }
 
@@ -118,7 +118,7 @@ pIndices p_indices_concatenate(pIndices a, pIndices b) {
 }
 
 pIndices p_indices_concatenate_v(const pIndices *indices_list, int n) {
-    size_t size = 0;
+    int size = 0;
     for (int i = 0; i < n; i++)
         size += indices_list[i].size;
     pIndices self = p_indices_new_empty(size);
@@ -134,7 +134,7 @@ pIndices p_indices_concatenate_v(const pIndices *indices_list, int n) {
 
 pIndices p_indices_apply_indices(pIndices self, pIndices indices) {
     pIndices ret = p_indices_new_empty(indices.size);
-    for(size_t i=0; i<indices.size; i++) {
+    for(int i=0; i<indices.size; i++) {
         int index = isca_mod_positive(indices.data[i], self.size);
         ret.data[i] = self.data[index];
     }
@@ -143,7 +143,7 @@ pIndices p_indices_apply_indices(pIndices self, pIndices indices) {
 
 int p_indices_min(pIndices self) {
     int min = INT_MAX;
-    for(size_t i=0; i<self.size; i++) {
+    for(int i=0; i<self.size; i++) {
         if(min > self.data[i])
             min = self.data[i];
     }
@@ -152,7 +152,7 @@ int p_indices_min(pIndices self) {
 
 int p_indices_max(pIndices self) {
     int max = INT_MAX;
-    for(size_t i=0; i<self.size; i++) {
+    for(int i=0; i<self.size; i++) {
         if(max < self.data[i])
             max = self.data[i];
     }

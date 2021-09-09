@@ -13,7 +13,7 @@ from .indices import *
 class pIndicesList(ct.Structure):
     _fields_ = [
         ('data', pIndices_p),
-        ('size', bb.c_size_t)
+        ('size', bb.c_int)
     ]
 
 

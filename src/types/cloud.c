@@ -8,22 +8,22 @@
 #include "pbase/types/cloud.h"
 
 
-pCloud p_cloud_new_empty(size_t size) {
+pCloud p_cloud_new_empty(int size) {
     pCloud self = {0};
     self.data = p_rhc_malloc_raising(size * sizeof *self.data);
     self.size = size;
     return self;
 }
 
-pCloud p_cloud_new_zeros(size_t size) {
+pCloud p_cloud_new_zeros(int size) {
     pCloud self = p_cloud_new_empty(size);
     memset(self.data, 0, self.size * sizeof *self.data);
     return self;
 }
 
-pCloud p_cloud_new_zeros_1(size_t size) {
+pCloud p_cloud_new_zeros_1(int size) {
     pCloud self = p_cloud_new_zeros(size);
-    for(size_t i=0; i<self.size; i++) {
+    for(int i=0; i<self.size; i++) {
         self.data[i].w = 1;
     }
     return self;
@@ -42,7 +42,7 @@ void p_cloud_print(pCloud self) {
         return;
     }
     puts("p_cloud_print:");
-    for(size_t i = 0; i < self.size; i++) {
+    for(int i = 0; i < self.size; i++) {
         printf("%.2f %.2f %.2f %.2f\n",
                self.data[i].x,
                self.data[i].y,
@@ -57,7 +57,7 @@ pCloud p_cloud_concatenate(pCloud a, pCloud b) {
 }
 
 pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n) {
-    size_t size = 0;
+    int size = 0;
     for(int i=0; i<n; i++)
         size += cloud_list[i].size;
     pCloud self = p_cloud_new_empty(size);
@@ -72,7 +72,7 @@ pCloud p_cloud_concatenate_v(const pCloud *cloud_list, int n) {
 
 pCloud p_cloud_apply_indices(pCloud self, pIndices indices) {
     pCloud ret = p_cloud_new_empty(indices.size);
-    for(size_t i=0; i<indices.size; i++) {
+    for(int i=0; i<indices.size; i++) {
         int index = isca_mod_positive(indices.data[i], self.size);
         ret.data[i] = self.data[index];
     }
@@ -81,7 +81,7 @@ pCloud p_cloud_apply_indices(pCloud self, pIndices indices) {
 
 vec4 p_cloud_min(pCloud self) {
     vec4 min = vec4_set(FLT_MAX);
-    for(size_t i=0; i<self.size; i++) {
+    for(int i=0; i<self.size; i++) {
         for(int xyzw=0; xyzw<4; xyzw++) {
             if(min.v[xyzw] > self.data[i].v[xyzw])
                 min.v[xyzw] = self.data[i].v[xyzw];
@@ -92,7 +92,7 @@ vec4 p_cloud_min(pCloud self) {
 
 vec4 p_cloud_max(pCloud self) {
     vec4 max = vec4_set(-FLT_MAX);
-    for(size_t i=0; i<self.size; i++) {
+    for(int i=0; i<self.size; i++) {
         for(int xyzw=0; xyzw<4; xyzw++) {
             if(max.v[xyzw] < self.data[i].v[xyzw])
                 max.v[xyzw] = self.data[i].v[xyzw];

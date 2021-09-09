@@ -1,7 +1,6 @@
 #ifndef PBASE_TYPES_VECTOR_H
 #define PBASE_TYPES_VECTOR_H
 
-#include <stddef.h> // size_t
 #include <stdbool.h>
 
 /**
@@ -9,7 +8,7 @@
 */
 typedef struct {
     float *restrict data;
-    size_t size;
+    int size;
 } pVector;
 
 
@@ -24,10 +23,10 @@ static pVector p_vector_new_invalid() {
 }
 
 /** Creates a new Vector structure with empty data (malloc) */
-pVector p_vector_new_empty(size_t size);
+pVector p_vector_new_empty(int size);
 
 /** Creates a new Vector structure with all zeros (calloc) */
-pVector p_vector_new_zeros(size_t size);
+pVector p_vector_new_zeros(int size);
 
 /** Frees a Vector structure */
 void p_vector_kill(pVector *self);
