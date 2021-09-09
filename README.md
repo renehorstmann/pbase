@@ -6,6 +6,8 @@ Base library for 3D stuff, like pointc, visu, ...
 - pbase
   - int for type sizes, size_t for byte size
     - intmax will be big enough, indices are also int based
+    - intmax * 16 = 36gb... (16 bytes each vertex)
+  - rhc dynarray .array -> .data
   - io
     - ply load
       - load arbitrarily elements
