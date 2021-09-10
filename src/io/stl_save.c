@@ -6,8 +6,11 @@
 //
 
 static String generate_ascii(pCloud cloud, pMeshIndices indices) {
-    if(!p_cloud_valid(cloud) || !p_mesh_indices_valid(indices))
+    if(!p_cloud_valid(cloud) || !p_mesh_indices_valid(indices)) {
+        log_error("p_io_save_stl failed, cloud or indices are invalid");
+        p_error_set("Invalid parameters");
         return string_new_invalid();
+    }
 
     // to print in C style (3.14, instead of 3,14 on some machines)
     setlocale(LC_ALL, "C");
@@ -79,7 +82,7 @@ static String generate_binary(pCloud cloud, pMeshIndices indices) {
 
 pError p_io_save_mesh_stl(pCloud points, pMeshIndices indices, const char *file, bool ascii) {
     if(!str_ends_with(strc(file), strc(".stl")) && !str_ends_with(strc(file), strc(".STL"))) {
-        log_warn("p_io_save_mesh_stl: file does not end with .ply: %s", file);
+        log_warn("p_io_save_mesh_stl: file does not end with .stl: %s", file);
     }
 
     String data;
@@ -90,7 +93,7 @@ pError p_io_save_mesh_stl(pCloud points, pMeshIndices indices, const char *file,
 
     if(!file_write(file, data.str, ascii)) {
         log_error("p_io_save_mesh_stl failed to write file");
-        assert(p_error());  // should be set by file_write
+        p_error_assume();
     }
 
     string_kill(&data);

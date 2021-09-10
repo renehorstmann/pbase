@@ -1,7 +1,6 @@
 #ifndef PBASE_IO_HELPER_H
 #define PBASE_IO_HELPER_H
 
-#include <assert.h>
 #include <locale.h>
 #include "pbase/rhc/string.h"
 #include "pbase/rhc/str_parse.h"

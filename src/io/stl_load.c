@@ -132,7 +132,7 @@ pError parse_binary(pCloud *out_points, Str_s data) {
 
 pError p_io_load_mesh_stl(pCloud *out_points, pMeshIndices *out_opt_indices, const char *file) {
     if(!str_ends_with(strc(file), strc(".stl")) && !str_ends_with(strc(file), strc(".STL"))) {
-        log_warn("p_io_load_mesh_stl: file does not end with .ply: %s", file);
+        log_warn("p_io_load_mesh_stl: file does not end with .stl: %s", file);
     }
 
     String data = file_read(file, true);

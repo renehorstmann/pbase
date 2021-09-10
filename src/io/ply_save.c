@@ -196,7 +196,7 @@ pError p_io_save_ply(pCloud points, pCloud normals, pCloud colors, pMeshIndices 
 
     if (!check_clouds_valid(points, normals, colors)) {
         log_error("p_io_save_ply failed to generate file");
-        return p_error_set("p_io_save_ply failed, invalid sizes");
+        return p_error_set("Invalid parameters");
     }
 
     bool color_alpha = false;
