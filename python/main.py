@@ -7,13 +7,8 @@ import numpy as np
 if __name__ == '__main__':
     print('start')
 
-    v = p.bb.c_int()
+    vec = np.arange(100, dtype=np.float32)
 
-    points, indices = p.meshprimitives.arrow([0, 0, 0], [100, 0, 0], 10)
-
-    p.io.save_mesh_ply(points, indices, 'test.ply', False)
-    points, indices = p.io.load_mesh_ply('test.ply')
-    p.io.save_mesh_stl(points, indices, 'test.stl', False)
-
+    p.io.save_vector_csv(vec, 'test.csv')
 
     print('fin')

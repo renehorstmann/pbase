@@ -14,15 +14,15 @@ pError p_io_save_indices_list_csv(pIndicesList list, const char *file);
 pError p_io_load_indices_list_csv(pIndicesList *out_list, const char *file);
 
 
-/** Saves a Matrix */
+/** Saves a Matrix as a .csv file */
 pError p_io_save_matrix_csv(pMatrix mat, const char *file);
 
-/** Loads a Matrix */
+/** Loads a Matrix from a .csv file */
 pError p_io_load_matrix_csv(pMatrix *out_mat, const char *file);
 
 
 //
-// Wrapper
+// wrapper
 //
 
 /** Saves Indices as .csv file */
@@ -31,10 +31,10 @@ pError p_io_save_indices_csv(pIndices indices, const char *file);
 /** Loads Indices from a .csv file */
 pError p_io_load_indices_csv(pIndices *out_indices, const char *file);
 
-/** Saves a Vector */
-pError p_io_save_vector_csv(pVector vector, const char *file);
+/** Saves a Vector as a .csv file */
+pError p_io_save_vector_csv(pVector vec, const char *file);
 
-/** Loads a Matrix */
-pError p_io_load_vector_csv(pVector *out_vector, const char *file);
+/** Loads a Vector from a .csv file */
+pError p_io_load_vector_csv(pVector *out_vec, const char *file);
 
 #endif //PBASE_IO_CSV_H

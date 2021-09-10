@@ -25,13 +25,13 @@ pError p_io_load_indices_csv(pIndices *out_indices, const char *file) {
 }
 
 
-pError p_io_save_vector_csv(pVector vector, const char *file) {
-    pMatrix mat = {vector.data, vector.size, 1};
+pError p_io_save_vector_csv(pVector vec, const char *file) {
+    pMatrix mat = {vec.data, vec.size, 1};
     return p_io_save_matrix_csv(mat, file);
 }
 
 
-pError p_io_load_vector_csv(pVector *out_vector, const char *file) {
+pError p_io_load_vector_csv(pVector *out_vec, const char *file) {
     pMatrix mat;
     if(p_io_load_matrix_csv(&mat, file)) {
         return p_error_assume();
@@ -41,7 +41,7 @@ pError p_io_load_vector_csv(pVector *out_vector, const char *file) {
         p_matrix_kill(&mat);
         return p_error_set("p_io_load_csv failed");
     }
-    *out_vector = (pVector) {mat.data, mat.rows * mat.cols};
+    *out_vec = (pVector) {mat.data, mat.rows * mat.cols};
     mat = p_matrix_new_invalid();
     return NULL;
 }
