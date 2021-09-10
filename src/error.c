@@ -15,3 +15,8 @@ pError p_error_set(pError error) {
 void p_error_check() {
     assume(!p_error(), "%s", p_error());
 }
+
+pError p_error_assume() {
+    assume(p_error(), "p_error_assume failed!");
+    return p_error();
+}

@@ -9,6 +9,7 @@ pIndicesList p_indices_list_new(int size) {
     pIndicesList self = {0};
     self.list = p_rhc_malloc_raising(size * sizeof *self.list);
     self.size = size;
+    self.owns_indices = true;
     memset(self.list, 0, size * sizeof *self.list);
     return self;
 }
@@ -16,6 +17,11 @@ pIndicesList p_indices_list_new(int size) {
 void p_indices_list_kill(pIndicesList *self) {
     if(!p_indices_list_valid(*self))
         return;
+    if(self->owns_indices) {
+        for (int i = 0; i < self->size; i++) {
+            p_indices_kill(&self->list[i]);
+        }
+    }
     p_rhc_free(self->list);
     *self = (pIndicesList) {0};
 }

@@ -139,8 +139,7 @@ pError p_io_load_mesh_stl(pCloud *out_points, pMeshIndices *out_opt_indices, con
 
     if(!string_valid(data)) {
         log_warn("p_io_load_mesh_stl failed, could not read file: %s", file);
-        assert(p_error());  // should be set by file_read
-        return p_error();
+        return p_error_assume();
     }
 
     bool ascii;

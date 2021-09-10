@@ -212,7 +212,7 @@ pError p_io_save_ply(pCloud points, pCloud normals, pCloud colors, pMeshIndices 
 
     if (!file_write(file, data.str, ascii)) {
         log_error("p_io_save_ply failed to write file");
-        assert(p_error());  // should be set by file_write
+        p_error_assume();  // should be set by file_write
     }
 
     string_kill(&data);

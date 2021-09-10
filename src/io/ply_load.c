@@ -686,8 +686,7 @@ pError p_io_load_ply(pCloud *out_opt_points, pCloud *out_opt_normals, pCloud *ou
 
     if (!string_valid(filedata)) {
         log_warn("p_io_load_ply failed, could not read file: %s", file);
-        assert(p_error());  // should be set by file_read
-        return p_error();
+        return p_error_assume();
     }
 
     String data = string_new(512);

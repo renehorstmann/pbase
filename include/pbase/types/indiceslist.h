@@ -11,6 +11,7 @@
 typedef struct {
     pIndices *list;
     int size;
+    bool owns_indices;
 } pIndicesList;
 
 /** Returns true if the indices list is in a valid state */
