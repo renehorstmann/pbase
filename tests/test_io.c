@@ -4,6 +4,44 @@
 #include "helper.h"
 
 
+static void csv_indices_list() {
+    int list_a[] = {1, 2, 3, 4, 5};
+    int list_b[] = {10, 20, 30};
+
+    pIndicesList list = {(pIndices[]) {
+            (pIndices) {list_a, 5},
+            (pIndices) {list_b, 3}
+    }, 2};
+
+
+    p_io_save_indices_list_csv(list, "test_io_indices_list.csv");
+    if (p_error()) {
+        printf("p_io_save_indices_list_csv failed, %s", p_error());
+        exit(1);
+    }
+
+}
+
+static void csv_matrix() {
+    mat4 data_matrix = {{
+                                1.1, 2.2, 3.3, 4.4,
+                                5.5, 6.6, 7.7, 8.8,
+                                9.9, 10.10, 11.11, 12.12,
+                                13.13, 14.14, 15.15, 16.16
+                        }};
+
+    pMatrix mat = {data_matrix.v, 4, 4};
+
+    p_io_save_matrix_csv(mat, "test_io_matrix.csv");
+    if (p_error()) {
+        printf("p_io_save_matrix_csv failed, %s", p_error());
+        exit(1);
+    }
+
+    pMatrix load_mat;
+//    p_io_load_matrix_csv(&load_mat, "test_io_matrix.csv");
+}
+
 static void stl() {
     vec4 data_cloud[4] = {
             {{0,  0,  0, 1}},
@@ -154,7 +192,8 @@ static void ply() {
 }
 
 int main() {
+    csv_indices_list();
+    csv_matrix();
     stl();
     ply();
-
 }

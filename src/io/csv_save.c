@@ -24,7 +24,7 @@ String generate_indices_list(pIndicesList list) {
             log_warn("p_io_save_csv got an invalid list at list[%i]", i);
             continue;
         }
-        for(int idx=0; indices->size; idx++) {
+        for(int idx=0; idx < indices->size; idx++) {
             snprintf(buffer, 128, idx==indices->size-1? "%i" : "%i,", indices->data[idx]);
             string_append(s, strc(buffer));
         }
@@ -49,7 +49,7 @@ String generate_matrix(pMatrix mat) {
 
     char buffer[128];
     for(int r=0; r < mat.rows; r++) {
-        for(int c=0; mat.cols; c++) {
+        for(int c=0; c < mat.cols; c++) {
             snprintf(buffer, 128, c == mat.cols - 1 ? "%f" : "%f,", mat.data[r*mat.cols + c]);
             string_append(s, strc(buffer));
         }
