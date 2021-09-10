@@ -259,7 +259,7 @@ static PlyHeader_s ply_parse_header(Str_s data) {
             line = str_eat_uint64_ascii(line, &size);
             current_element->num = size;
 
-            if (!line.data) {
+            if (!str_valid(line)) {
                 log_error("p_io_ply_load failed to parse element num");
                 p_error_set("Failed to parse ply header");
                 return (PlyHeader_s) {0};
@@ -289,7 +289,7 @@ static PlyHeader_s ply_parse_header(Str_s data) {
             name.size = usca_min(name.size, sizeof property->name - 1);
             strncpy(property->name, name.data, name.size);
 
-            if (!line.data) {
+            if (!str_valid(line)) {
                 log_error("p_io_ply_load failed to parse property list");
                 p_error_set("Failed to parse ply header");
                 return (PlyHeader_s) {0};
@@ -319,7 +319,7 @@ static PlyHeader_s ply_parse_header(Str_s data) {
             name.size = usca_min(name.size, sizeof property->name - 1);
             strncpy(property->name, name.data, name.size);
 
-            if (!line.data) {
+            if (!str_valid(line)) {
                 log_error("p_io_ply_load failed to parse property");
                 p_error_set("Failed to parse ply header");
                 return (PlyHeader_s) {0};

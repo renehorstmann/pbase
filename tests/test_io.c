@@ -39,7 +39,16 @@ static void csv_matrix() {
     }
 
     pMatrix load_mat;
-//    p_io_load_matrix_csv(&load_mat, "test_io_matrix.csv");
+    p_io_load_matrix_csv(&load_mat, "test_io_matrix.csv");
+    if (p_error()) {
+        printf("p_io_load_matrix_csv failed, %s", p_error());
+        exit(1);
+    }
+    if (!equals_matrix(mat, load_mat)) {
+        printf("p_io_load_matrix_csv failed, loaded matrix is wrong");
+        exit(1);
+    }
+    p_matrix_kill(&load_mat);
 }
 
 static void stl() {
