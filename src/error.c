@@ -8,7 +8,7 @@ pError p_error() {
 
 pError p_error_set(pError error) {
     if(error && p_rhc_error)
-        log_warn("p_error_set overrides error!\n  \\-> prev error: %s\n  \\-> new error : %s", p_rhc_error, error);
+        log_trace("p_error_set overrides error!\n  \\-> prev error: %s\n  \\-> new error : %s", p_rhc_error, error);
     return p_rhc_error = error;
 }
 

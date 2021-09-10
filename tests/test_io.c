@@ -14,11 +14,23 @@ static void csv_indices_list() {
     }, 2};
 
 
-    p_io_save_indices_list_csv(list, "test_io_indices_list.csv");
+    p_io_save_indices_list_csv(list, "test_io_list.csv");
     if (p_error()) {
         printf("p_io_save_indices_list_csv failed, %s", p_error());
         exit(1);
     }
+
+    pIndicesList load_list;
+    p_io_load_indices_list_csv(&load_list, "test_io_list.csv");
+    if (p_error()) {
+        printf("p_io_load_indices_list_csv failed, %s", p_error());
+        exit(1);
+    }
+    if (!equals_indices_list(list, load_list)) {
+        printf("p_io_load_indices_list_csv failed, loaded list is wrong");
+        exit(1);
+    }
+    p_indices_list_kill(&load_list);
 
 }
 

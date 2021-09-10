@@ -29,6 +29,22 @@ bool equals_mesh_indices(pMeshIndices a, pMeshIndices b) {
     return memcmp(a.data, b.data, sizeof(*a.data) *a.size) == 0;
 }
 
+bool equals_indices(pIndices a, pIndices b) {
+    if(!p_indices_valid(a) || !p_indices_valid(b) || a.size != b.size)
+        return false;
+    return memcmp(a.data, b.data, sizeof(*a.data) *a.size) == 0;
+}
+
+bool equals_indices_list(pIndicesList a, pIndicesList b) {
+    if(!p_indices_list_valid(a) || !p_indices_list_valid(b) || a.size != b.size)
+        return false;
+    for(int i=0; i<a.size; i++) {
+        if(!equals_indices(a.list[i], b.list[i]))
+            return false;
+    }
+    return true;
+}
+
 bool equals_matrix(pMatrix a, pMatrix b) {
     if(!p_matrix_valid(a) || !p_matrix_valid(b) || a.cols != b.cols || a.rows != b.rows)
         return false;
