@@ -35,7 +35,7 @@ void p_vector_print(pVector self) {
         puts("p_vector_print: invalid");
         return;
     }
-    puts("pc_vector_print:");
+    puts("p_vector_print:");
     for(int i = 0; i < self.size; i++) {
         printf("%f\n", self.data[i]);
     }

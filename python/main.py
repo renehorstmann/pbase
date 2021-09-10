@@ -11,4 +11,6 @@ if __name__ == '__main__':
 
     p.io.save_vector_csv(vec, 'test.csv')
 
+    p.types.vector_print(vec)
+
     print('fin')

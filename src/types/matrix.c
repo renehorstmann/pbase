@@ -36,7 +36,7 @@ void p_matrix_print(pMatrix self) {
         puts("p_matrix_print: invalid");
         return;
     }
-    puts("pc_matrix_print:");
+    puts("p_matrix_print:");
     for(int r = 0; r < self.rows; r++) {
         for(int c = 0; c < self.cols; c++) {
             printf("%f ", self.data[r*self.cols + c]);
