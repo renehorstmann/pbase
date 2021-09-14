@@ -3,7 +3,11 @@ Base library for 3D stuff, like pointc, visu, ...
 
 
 ## Todo
-- pbase README.md
+- pbase 
+  - p_meshprimitives_raw_cone_part_hull seems to give invalid normals 
+  - README.md
+- visu
+  - python
 - pointc
   - uses flann
   - does not use pcl
@@ -11,7 +15,6 @@ Base library for 3D stuff, like pointc, visu, ...
     - sac
     - icp
     - mesh
-- visu
 - collisionc?
   - capsule
   - mesh - cloud? 
