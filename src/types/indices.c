@@ -158,3 +158,12 @@ int p_indices_max(pIndices self) {
     }
     return max;
 }
+
+bool p_indices_check_in_range(pIndices self, int min_incl, int max_excl) {
+    assert(min_incl < max_excl);
+    int min = p_indices_min(self);
+    if(min < min_incl)
+        return false;
+    int max = p_indices_max(self);
+    return max < max_excl;
+}

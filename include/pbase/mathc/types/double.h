@@ -18,7 +18,7 @@ typedef union {
         double r, g;
     };
 } dvec2;
-static_assert(sizeof(dvec2) == sizeof(double) * 2, "[Mathc] wrong expected num");
+static_assert(sizeof(dvec2) == sizeof(double) * 2, "[Mathc] wrong expected size");
 
 /** casts a double * to a dereferenced dvec2 */
 #define DVec2(vec) (*(dvec2 *) (vec))
@@ -40,7 +40,7 @@ typedef union {
         double m10, m11;
     };
 } dmat2;
-static_assert(sizeof(dmat2) == sizeof(double) * 4, "[Mathc] wrong expected num");
+static_assert(sizeof(dmat2) == sizeof(double) * 4, "[Mathc] wrong expected size");
 
 /** casts a double * to a dereferenced dmat2 */
 #define DMat2(mat) (*(dmat2 *) (mat))
@@ -74,7 +74,7 @@ typedef union {
         };
     };
 } dvec3;
-static_assert(sizeof(dvec3) == sizeof(double) * 3, "[Mathc] wrong expected num");
+static_assert(sizeof(dvec3) == sizeof(double) * 3, "[Mathc] wrong expected size");
 
 /** casts a double * to a dereferenced dvec3 */
 #define DVec3(vec) (*(dvec3 *) (vec))
@@ -98,7 +98,7 @@ typedef union {
         double m20, m21, m22;
     };
 } dmat3;
-static_assert(sizeof(dmat3) == sizeof(double) * 9, "[Mathc] wrong expected num");
+static_assert(sizeof(dmat3) == sizeof(double) * 9, "[Mathc] wrong expected size");
 
 /** casts a double * to a dereferenced dmat3 */
 #define DMat3(mat) (*(dmat3 *) (mat))
@@ -149,7 +149,7 @@ typedef union {
         };
     };
 } dvec4;
-static_assert(sizeof(dvec4) == sizeof(double) * 4, "[Mathc] wrong expected num");
+static_assert(sizeof(dvec4) == sizeof(double) * 4, "[Mathc] wrong expected size");
 
 /** casts a double * to a dereferenced dvec4 */
 #define DVec4(vec) (*(dvec4 *) (vec))
@@ -175,14 +175,13 @@ typedef union {
         double m30, m31, m32, m33;
     };
 } dmat4;
-static_assert(sizeof(dmat4) == sizeof(double) * 16, "[Mathc] wrong expected num");
+static_assert(sizeof(dmat4) == sizeof(double) * 16, "[Mathc] wrong expected size");
 
 /** casts a double * to a dereferenced dmat4 */
 #define DMat4(mat) (*(dmat4 *) (mat))
 
 /** casts a double * to a dereferenced const dmat4 */
 #define ConstDMat4(mat) (*(const dmat4 *) (mat))
-
 
 
 // quaternion type

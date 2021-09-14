@@ -107,3 +107,14 @@ ivec3 p_mesh_indices_max(pMeshIndices self) {
     return max;
 }
 
+bool p_mesh_indices_check_in_range(pMeshIndices self, int min_incl, int max_excl) {
+    assert(min_incl < max_excl);
+    ivec3 min_indices = p_mesh_indices_min(self);
+    int min = min_indices.v[ivec3_min_index(min_indices)];
+    if(min < min_incl)
+        return false;
+    ivec3 max_indices = p_mesh_indices_max(self);
+    int max = max_indices.v[ivec3_min_index(max_indices)];
+    return max < max_excl;
+}
+

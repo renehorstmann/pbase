@@ -18,7 +18,7 @@ typedef union {
         unsigned char r, g;
     };
 } ucvec2;
-static_assert(sizeof(ucvec2) == sizeof(unsigned char) * 2, "[Mathc] wrong expected num");
+static_assert(sizeof(ucvec2) == sizeof(unsigned char) * 2, "[Mathc] wrong expected size");
 
 /** casts a unsigned char * to a dereferenced ucvec2 */
 #define UCVec2(vec) (*(ucvec2 *) (vec))
@@ -40,7 +40,7 @@ typedef union {
         unsigned char m10, m11;
     };
 } ucmat2;
-static_assert(sizeof(ucmat2) == sizeof(unsigned char) * 4, "[Mathc] wrong expected num");
+static_assert(sizeof(ucmat2) == sizeof(unsigned char) * 4, "[Mathc] wrong expected size");
 
 /** casts a unsigned char * to a dereferenced ucmat2 */
 #define UCMat2(mat) (*(ucmat2 *) (mat))
@@ -74,7 +74,7 @@ typedef union {
         };
     };
 } ucvec3;
-static_assert(sizeof(ucvec3) == sizeof(unsigned char) * 3, "[Mathc] wrong expected num");
+static_assert(sizeof(ucvec3) == sizeof(unsigned char) * 3, "[Mathc] wrong expected size");
 
 /** casts a unsigned char * to a dereferenced ucvec3 */
 #define UCVec3(vec) (*(ucvec3 *) (vec))
@@ -98,7 +98,7 @@ typedef union {
         unsigned char m20, m21, m22;
     };
 } ucmat3;
-static_assert(sizeof(ucmat3) == sizeof(unsigned char) * 9, "[Mathc] wrong expected num");
+static_assert(sizeof(ucmat3) == sizeof(unsigned char) * 9, "[Mathc] wrong expected size");
 
 /** casts a unsigned char * to a dereferenced ucmat3 */
 #define UCMat3(mat) (*(ucmat3 *) (mat))
@@ -149,7 +149,7 @@ typedef union {
         };
     };
 } ucvec4;
-static_assert(sizeof(ucvec4) == sizeof(unsigned char) * 4, "[Mathc] wrong expected num");
+static_assert(sizeof(ucvec4) == sizeof(unsigned char) * 4, "[Mathc] wrong expected size");
 
 /** casts a unsigned char * to a dereferenced ucvec4 */
 #define UCVec4(vec) (*(ucvec4 *) (vec))
@@ -175,7 +175,7 @@ typedef union {
         unsigned char m30, m31, m32, m33;
     };
 } ucmat4;
-static_assert(sizeof(ucmat4) == sizeof(unsigned char) * 16, "[Mathc] wrong expected num");
+static_assert(sizeof(ucmat4) == sizeof(unsigned char) * 16, "[Mathc] wrong expected size");
 
 /** casts a unsigned char * to a dereferenced ucmat4 */
 #define UCMat4(mat) (*(ucmat4 *) (mat))

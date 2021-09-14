@@ -58,4 +58,7 @@ ivec3 p_mesh_indices_min(pMeshIndices self);
 /** Returns the maximum values for v0, v1, v2 */
 ivec3 p_mesh_indices_max(pMeshIndices self);
 
+/** returns true, if all mesh index values are in the given range [min_incl:max_exl) */
+bool p_mesh_indices_check_in_range(pMeshIndices self, int min_incl, int max_excl);
+
 #endif //PBASE_TYPES_MESHINDICES_H

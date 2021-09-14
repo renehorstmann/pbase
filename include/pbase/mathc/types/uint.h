@@ -18,7 +18,7 @@ typedef union {
         unsigned r, g;
     };
 } uvec2;
-static_assert(sizeof(uvec2) == sizeof(unsigned) * 2, "[Mathc] wrong expected num");
+static_assert(sizeof(uvec2) == sizeof(unsigned) * 2, "[Mathc] wrong expected size");
 
 /** casts a unsigned * to a dereferenced uvec2 */
 #define UVec2(vec) (*(uvec2 *) (vec))
@@ -40,7 +40,7 @@ typedef union {
         unsigned m10, m11;
     };
 } umat2;
-static_assert(sizeof(umat2) == sizeof(unsigned) * 4, "[Mathc] wrong expected num");
+static_assert(sizeof(umat2) == sizeof(unsigned) * 4, "[Mathc] wrong expected size");
 
 /** casts a unsigned * to a dereferenced umata2 */
 #define UMat2(mat) (*(umat2 *) (mat))
@@ -74,7 +74,7 @@ typedef union {
         };
     };
 } uvec3;
-static_assert(sizeof(uvec3) == sizeof(unsigned) * 3, "[Mathc] wrong expected num");
+static_assert(sizeof(uvec3) == sizeof(unsigned) * 3, "[Mathc] wrong expected size");
 
 /** casts a unsigned * to a dereferenced uvec3 */
 #define UVec3(vec) (*(uvec3 *) (vec))
@@ -98,7 +98,7 @@ typedef union {
         unsigned m20, m21, m22;
     };
 } umat3;
-static_assert(sizeof(umat3) == sizeof(unsigned) * 9, "[Mathc] wrong expected num");
+static_assert(sizeof(umat3) == sizeof(unsigned) * 9, "[Mathc] wrong expected size");
 
 /** casts a unsigned * to a dereferenced umata3 */
 #define UMat3(mat) (*(umat3 *) (mat))
@@ -149,7 +149,7 @@ typedef union {
         };
     };
 } uvec4;
-static_assert(sizeof(uvec4) == sizeof(unsigned) * 4, "[Mathc] wrong expected num");
+static_assert(sizeof(uvec4) == sizeof(unsigned) * 4, "[Mathc] wrong expected size");
 
 /** casts a unsigned * to a dereferenced uvec4 */
 #define UVec4(vec) (*(uvec4 *) (vec))
@@ -175,7 +175,7 @@ typedef union {
         unsigned m30, m31, m32, m33;
     };
 } umat4;
-static_assert(sizeof(umat4) == sizeof(unsigned) * 16, "[Mathc] wrong expected num");
+static_assert(sizeof(umat4) == sizeof(unsigned) * 16, "[Mathc] wrong expected size");
 
 /** casts a unsigned * to a dereferenced umata4 */
 #define UMat4(mat) (*(umat4 *) (mat))

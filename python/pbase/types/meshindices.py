@@ -195,3 +195,21 @@ def mesh_indices_max(self: np.ndarray) \
     '''
     res = plib.p_mesh_indices_max(cast_into_pMeshIndices(self))
     return mathctypes.cast_from_ivec3(res)
+
+
+
+# /** returns true, if all mesh index values are in the given range [min_incl:max_exl) */
+# bool p_mesh_indices_check_in_range(pMeshIndices self, int min_incl, int max_excl);
+plib.p_mesh_indices_check_in_range.argtypes = [pIndices, bb.c_int, bb.c_int]
+plib.p_mesh_indices_check_in_range.restype = bb.c_bool
+
+
+def mesh_indices_check_in_range(self: np.ndarray, min_incl: int, max_excl: int) \
+        -> bool:
+    '''
+    returns true, if all mesh index values are in the given range [min_incl:max_exl)
+
+    :return: bool
+    '''
+    res = plib.p_mesh_indices_check_in_range(cast_into_pMeshIndices(self), min_incl, max_excl)
+    return res.value

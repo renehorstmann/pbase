@@ -18,7 +18,7 @@ typedef union {
         int r, g;
     };
 } ivec2;
-static_assert(sizeof(ivec2) == sizeof(int) * 2, "[Mathc] wrong expected num");
+static_assert(sizeof(ivec2) == sizeof(int) * 2, "[Mathc] wrong expected size");
 
 /** casts a int * to a dereferenced ivec2 */
 #define IVec2(vec) (*(ivec2 *) (vec))
@@ -40,7 +40,7 @@ typedef union {
         int m10, m11;
     };
 } imat2;
-static_assert(sizeof(imat2) == sizeof(int) * 4, "[Mathc] wrong expected num");
+static_assert(sizeof(imat2) == sizeof(int) * 4, "[Mathc] wrong expected size");
 
 /** casts a int * to a dereferenced imat2 */
 #define IMat2(mat) (*(imat2 *) (mat))
@@ -74,7 +74,7 @@ typedef union {
         };
     };
 } ivec3;
-static_assert(sizeof(ivec3) == sizeof(int) * 3, "[Mathc] wrong expected num");
+static_assert(sizeof(ivec3) == sizeof(int) * 3, "[Mathc] wrong expected size");
 
 /** casts a int * to a dereferenced ivec3 */
 #define IVec3(vec) (*(ivec3 *) (vec))
@@ -98,7 +98,7 @@ typedef union {
         int m20, m21, m22;
     };
 } imat3;
-static_assert(sizeof(imat3) == sizeof(int) * 9, "[Mathc] wrong expected num");
+static_assert(sizeof(imat3) == sizeof(int) * 9, "[Mathc] wrong expected size");
 
 /** casts a int * to a dereferenced imat3 */
 #define IMat3(mat) (*(imat3 *) (mat))
@@ -149,7 +149,7 @@ typedef union {
         };
     };
 } ivec4;
-static_assert(sizeof(ivec4) == sizeof(int) * 4, "[Mathc] wrong expected num");
+static_assert(sizeof(ivec4) == sizeof(int) * 4, "[Mathc] wrong expected size");
 
 /** casts a int * to a dereferenced ivec4 */
 #define IVec4(vec) (*(ivec4 *) (vec))
@@ -175,7 +175,7 @@ typedef union {
         int m30, m31, m32, m33;
     };
 } imat4;
-static_assert(sizeof(imat4) == sizeof(int) * 16, "[Mathc] wrong expected num");
+static_assert(sizeof(imat4) == sizeof(int) * 16, "[Mathc] wrong expected size");
 
 /** casts a int * to a dereferenced imat4 */
 #define IMat4(mat) (*(imat4 *) (mat))

@@ -235,3 +235,20 @@ def indices_max(self: np.ndarray) \
     '''
     res = plib.p_indices_max(cast_into_pIndices(self))
     return res.value
+
+
+# /** returns true, if all index values are in the given range [min_incl:max_exl) */
+# bool p_indices_check_in_range(pIndices self, int min_incl, int max_excl);
+plib.p_indices_check_in_range.argtypes = [pIndices, bb.c_int, bb.c_int]
+plib.p_indices_check_in_range.restype = bb.c_bool
+
+
+def indices_check_in_range(self: np.ndarray, min_incl: int, max_excl: int) \
+        -> bool:
+    '''
+    returns true, if all indice values are in the given range [min_incl:max_exl)
+
+    :return: bool
+    '''
+    res = plib.p_indices_check_in_range(cast_into_pIndices(self), min_incl, max_excl)
+    return res.value

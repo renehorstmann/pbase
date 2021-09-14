@@ -69,4 +69,7 @@ int p_indices_min(pIndices self);
 /** returns the biggest index */
 int p_indices_max(pIndices self);
 
+/** returns true, if all index values are in the given range [min_incl:max_exl) */
+bool p_indices_check_in_range(pIndices self, int min_incl, int max_excl);
+
 #endif //PBASE_TYPES_INDICES_H
