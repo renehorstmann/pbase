@@ -1,5 +1,5 @@
-#ifndef PBASE_TYPES_H
-#define PBASE_TYPES_H
+#ifndef PBASE_TYPES_TYPES_H
+#define PBASE_TYPES_TYPES_H
 
 #include "cloud.h"
 #include "indices.h"
@@ -8,4 +8,4 @@
 #include "matrix.h"
 #include "vector.h"
 
-#endif //PBASE_TYPES_H
+#endif //PBASE_TYPES_TYPES_H
