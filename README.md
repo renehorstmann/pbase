@@ -2,6 +2,8 @@
 Base library for 3D stuff, like pointc, visu, ...
 
 ## Getting started
+
+### Install
 Should work on Unix (Ubuntu) and msys2/mingw (Windows).
 ```sh
 # in the pbase dir:
@@ -17,6 +19,24 @@ If using Windows, add C:/Libraries/lib to your PATH, so cmake can find libpbase.
 If you want to install the python bindings as well, set the env variable:
 `PYTHON_LIB_INSTALL_DIR`
 to the destination, in which the bindings should be installed
+
+### Usage
+To use pbase in your cmake project:
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(pbasetest C)
+
+set(CMAKE_C_STANDARD 11)
+
+add_executable(main main.c)
+
+if (MINGW) # windows
+  include_directories("C:/Libraries/include")
+endif()
+
+find_library(PBASE_LIB pbase)
+target_link_libraries(main ${PBASE_LIB})
+```
 
 
 ## Visu
