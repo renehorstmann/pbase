@@ -5,6 +5,7 @@ Base library for 3D stuff, like pointc, visu, ...
 ## Visu
 My library [Visu](https://github.com/renehorstmann/Visu) uses pbase as its base library.
 Visu uses OpenGL to render point clouds, meshes, etc.
+
 SVisu is a simple version to quickly show a point cloud in code for debugging.
 
 
@@ -112,8 +113,11 @@ Base classes for 3D stuff
 
 ## error
 Error management is based on rhc
+
 `p_error` returns a string with the error code, or NULL if no error occured
+
 `p_error_set` sets and returns an error
+
 Functions can set an error and should return invalid data (e. g. `p_cloud_new_invalid`) or return `p_error`
 
 ## io
