@@ -4,7 +4,7 @@ Base library for 3D stuff, like pointc, visu, ...
 
 ## Visu
 My library [Visu](https://github.com/renehorstmann/Visu) uses pbase as its base library.
-Visu uses OpenGL to render point clouds, meshes, etc.
+Visu (OpenGL based) is used for rendering point clouds, meshes, etc.
 
 SVisu is a simple version to quickly show a point cloud in code for debugging.
 
@@ -139,7 +139,8 @@ Generates meshs:
 
 ## RHC
 based on my [rhc](https://github.com/renehorstmann/rhc) library.
-Contains some useful stuff for C programming
+
+Contains some useful stuff for C programming.
  - allocators
  - error
  - log
