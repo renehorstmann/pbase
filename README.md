@@ -6,7 +6,7 @@ Base library for 3D stuff, like pointc, visu, ...
 - pbase 
   - README.md
 - visu
-  - python
+  - README.md
 - pointc
   - uses flann
   - does not use pcl
