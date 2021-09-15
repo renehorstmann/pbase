@@ -24,5 +24,8 @@ int main(int argc, char **argv) {
         printf("An error occured while converting: %s", p_error());
         exit(EXIT_FAILURE);
     }
+
+    p_cloud_kill(&points);
+    p_mesh_indices_kill(&indices);
     exit(EXIT_SUCCESS);
 }

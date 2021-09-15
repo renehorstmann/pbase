@@ -1,6 +1,13 @@
 # pbase
 Base library for 3D stuff, like pointc, visu, ...
 
+
+## Visu
+My library [Visu](https://github.com/renehorstmann/Visu) uses pbase as its base library.
+Visu uses OpenGL to render point clouds, meshes, etc.
+SVisu is a simple version to quickly show a point cloud in code for debugging.
+
+
 ## Getting started
 
 ### Install
@@ -38,11 +45,60 @@ find_library(PBASE_LIB pbase)
 target_link_libraries(main ${PBASE_LIB})
 ```
 
+### Example
+[example_convert.c](tests/example_convert.c) loads an stl mesh and saves it as ply mesh
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <pbase/pbase.h>
 
-## Visu
-My library [Visu](https://github.com/renehorstmann/Visu) uses pbase as its base library.
-Visu uses OpenGL to render point clouds, meshes, etc.
-SVisu is a simple version to quickly show a point cloud in code for debugging.
+int main(int argc, char **argv) {
+    if (argc < 3 || argc > 4) {
+        printf("Usage: %s <load_mesh.stl> <save_mesh.ply> [ascii=0]", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    bool ascii = false;
+    if(argc==4 && *argv[3]=='1') {
+        puts("saving as ascii ply");
+        ascii = true;
+    }
+
+    pCloud points;
+    pMeshIndices indices;
+    p_io_load_mesh_stl(&points, &indices, argv[1]);
+
+    p_io_save_mesh_ply(points, indices, argv[2], ascii);
+
+    if(p_error()) {
+        printf("An error occured while converting: %s", p_error());
+        exit(EXIT_FAILURE);
+    }
+
+    p_cloud_kill(&points);
+    p_mesh_indices_kill(&indices);
+    exit(EXIT_SUCCESS);
+}
+```
+
+[example_convert.py] does the same as above, but in python:
+```python
+import sys
+import pbase as p
+
+if __name__ == '__main__':
+    if len(sys.argv) < 3 or len(sys.argv) > 4:
+        print('Usage:', sys.argv[0], '<load_mesh.stl> <save_mesh.ply> [ascii=0]')
+        exit(1)
+        
+    ascii = False
+    if len(sys.argv) == 4 and sys.argv[3] == '1':
+        print('saving as ascii ply')
+        ascii = True
+        
+    points, indices = p.io.load_mesh_stl(sys.argv[1])
+    p.io.save_mesh_ply(points, indices, sys.argv[2], ascii)
+```
 
 
 ## types
