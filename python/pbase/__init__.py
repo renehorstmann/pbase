@@ -10,6 +10,7 @@ else:
     exit(1)
 
 # after loading lib!
+from . import bindingbase
 from . import mathctypes
 from . import log
 from . import math
