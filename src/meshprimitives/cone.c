@@ -109,7 +109,8 @@ void p_meshprimitives_raw_cone_part_hull(pCloud *out_points, pCloud *out_opt_nor
 
     if (out_opt_normals) {
         for (int i = 0; i < steps * 2 * 3; i++) {
-            normals[i].z = -normals[i].z;   // bug?
+            if(start_radius < end_radius)
+                normals[i].z = -normals[i].z;   // bug?
             out_opt_normals->data[i] = mat4_mul_vec(pose, normals[i]);
         }
     }
