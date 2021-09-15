@@ -114,11 +114,11 @@ Base classes for 3D stuff
 ## error
 Error management is based on rhc
 
-`p_error` returns a string with the error code, or NULL if no error occured
+`pError p_error()` returns a string with the error code, or NULL if no error occured
 
-`p_error_set` sets and returns an error
+`pError p_error_set(pError set)` sets and returns an error
 
-Functions can set an error and should return invalid data (e. g. `p_cloud_new_invalid`) or return `p_error`
+Functions can set an error and should return invalid data (e. g. `p_cloud_new_invalid()`) or return `p_error()`
 
 ## io
  - load and save stl files (Mesh)
