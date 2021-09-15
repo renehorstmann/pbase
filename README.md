@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-[example_convert.py] does the same as above, but in python:
+[example_convert.py](python/example_convert.py) does the same as above, but in python:
 ```python
 import sys
 import pbase as p
