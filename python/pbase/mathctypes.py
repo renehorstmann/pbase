@@ -282,7 +282,7 @@ def cast_into_mat3(data: np.ndarray) -> mat3:
 
 def cast_array_mat3(data) -> mat3:
     if data is None:
-        data = np.zeros(3*3, dtype=np.float32)
+        data = np.zeros(3*3, dtype=np.float32).reshape(3, 3)
     return cast_into_mat3(np.float32(data))
 
 
@@ -306,7 +306,7 @@ def cast_into_mat4(data: np.ndarray) -> mat4:
 
 def cast_array_mat4(data) -> mat4:
     if data is None:
-        data = np.zeros(4*4, dtype=np.float32)
+        data = np.zeros(4*4, dtype=np.float32).reshape(4, 4)
     return cast_into_mat4(np.float32(data))
 
 
@@ -416,7 +416,7 @@ def cast_into_dmat3(data: np.ndarray) -> dmat3:
 
 def cast_array_dmat3(data) -> dmat3:
     if data is None:
-        data = np.zeros(3*3, dtype=np.float64)
+        data = np.zeros(3*3, dtype=np.float64).reshape(3, 3)
     return cast_into_dmat3(np.float64(data))
 
 
@@ -440,7 +440,7 @@ def cast_into_dmat4(data: np.ndarray) -> dmat4:
 
 def cast_array_dmat4(data) -> dmat4:
     if data is None:
-        data = np.zeros(4*4, dtype=np.float64)
+        data = np.zeros(4*4, dtype=np.float64).reshape(4, 4)
     return cast_into_dmat4(np.float64(data))
 
 
