@@ -70,10 +70,12 @@ enable_testing()
 
 # Define the executable test
 add_executable(main tests/main.c)
+add_executable(example_convert tests/example_convert.c)
 add_executable(test_io tests/test_io.c)
 
 # link to the library
 target_link_libraries(main pbase)
+target_link_libraries(example_convert pbase)
 target_link_libraries(test_io pbase)
 
 # add the executable as test
