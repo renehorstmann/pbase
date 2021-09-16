@@ -46,6 +46,21 @@ find_library(PBASE_LIB pbase)
 target_link_libraries(main ${PBASE_LIB})
 ```
 
+### How to read the code
+- Have a look at some examples
+- Get used to [rhc](https://github.com/renehorstmann/rhc) and [Mathc](https://github.com/renehorstmann/Mathc)
+- Read the (hopefully) self explaining header files, I tried to let the header interface as simple as possible
+  - Function parameter called `out_*` are output parameters
+  - Method parameter called `self` indicate classes
+- If you are using the Python bindings, also have a look at the C header files
+  - `out_*` parameter are returned
+  - Most types and classes are wrapped in numpy arrays (dtype is usally float32, int32)
+  - Errors are raised as RunTimeErros (Exceptions)
+  - Namespaces are modules: `p_io_load_mesh_stl` will be `p.io.load_mesh_stl`
+  - Base class methods are in the module `types`
+  - `*_kill` will be called automatically
+- have fun
+
 ### Example
 The following example program will simply load an .stl mesh and save it as a .ply mesh.
 
