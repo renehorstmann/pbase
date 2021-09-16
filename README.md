@@ -105,6 +105,45 @@ if __name__ == '__main__':
     p.io.save_mesh_ply(points, indices, sys.argv[2], ascii)
 ```
 
+#### Type creation
+To create a cloud, use the `*_new` methods, or use your own data
+```c
+// creates an empty (uninitialized) point cloud with 10 points
+// each point is a vec4 (4*float)
+pCloud points = p_cloud_new_empty(10);
+
+// fill data
+for(int i=0; i<points.size; i++) {
+    // w=1 for points
+    // w=0 for vectors
+    points.data[i] = (vec4) {{i, i*i, i*i*i, 1}};
+}
+
+// prints the min values for x, y, z and w
+vec4 min = p_cloud_min(points);
+vec4_println(min);
+
+// free the memory
+p_cloud_kill(&points);
+
+// pCloud from own data
+float data[2][4] = {
+    {1, 2, 3, 0},
+    {4, 5, 6, 0}
+};
+pCloud normals = {
+    .data = (vec4*) data, 
+    .size = 2
+};
+
+// prints the max values for x, y, z and w
+vec4 max = p_cloud_max(normals);
+vec4_println(max);
+
+// do not free/kill your casted pCloud!
+
+```
+
 ## Style
 pbase and all its libraries (Visu, Pointc, ...) are written using [rhc style](https://github.com/renehorstmann/rhc/blob/main/style.md).
 
