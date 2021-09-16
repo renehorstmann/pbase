@@ -106,7 +106,7 @@ if __name__ == '__main__':
 ```
 
 ## Style
-pbase and all its libraries (Visu, Pointc, ...) are written using [rhc style](https://github.com/renehorstmann/rhc/style.md).
+pbase and all its libraries (Visu, Pointc, ...) are written using [rhc style](https://github.com/renehorstmann/rhc/blob/main/style.md).
 
 ## Modules
 
