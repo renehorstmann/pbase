@@ -141,7 +141,21 @@ vec4 max = p_cloud_max(normals);
 vec4_println(max);
 
 // do not free/kill your casted pCloud!
+```
 
+In Python, most types are represented by numpy arrays.
+```
+import pbase as p
+import numpy as np
+
+points = np.empty((10, 4), dtype=np.float32)
+for i in range len(points):
+    points[i] = [i, i**2, i**3, 1]
+
+print(p.types.cloud_min(points))
+
+# If you get a cloud returned by a pbase function,
+# it will be automatically killed by the NpCloud class
 ```
 
 ## Style
