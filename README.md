@@ -47,7 +47,10 @@ target_link_libraries(main ${PBASE_LIB})
 ```
 
 ### Example
-[example_convert.c](tests/example_convert.c) loads an stl mesh and saves it as ply mesh
+The following example program will simply load an .stl mesh and save it as a .ply mesh.
+
+#### C
+[example_convert.c](tests/example_convert.c)
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -82,7 +85,8 @@ int main(int argc, char **argv) {
 }
 ```
 
-[example_convert.py](python/example_convert.py) does the same as above, but in python:
+#### Python3
+[example_convert.py](python/example_convert.py)
 ```python
 import sys
 import pbase as p
@@ -101,8 +105,9 @@ if __name__ == '__main__':
     p.io.save_mesh_ply(points, indices, sys.argv[2], ascii)
 ```
 
+## Modules
 
-## types
+### types
 Base classes for 3D stuff
  - `pCloud` point cloud (list of `vec4`)
  - `pIndices` indices (list of `int`)
@@ -111,7 +116,7 @@ Base classes for 3D stuff
  - `pMatrix` matrix of floats
  - `pVector` vector of floats
 
-## error
+### error
 Error management is based on rhc
 
 `pError p_error()` returns a string with the error code, or NULL if no error occured
@@ -120,14 +125,14 @@ Error management is based on rhc
 
 Functions can set an error and should return invalid data (e. g. `p_cloud_new_invalid()`) or return `p_error()`
 
-## io
+### io
  - load and save stl files (Mesh)
  - load and save ply files (PointClouds (with normals and or colors), Meshs (with normals and or colors))
  - load and save csv files (Indices, IndicesList, Matrix, Vector)
 
 see [example_convert.c](tests/example_convert.c) for an stl to ply converter.
 
-## meshprimitives
+### meshprimitives
 Generates meshs:
  - plane
  - box
@@ -137,7 +142,7 @@ Generates meshs:
  - cone
  - arrow
 
-## RHC
+### RHC
 based on my [rhc](https://github.com/renehorstmann/rhc) library.
 Contains some useful stuff for C programming.
  - allocators
@@ -147,7 +152,7 @@ Contains some useful stuff for C programming.
  - ...
 All globals are renamed from `rhc_*` to `p_rhc_*`
 
-## Mathc
+### Mathc
 based on my [Mathc](https://github.com/renehorstmann/Mathc) library.
 Linear algebra types and functions in a glsl style
  - vec3
@@ -157,8 +162,6 @@ Linear algebra types and functions in a glsl style
 
 
 ## Todo
-- visu
-  - README.md
 - pointc
   - uses flann
   - does not use pcl
