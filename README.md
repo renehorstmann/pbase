@@ -105,6 +105,9 @@ if __name__ == '__main__':
     p.io.save_mesh_ply(points, indices, sys.argv[2], ascii)
 ```
 
+## Style
+pbase and all its libraries (Visu, Pointc, ...) are written using [rhc style](https://github.com/renehorstmann/rhc/style.md).
+
 ## Modules
 
 ### types
