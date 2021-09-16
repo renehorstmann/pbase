@@ -109,6 +109,7 @@ if __name__ == '__main__':
 pbase and all its libraries (Visu, Pointc, ...) are written using [rhc style](https://github.com/renehorstmann/rhc/blob/main/style.md).
 
 ## Modules
+Have a look at the headers in include/pbase for more (self explaining) infos.
 
 ### types
 Base classes for 3D stuff
