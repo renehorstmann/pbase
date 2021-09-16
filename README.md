@@ -144,7 +144,7 @@ vec4_println(max);
 ```
 
 In Python, most types are represented by numpy arrays.
-```
+```python
 import pbase as p
 import numpy as np
 
