@@ -236,6 +236,7 @@ Linear algebra types and functions in a glsl style
 ## Todo
 - pointc
   - uses flann
+  - capture +LSS
   - does not use pcl
     - normals
     - sac
