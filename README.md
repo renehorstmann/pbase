@@ -49,7 +49,7 @@ target_link_libraries(main ${PBASE_LIB})
 ### How to read the code
 - Have a look at some examples
 - Get used to [rhc](https://github.com/renehorstmann/rhc) and [Mathc](https://github.com/renehorstmann/Mathc)
-- Read the (hopefully) self explaining header files, I tried to let the header interface as simple as possible
+- Read the (hopefully) self explaining header files, I tried to let the header interface be as simple as possible
   - Function parameter called `out_*` are output parameters
   - Method parameter called `self` indicate classes
 - If you are using the Python bindings, also have a look at the C header files
@@ -242,14 +242,19 @@ Linear algebra types and functions in a glsl style
     - sac
     - icp
     - mesh
-- collisionc?
+- collisionc
   - capsule
   - mesh - cloud?
-- robotc?
+- robotc
   - fk
   - ik
-  - some robots
-  - cell?
+  - some robots or generate by dh
+  - cell tree
+    - Item
+      - relative pose
+      - offset
+      - pose
+      - name, etc
   - abb connection
 
 ## Author
