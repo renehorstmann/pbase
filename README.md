@@ -234,6 +234,11 @@ Linear algebra types and functions in a glsl style
 
 
 ## Todo
+- update rhc
+- visu
+  - use rhc times momotonic
+  - remove impl allocations, if possible
+    - Impl derives Base as super...
 - pointc
   - uses flann
   - capture +LSS
