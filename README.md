@@ -235,7 +235,6 @@ Linear algebra types and functions in a glsl style
 
 ## Todo
 - replace giraffe.stl
-- update rhc
 - visu
   - use rhc times momotonic
   - remove impl allocations, if possible
