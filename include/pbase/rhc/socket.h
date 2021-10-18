@@ -35,6 +35,7 @@ SocketServer p_rhc_socketserver_new(const char *address, const char *port);
 void p_rhc_socketserver_kill(SocketServer *self);
 
 // Accepts a new client for a SocketServer
+// If an error occures, SocketServer will be set invalid and false is returned
 Socket p_rhc_socketserver_accept(SocketServer *self);
 
 
@@ -53,10 +54,19 @@ Socket p_rhc_socket_new(const char *address, const char *port);
 // kills the socket and sets it invalid
 void p_rhc_socket_kill(Socket *self);
 
+// Receives up to size bytes into msg and returns the number of received bytes
+// If an error occures, Socket will be set invalid and 0 is returned
+size_t p_rhc_socket_recv(Socket *self, void *msg, size_t size);
+// Sends aup to size bytes from msg and returns the number of send bytes
+// If an error occures, Socket will be set invalid and 0 is returned
+size_t p_rhc_socket_send(Socket *self, const void *msg, size_t size);
+
 // Receives a full message (blocks until size bytes are received)
-bool p_rhc_socket_recv(Socket *self, void *msg, size_t size);
+// If an error occures, Socket will be set invalid and false is returned
+bool p_rhc_socket_recv_msg(Socket *self, void *msg, size_t size);
 // Sends a full message (blocks until size bytes are send)
-bool p_rhc_socket_send(Socket *self, const void *msg, size_t size);
+// If an error occures, Socket will be set invalid and false is returned
+bool p_rhc_socket_send_msg(Socket *self, const void *msg, size_t size);
 
 
 //
@@ -78,6 +88,7 @@ bool p_rhc_socket_send(Socket *self, const void *msg, size_t size);
 #define socketserver_kill p_rhc_socketserver_kill
 
 // Accepts a new client for a SocketServer
+// If an error occures, SocketServer will be set invalid and false is returned
 #define socketserver_accept p_rhc_socketserver_accept
 
 
@@ -92,10 +103,19 @@ bool p_rhc_socket_send(Socket *self, const void *msg, size_t size);
 // kills the socket and sets it invalid
 #define socket_kill p_rhc_socket_kill
 
-// Receives a full message (blocks until size bytes are received)
+// Receives up to size bytes into msg and returns the number of received bytes
+// If an error occures, Socket will be set invalid and 0 is returned
 #define socket_recv p_rhc_socket_recv
-// Sends a full message (blocks until size bytes are send)
+// Sends aup to size bytes from msg and returns the number of send bytes
+// If an error occures, Socket will be set invalid and 0 is returned
 #define socket_send p_rhc_socket_send
+
+// Receives a full message (blocks until size bytes are received)
+// If an error occures, Socket will be set invalid and false is returned
+#define socket_recv_msg p_rhc_socket_recv_msg
+// Sends a full message (blocks until size bytes are send)
+// If an error occures, Socket will be set invalid and false is returned
+#define socket_send_msg p_rhc_socket_send_msg
 
 
 #endif //OPTION_SOCKET
