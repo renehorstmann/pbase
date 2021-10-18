@@ -164,7 +164,7 @@ import pbase as p
 import numpy as np
 
 points = np.empty((10, 4), dtype=np.float32)
-for i in range len(points):
+for i in range(len(points)):
     points[i] = [i, i**2, i**3, 1]
 
 print(p.types.cloud_min(points))
