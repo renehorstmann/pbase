@@ -2,13 +2,13 @@
 // can be used multiple times, with different types
 
 #include <string.h>     // memcpy
-#include "allocator.h"
+#include "alloc.h"
 #include "log.h"
 
-#define P_RHC_NAME_CONCAT(a, b) a ## b
-#define P_RHC_NAME_CONCAT2(a, b) P_RHC_NAME_CONCAT(a, b)
-#define P_RHC_TO_STRING(a) #a
-#define P_RHC_TO_STRING2(a) P_RHC_TO_STRING(a)
+#define RHC_NAME_CONCAT(a, b) a ## b
+#define RHC_NAME_CONCAT2(a, b) RHC_NAME_CONCAT(a, b)
+#define RHC_TO_STRING(a) #a
+#define RHC_TO_STRING2(a) RHC_TO_STRING(a)
 
 //
 // Options:
@@ -24,12 +24,12 @@
 
 // array class name, for example Foo
 #ifndef CLASS
-#define CLASS P_RHC_NAME_CONCAT2(HashMap_, TYPE)
+#define CLASS RHC_NAME_CONCAT2(HashMap_, TYPE)
 #endif
 
 // array function names, for example foo
 #ifndef FN_NAME
-#define FN_NAME P_RHC_NAME_CONCAT2(hashmap_, TYPE)
+#define FN_NAME RHC_NAME_CONCAT2(hashmap_, TYPE)
 #endif
 
 #ifndef KEY_CLONE_FN
@@ -70,8 +70,8 @@
 //
 // auto definitions
 //
-#define ITEM P_RHC_NAME_CONCAT2(CLASS, Item_s)
-#define ITER P_RHC_NAME_CONCAT2(CLASS, Iter_s)
+#define ITEM RHC_NAME_CONCAT2(CLASS, Item_s)
+#define ITER RHC_NAME_CONCAT2(CLASS, Iter_s)
 
 typedef struct ITEM {
     TYPE value;
@@ -93,12 +93,12 @@ typedef struct {
 
 
 // bool foo_valid(Foo self)
-static bool P_RHC_NAME_CONCAT2(FN_NAME, _valid)(CLASS self) {
+static bool RHC_NAME_CONCAT2(FN_NAME, _valid)(CLASS self) {
     return self.map != NULL && self.size >= 1 && allocator_valid(self.allocator);
 }
 
 // Foo foo_new_a(size_t approx_size, Allocator_s a)
-static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_a)(size_t approx_size, Allocator_s a) {
+static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_a)(size_t approx_size, Allocator_s a) {
     assume(allocator_valid(a), "allocator needs to be valid");
     CLASS self = {
             a.malloc(a, approx_size * sizeof(ITEM *)),
@@ -107,7 +107,7 @@ static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_a)(size_t approx_size, Allocator_s
     };
     if (!self.map) {
         p_rhc_error = "hashmap_new failed";
-        log_error(P_RHC_TO_STRING2(FN_NAME) "_new failed: for approx_size: %zu", approx_size);
+        log_error(RHC_TO_STRING2(FN_NAME) "_new failed: for approx_size: %zu", approx_size);
         return (CLASS) {.allocator = a};
     } else {
         memset(self.map, 0, approx_size * sizeof(ITEM *));
@@ -116,35 +116,35 @@ static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_a)(size_t approx_size, Allocator_s
 }
 
 // Foo foo_new(size_t approx_size)
-static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new)(size_t approx_size) {
+static CLASS RHC_NAME_CONCAT2(FN_NAME, _new)(size_t approx_size) {
     // new_a
-    return P_RHC_NAME_CONCAT2(FN_NAME, _new_a)(approx_size, P_RHC_HASHMAP_DEFAULT_ALLOCATOR);
+    return RHC_NAME_CONCAT2(FN_NAME, _new_a)(approx_size, RHC_HASHMAP_DEFAULT_ALLOCATOR);
 }
 
 // Foo foo_new_invalid_a(Allocator_s a)
-static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(Allocator_s a) {
+static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(Allocator_s a) {
     return (CLASS) {.allocator = a};
 }
 
 // Foo foo_new_invalid_a()
-static CLASS P_RHC_NAME_CONCAT2(FN_NAME, _new_invalid)() {
+static CLASS RHC_NAME_CONCAT2(FN_NAME, _new_invalid)() {
     // new_invalid_a
-    return P_RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(P_RHC_HASHMAP_DEFAULT_ALLOCATOR);
+    return RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(RHC_HASHMAP_DEFAULT_ALLOCATOR);
 }
 
 
 // void foo_kill(Foo *self)
-static void P_RHC_NAME_CONCAT2(FN_NAME, _kill)(CLASS *self) {
+static void RHC_NAME_CONCAT2(FN_NAME, _kill)(CLASS *self) {
     // valid
-    if(!P_RHC_NAME_CONCAT2(FN_NAME, _valid)(*self)) {
+    if(!RHC_NAME_CONCAT2(FN_NAME, _valid)(*self)) {
         self->allocator.free(self->allocator, self->map);
     }
     // new_invalid_a
-    *self = P_RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(self->allocator);
+    *self = RHC_NAME_CONCAT2(FN_NAME, _new_invalid_a)(self->allocator);
 }
 
 // int *foo_get(Foo *self, const char *key)
-static TYPE *P_RHC_NAME_CONCAT2(FN_NAME, _get)(CLASS *self, KEY key) {
+static TYPE *RHC_NAME_CONCAT2(FN_NAME, _get)(CLASS *self, KEY key) {
     // key hash
     unsigned hash = KEY_HASH_FN(key) % self->size;
     
@@ -170,7 +170,7 @@ static TYPE *P_RHC_NAME_CONCAT2(FN_NAME, _get)(CLASS *self, KEY key) {
 }
 
 // void foo_remove(Foo *self, const char *key)
-void P_RHC_NAME_CONCAT2(FN_NAME, _remove)(CLASS *self, KEY key) {
+void RHC_NAME_CONCAT2(FN_NAME, _remove)(CLASS *self, KEY key) {
     // key hash
     unsigned hash = KEY_HASH_FN(key) % self->size;
 
@@ -184,7 +184,7 @@ void P_RHC_NAME_CONCAT2(FN_NAME, _remove)(CLASS *self, KEY key) {
     
     // item for key not found?
     if(!(*item)) {
-        log_warn(P_RHC_TO_STRING2(FN_NAME), "_remove: failed, key not found");
+        log_warn(RHC_TO_STRING2(FN_NAME), "_remove: failed, key not found");
         return;
     }
     
@@ -195,14 +195,14 @@ void P_RHC_NAME_CONCAT2(FN_NAME, _remove)(CLASS *self, KEY key) {
 }
 
 // FooIter_s foo_iter_new(Foo *self)
-ITER P_RHC_NAME_CONCAT2(FN_NAME, _iter_new)(CLASS *self) {
+ITER RHC_NAME_CONCAT2(FN_NAME, _iter_new)(CLASS *self) {
     return (ITER) {self, -1, NULL};
 }
 
 // FooItem_s *foo_iter_next(FooIter_s *self)
-ITEM *P_RHC_NAME_CONCAT2(FN_NAME, _iter_next)(ITER *self) {
+ITEM *RHC_NAME_CONCAT2(FN_NAME, _iter_next)(ITER *self) {
     // test iter valid
-    if(!self->hashmap || !P_RHC_NAME_CONCAT2(FN_NAME, _valid)(*self->hashmap)
+    if(!self->hashmap || !RHC_NAME_CONCAT2(FN_NAME, _valid)(*self->hashmap)
             || self->map_index <= -2 || self->map_index >= self->hashmap->size)
         return NULL;
         

@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "pbase/rhc/allocator.h"
+#include "pbase/rhc/alloc.h"
 #include "pbase/types/vector.h"
 
 
 /** Creates a new Vector structure with empty data (malloc) */
 pVector p_vector_new_empty(int size) {
     pVector self = {0};
-    self.data = p_rhc_malloc_raising(size * sizeof *self.data);
+    self.data = p_rhc_malloc(size * sizeof *self.data);
     self.size = size;
     return self;
 }

@@ -1,5 +1,5 @@
-#ifndef P_RHC_STR_PARSE_H
-#define P_RHC_STR_PARSE_H
+#ifndef RHC_STR_PARSE_H
+#define RHC_STR_PARSE_H
 
 #include <stdlib.h>  // strto*
 #include <stdint.h>  // int*_t
@@ -26,7 +26,7 @@ static void p_rhc_str__helper_swap_endian_(void *buf, int n) {
 //
 
 // eats the next (with leading spaces) int_x_t and returns the str without it.
-#define P_RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(x)\
+#define RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(x)\
 static Str_s str_eat_int ## x ## _ascii(Str_s s, int ## x ## _t *opt_eaten) {\
     if(str_empty(s))\
         return s;\
@@ -43,14 +43,14 @@ static Str_s str_eat_int ## x ## _ascii(Str_s s, int ## x ## _t *opt_eaten) {\
     return (Str_s) {s.data+ate_size, s.size-ate_size};\
 }
 
-P_RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(8)
-P_RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(16)
-P_RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(32)
-P_RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(64)
+RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(8)
+RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(16)
+RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(32)
+RHC_STR__HELPER_EAT_INTX_ASCII_PROTOTYPE_(64)
 
 
 // eats the next (with leading spaces) uint_x_t and returns the str without it.
-#define P_RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(x)\
+#define RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(x)\
 static Str_s str_eat_uint ## x ## _ascii(Str_s s, uint ## x ## _t *opt_eaten) {\
     if(str_empty(s))\
         return s;\
@@ -67,10 +67,10 @@ static Str_s str_eat_uint ## x ## _ascii(Str_s s, uint ## x ## _t *opt_eaten) {\
     return (Str_s) {s.data+ate_size, s.size-ate_size};\
 }
 
-P_RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(8)
-P_RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(16)
-P_RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(32)
-P_RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(64)
+RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(8)
+RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(16)
+RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(32)
+RHC_STR__HELPER_EAT_UINTX_ASCII_PROTOTYPE_(64)
 
 
 // eats the next (with leading spaces) float and returns the str without it.
@@ -113,7 +113,7 @@ static Str_s str_eat_double_ascii(Str_s s, double *opt_eaten) {
 //
 
 // eats the next intx_t as binary little endian and returns the str without it.
-#define P_RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(x)\
+#define RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(x)\
 static Str_s str_eat_int ## x ## _binary_le(Str_s s, int ## x ## _t *opt_eaten) {\
     if(str_empty(s))\
         return s;\
@@ -132,13 +132,13 @@ static Str_s str_eat_int ## x ## _binary_le(Str_s s, int ## x ## _t *opt_eaten) 
     return s;\
 }
 
-P_RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(8)
-P_RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(16)
-P_RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(32)
-P_RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(64)
+RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(8)
+RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(16)
+RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(32)
+RHC_STR__HELPER_EAT_INTX_BINARY_LE_PROTOTPYE_(64)
 
 // eats the next intx_t as binary big endian and returns the str without it.
-#define P_RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(x)\
+#define RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(x)\
 static Str_s str_eat_int ## x ## _binary_be(Str_s s, int ## x ## _t *opt_eaten) {\
     if(str_empty(s))\
         return s;\
@@ -157,13 +157,13 @@ static Str_s str_eat_int ## x ## _binary_be(Str_s s, int ## x ## _t *opt_eaten) 
     return s;\
 }
 
-P_RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(8)
-P_RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(16)
-P_RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(32)
-P_RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(64)
+RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(8)
+RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(16)
+RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(32)
+RHC_STR__HELPER_EAT_INTX_BINARY_BE_PROTOTPYE_(64)
 
 // eats the next uintx_t as binary little endian and returns the str without it.
-#define P_RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(x)\
+#define RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(x)\
 static Str_s str_eat_uint ## x ## _binary_le(Str_s s, uint ## x ## _t *opt_eaten) {\
     if(str_empty(s))\
         return s;\
@@ -182,13 +182,13 @@ static Str_s str_eat_uint ## x ## _binary_le(Str_s s, uint ## x ## _t *opt_eaten
     return s;\
 }
 
-P_RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(8)
-P_RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(16)
-P_RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(32)
-P_RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(64)
+RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(8)
+RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(16)
+RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(32)
+RHC_STR__HELPER_EAT_UINTX_BINARY_LE_PROTOTPYE_(64)
 
 // eats the next uintx_t as binary big endian and returns the str without it.
-#define P_RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(x)\
+#define RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(x)\
 static Str_s str_eat_uint ## x ## _binary_be(Str_s s, uint ## x ## _t *opt_eaten) {\
     if(str_empty(s))\
         return s;\
@@ -207,10 +207,10 @@ static Str_s str_eat_uint ## x ## _binary_be(Str_s s, uint ## x ## _t *opt_eaten
     return s;\
 }
 
-P_RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(8)
-P_RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(16)
-P_RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(32)
-P_RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(64)
+RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(8)
+RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(16)
+RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(32)
+RHC_STR__HELPER_EAT_UINTX_BINARY_BE_PROTOTPYE_(64)
 
 
 // eats the next float as binary little endian and returns the str without it.
@@ -295,7 +295,7 @@ static Str_s str_eat_double_binary_be(Str_s s, double *opt_eaten) {
 //
 
 // feeds an intx_t as binary little endian and returns the str without it (behind it).
-#define P_RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(x)\
+#define RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(x)\
 static Str_s str_feed_int ## x ## _binary_le(Str_s s, int ## x ## _t feed) {\
     if(str_empty(s))\
         return s;\
@@ -312,13 +312,13 @@ static Str_s str_feed_int ## x ## _binary_le(Str_s s, int ## x ## _t feed) {\
     return s;\
 }
 
-P_RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(8)
-P_RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(16)
-P_RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(32)
-P_RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(64)
+RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(8)
+RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(16)
+RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(32)
+RHC_STR__HELPER_FEED_INTX_BINARY_LE_PROTOTPYE_(64)
 
 // feeds an intx_t as binary bigb endian and returns the str without it (behind it).
-#define P_RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(x)\
+#define RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(x)\
 static Str_s str_feed_int ## x ## _binary_be(Str_s s, int ## x ## _t feed) {\
     if(str_empty(s))\
         return s;\
@@ -335,13 +335,13 @@ static Str_s str_feed_int ## x ## _binary_be(Str_s s, int ## x ## _t feed) {\
     return s;\
 }
 
-P_RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(8)
-P_RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(16)
-P_RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(32)
-P_RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(64)
+RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(8)
+RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(16)
+RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(32)
+RHC_STR__HELPER_FEED_INTX_BINARY_BE_PROTOTPYE_(64)
 
 // feeds an uintx_t as binary little endian and returns the str without it (behind it).
-#define P_RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(x)\
+#define RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(x)\
 static Str_s str_feed_uint ## x ## _binary_le(Str_s s, uint ## x ## _t feed) {\
     if(str_empty(s))\
         return s;\
@@ -358,13 +358,13 @@ static Str_s str_feed_uint ## x ## _binary_le(Str_s s, uint ## x ## _t feed) {\
     return s;\
 }
 
-P_RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(8)
-P_RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(16)
-P_RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(32)
-P_RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(64)
+RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(8)
+RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(16)
+RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(32)
+RHC_STR__HELPER_FEED_UINTX_BINARY_LE_PROTOTPYE_(64)
 
 // feeds an uintx_t as binary bigb endian and returns the str without it (behind it).
-#define P_RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(x)\
+#define RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(x)\
 static Str_s str_feed_uint ## x ## _binary_be(Str_s s, uint ## x ## _t feed) {\
     if(str_empty(s))\
         return s;\
@@ -381,10 +381,10 @@ static Str_s str_feed_uint ## x ## _binary_be(Str_s s, uint ## x ## _t feed) {\
     return s;\
 }
 
-P_RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(8)
-P_RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(16)
-P_RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(32)
-P_RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(64)
+RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(8)
+RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(16)
+RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(32)
+RHC_STR__HELPER_FEED_UINTX_BINARY_BE_PROTOTPYE_(64)
 
 
 // feeds a float as binary little endian and returns the str without it (behind it).
@@ -455,4 +455,4 @@ static Str_s str_feed_double_binary_be(Str_s s, double feed) {
     return s;
 }
 
-#endif //P_RHC_STR_PARSE_H
+#endif //RHC_STR_PARSE_H

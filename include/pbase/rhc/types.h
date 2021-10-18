@@ -1,5 +1,5 @@
-#ifndef P_RHC_TYPES_H
-#define P_RHC_TYPES_H
+#ifndef RHC_TYPES_H
+#define RHC_TYPES_H
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -101,4 +101,4 @@ static void string_kill(String *self) {
     self->capacity = 0;
 }
 
-#endif //P_RHC_TYPES_H
+#endif //RHC_TYPES_H

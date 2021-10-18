@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "pbase/rhc/allocator.h"
+#include "pbase/rhc/alloc.h"
 #include "pbase/mathc/sca/int.h"
 #include "pbase/mathc/vec/ivec3.h"
 #include "pbase/types/meshindices.h"
@@ -9,7 +9,7 @@
 
 pMeshIndices p_mesh_indices_new_empty(int size) {
     pMeshIndices self = {0};
-    self.data = p_rhc_malloc_raising(size * sizeof *self.data);
+    self.data = p_rhc_malloc(size * sizeof *self.data);
     self.size = size;
     return self;
 }

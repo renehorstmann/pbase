@@ -1,8 +1,8 @@
-#ifndef P_RHC_FILE_H
-#define P_RHC_FILE_H
+#ifndef RHC_FILE_H
+#define RHC_FILE_H
 
 #include "types.h"
-#include "allocator.h"
+#include "alloc.h"
 
 
 
@@ -17,7 +17,7 @@ bool p_rhc_file_append(const char *file, Str_s content, bool ascii);
 
 // reads in a full file into the returned String
 static String file_read(const char *file, bool ascii) {
-    return p_rhc_file_read_a(file, ascii, P_RHC_STRING_DEFAULT_ALLOCATOR);
+    return p_rhc_file_read_a(file, ascii, RHC_STRING_DEFAULT_ALLOCATOR);
 }
 
 // wrapper without _rhc
@@ -38,4 +38,4 @@ static bool file_append(const char *file, Str_s content, bool ascii) {
 }
 
 
-#endif //P_RHC_FILE_H
+#endif //RHC_FILE_H

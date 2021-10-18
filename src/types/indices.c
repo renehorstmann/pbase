@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "pbase/rhc/allocator.h"
+#include "pbase/rhc/alloc.h"
 
 #include "pbase/mathc/sca/int.h"
 #include "pbase/types/indices.h"
@@ -10,7 +10,7 @@
 
 pIndices p_indices_new_empty(int size) {
     pIndices self = {0};
-    self.data = p_rhc_malloc_raising(size * sizeof *self.data);
+    self.data = p_rhc_malloc(size * sizeof *self.data);
     self.size = size;
     return self;
 }

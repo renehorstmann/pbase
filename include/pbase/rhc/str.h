@@ -1,10 +1,10 @@
-#ifndef P_RHC_STR_H
-#define P_RHC_STR_H
+#ifndef RHC_STR_H
+#define RHC_STR_H
 
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "allocator.h"
+#include "alloc.h"
 #include "error.h"
 #include "log.h"
 
@@ -38,7 +38,7 @@ static void sv_print(Str_s s) {
     sv_fprint(s, stdout);
 }
 
-// copies from into cpy. cpy and from must have the same num
+// copies from into cpy. cpy and from must have the same size
 static void str_cpy(Str_s cpy, Str_s from) {
     if(!str_valid(cpy) || !str_valid(from) || cpy.size != from.size) {
         p_rhc_error = "str_cpy failed";
@@ -48,8 +48,8 @@ static void str_cpy(Str_s cpy, Str_s from) {
     memcpy(cpy.data, from.data, cpy.size);
 }
 
-// copies from into cpy_buffer. cpy_buffer must have at least the num of from
-// returns cpy_buffer with the copied num of from
+// copies from into cpy_buffer. cpy_buffer must have at least the size of from
+// returns cpy_buffer with the copied size of from
 static Str_s str_cpy_into(Str_s cpy_buffer, Str_s from) {
     if(!str_valid(cpy_buffer) || !str_valid(from) || cpy_buffer.size < from.size) {
         p_rhc_error = "str_cpy_info failed";
@@ -69,7 +69,7 @@ static bool str_equals(Str_s a, Str_s b) {
     return memcmp(a.data, b.data, a.size) == 0;
 }
 
-// out_c_string needs to be a buffer of at least str.num+1
+// out_c_string needs to be a buffer of at least str.size+1
 static void str_as_c(char *out_c_string, Str_s s) {
     if(!str_valid(s)) {
         out_c_string[0] = '\0';
@@ -94,7 +94,7 @@ static char *str_as_new_c_a(Str_s s, Allocator_s a) {
 
 // returns a new allocated buffer with str as cstring
 static char *str_as_new_c(Str_s s) {
-    return str_as_new_c_a(s, P_RHC_STRING_DEFAULT_ALLOCATOR);
+    return str_as_new_c_a(s, RHC_STRING_DEFAULT_ALLOCATOR);
 }
 
 
@@ -492,8 +492,8 @@ static void str_replace(Str_s s, char old, char replacement) {
 }
 
 // copies str s into buffer, with old -> replacement.
-// the resulting str will be truncated to buffer.num
-// returns the buffer with its new num
+// the resulting str will be truncated to buffer.size
+// returns the buffer with its new size
 // have a look at string.h::string_new_replace_a for an allocated version
 static Str_s str_replace_str_into(Str_s buffer, Str_s s, Str_s old, Str_s replacement) {
     if(str_empty(buffer) || str_empty(s) || str_empty(old) || !str_valid(replacement))
@@ -533,4 +533,4 @@ static Str_s str_toupper(Str_s s) {
     return s;
 }
 
-#endif //P_RHC_STR_H
+#endif //RHC_STR_H

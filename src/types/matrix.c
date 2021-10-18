@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "pbase/rhc/allocator.h"
+#include "pbase/rhc/alloc.h"
 #include "pbase/types/matrix.h"
 
 
 /** Creates a new Matrix structure with empty data (malloc) */
 pMatrix p_matrix_new_empty(int cols, int rows) {
     pMatrix self = {0};
-    self.data = p_rhc_malloc_raising(cols * rows * sizeof *self.data);
+    self.data = p_rhc_malloc(cols * rows * sizeof *self.data);
     self.cols = cols;
     self.rows = rows;
     return self;

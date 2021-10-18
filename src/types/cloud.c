@@ -2,7 +2,7 @@
 #include <string.h>
 #include <float.h>
 
-#include "pbase/rhc/allocator.h"
+#include "pbase/rhc/alloc.h"
 #include "pbase/mathc/sca/int.h"
 #include "pbase/mathc/vec/vec4.h"
 #include "pbase/types/cloud.h"
@@ -10,7 +10,7 @@
 
 pCloud p_cloud_new_empty(int size) {
     pCloud self = {0};
-    self.data = p_rhc_malloc_raising(size * sizeof *self.data);
+    self.data = p_rhc_malloc(size * sizeof *self.data);
     self.size = size;
     return self;
 }
