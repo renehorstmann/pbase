@@ -13,6 +13,7 @@ else:
 from . import bindingbase
 from . import mathctypes
 from . import log
+from . import socket
 from . import math
 from . import error
 from . import meshprimitives
