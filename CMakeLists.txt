@@ -20,10 +20,15 @@ set_target_properties(pbase PROPERTIES LINKER_LANGUAGE C)
 
 set_property(TARGET pbase PROPERTY POSITION_INDEPENDENT_CODE ON)
 
+add_definitions(-DOPTION_SOCKET)
+
 #
 # link here
 #
 target_link_libraries(pbase PUBLIC m pthread)
+if(MINGW)
+	target_link_libraries(pbase PUBLIC ws2_32)
+endif()
 
 # C-Libs
 
