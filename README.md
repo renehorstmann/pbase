@@ -240,7 +240,7 @@ Linear algebra types and functions in a glsl style
   - remove impl allocations, if possible
     - Impl derives Base as super...
 - pointc
-  - uses flann
+  - octree
   - capture +LSS
   - does not use pcl
     - normals
@@ -248,6 +248,7 @@ Linear algebra types and functions in a glsl style
     - icp
     - mesh
 - collisionc
+  - without fcl
   - capsule
   - mesh - cloud?
 - robotc
