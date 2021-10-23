@@ -248,9 +248,14 @@ Linear algebra types and functions in a glsl style
     - icp
     - mesh
 - collisionc
-  - without fcl
-  - capsule
-  - mesh - cloud?
+  - primitives
+    - sphere
+    - capsule
+    - torus?
+  - octree as spheretree
+    - for point clouds
+  - primitives as octree structure?
+   
 - robotc
   - fk
   - ik
