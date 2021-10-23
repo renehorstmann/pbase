@@ -255,6 +255,8 @@ Linear algebra types and functions in a glsl style
   - octree as spheretree
     - for point clouds
   - primitives as octree structure?
+  - mesh -> spheretree
+  - 
    
 - robotc
   - fk
