@@ -32,6 +32,8 @@ SocketServer p_rhc_socketserver_new_invalid();
 // Creates a new SocketServer
 // address may be "localhost" or "127.0.0.1", to only enable local connections
 // address may be "0.0.0.0" to enable all incoming connections
+// if address is NULL, "127.0.0.1" is used
+// SDLs implementation is only able to use "0.0.0.0"
 SocketServer p_rhc_socketserver_new(const char *address, uint16_t port);
 
 // kills the socketserver and sets it invalid
@@ -59,6 +61,7 @@ bool p_rhc_socket_valid(const Socket *self);
 Socket *p_rhc_socket_new_invalid();
 
 // Creates and connects to a server
+// if address is NULL, "127.0.0.1" is used
 Socket *p_rhc_socket_new_a(const char *address, uint16_t port, Allocator_i a);
 
 // kills the socket and sets it invalid
@@ -77,6 +80,7 @@ static Socket *socketserver_accept(SocketServer *self) {
 }
 
 // Creates and connects to a server
+// if address is NULL, "127.0.0.1" is used
 static Socket *socket_new(const char *address, uint16_t port) {
     return p_rhc_socket_new_a(address, port, RHC_DEFAULT_ALLOCATOR);
 }
@@ -91,6 +95,8 @@ static Socket *socket_new(const char *address, uint16_t port) {
 // Creates a new SocketServer
 // address may be "localhost" or "127.0.0.1", to only enable local connections
 // address may be "0.0.0.0" to enable all incoming connections
+// if address is NULL, "127.0.0.1" is used
+// SDLs implementation is only able to use "0.0.0.0"
 #define socketserver_new p_rhc_socketserver_new
 
 // kills the socketserver and sets it invalid
