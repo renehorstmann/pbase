@@ -36,14 +36,20 @@ endif()
 
 
 #
+# options:
+#
+if (MINGW)
+	add_definitions(-DRHC_LOG_DO_NOT_USE_COLOR)
+	add_definitions(-DMATHC_NO_PRINT_COLOR)
+endif()
+
+#
 # install:
 #
 
 if (MINGW)
 	set(INSTALL_LIB "C:/Libraries/lib")
 	set(INSTALL_INCLUDE "C:/Libraries/include")
-	add_definitions(-DP_RHC_LOG_DO_NOT_USE_COLOR)
-	add_definitions(-DMATHC_NO_PRINT_COLOR)
 else()
 	set(INSTALL_LIB lib)
 	set(INSTALL_INCLUDE include)

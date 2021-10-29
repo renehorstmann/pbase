@@ -13,6 +13,8 @@ else:
 from . import bindingbase
 from . import mathctypes
 from . import log
+from . import alloc
+from . import stream
 from . import socket
 from . import math
 from . import error
