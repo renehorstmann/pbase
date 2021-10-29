@@ -234,7 +234,6 @@ Linear algebra types and functions in a glsl style
 
 
 ## Todo
-- replace giraffe.stl
 - visu
   - use rhc times momotonic
   - remove impl allocations, if possible
@@ -251,12 +250,12 @@ Linear algebra types and functions in a glsl style
   - primitives
     - sphere
     - capsule
-    - torus?
-  - octree as spheretree
-    - for point clouds
-  - primitives as octree structure?
-  - mesh -> spheretree
-  - 
+    - halfspace
+  - octree collision
+    - primitives
+    - convex hull
+    - another octree with distance
+  
    
 - robotc
   - fk

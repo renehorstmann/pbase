@@ -7,7 +7,7 @@ int main() {
 
     pCloud points;
     pMeshIndices indices;
-    p_io_load_mesh_ply(&points, &indices, "test_io_ply_cubeascii.ply");
+    p_io_load_mesh_ply(&points, &indices, "cubeascii.ply");
     p_error_check();
     puts("loaded");
 
