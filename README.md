@@ -1,6 +1,8 @@
 # pbase
 Base library for 3D stuff, like pointc, visu, ...
 
+> This is my old 3D point cloud library, I once used for 3d machine vision.
+> I will left it here at github to show what I once coded.
 
 ## Visu
 My library [Visu](https://github.com/renehorstmann/Visu) uses pbase as its base library.
